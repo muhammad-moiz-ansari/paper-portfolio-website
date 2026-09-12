@@ -31,6 +31,8 @@ interface HighlightNavProps {
   items: NavItem[];
   activeIndex?: number;
   className?: string;
+  /** When provided, called on click instead of the default preventDefault */
+  onItemClick?: (index: number, href: string) => void;
 }
 
 /**
@@ -65,7 +67,7 @@ function HighlighterShape({
   );
 }
 
-export function HighlightNav({ items, activeIndex = 0, className = "" }: HighlightNavProps) {
+export function HighlightNav({ items, activeIndex = 0, className = "", onItemClick }: HighlightNavProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { theme } = useTheme();
 
@@ -106,7 +108,10 @@ export function HighlightNav({ items, activeIndex = 0, className = "" }: Highlig
             `}
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
-            onClick={(e) => e.preventDefault()}
+            onClick={(e) => {
+              e.preventDefault();
+              onItemClick?.(i, item.href);
+            }}
           >
             {/* Active highlight — always visible */}
             {isActive && (
