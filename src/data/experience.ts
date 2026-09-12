@@ -15,7 +15,7 @@ export const experienceEntries: ExperienceEntry[] = [
     company: "Systems Limited",
     location: "Islamabad, Pakistan",
     date: "Jun 2026",
-    description: "Data analytics and business intelligence internship.",
+    description: "Data analytics  internship.",
     bullets: [
       "// TODO: add bullet points once the internship wraps up",
     ],
@@ -29,11 +29,11 @@ export const experienceEntries: ExperienceEntry[] = [
     description:
       "TA for Object-Oriented Programming and Data Structures & Algorithms courses.",
     bullets: [
-      "Assisted 200+ students with OOP concepts in C++ and Java across weekly lab sessions",
-      "Graded assignments and provided detailed feedback on code quality and design patterns",
-      "Held office hours and review sessions before midterms and finals",
+      "Evaluated 40+ student quizzes and 100+ assignments, contributing to improved understanding of programming concepts",
+      "Assisted instructors with lectures and student supports, leading to more efficient class discussions",
     ],
   },
+  /*
   {
     id: "agristreams",
     role: "Cyber Security Intern",
@@ -48,6 +48,7 @@ export const experienceEntries: ExperienceEntry[] = [
       "Documented threat models and recommended mitigation strategies",
     ],
   },
+  */
   {
     id: "fast-lab",
     role: "Lab Demonstrator",
@@ -55,11 +56,10 @@ export const experienceEntries: ExperienceEntry[] = [
     location: "Islamabad, Pakistan",
     date: "Jan 2025 – Jun 2025",
     description:
-      "Demonstrated lab exercises for introductory programming courses.",
+      "LD for Digital Logic Design course.",
     bullets: [
-      "Led hands-on lab sessions for 100+ freshmen learning C programming",
-      "Debugged student code in real-time and explained common pitfalls",
-      "Created supplementary practice problems and walkthrough guides",
+      "Guided over 50 students in lab tasks, ensuring proper equipment use and understanding of concepts",
+      "Assisted in evaluating lab work and provided personalized feedback, contributing to a more interactive and supportive environment",
     ],
   },
 ];

@@ -22,9 +22,8 @@ export const educationEntries: EducationEntry[] = [
     location: "Islamabad, Pakistan",
     date: "2023 – 2027 (Expected)",
     details: [
-      "Relevant coursework: Data Structures, Algorithms, OOP, Database Systems, Operating Systems, Computer Networks",
-      "Active member of the ACM and Cyber Security societies",
-    ],
+      "Relevant coursework: Data Structures, Algorithms, OOP, Database Systems, Operating Systems, Computer Networks", "Agentic AI",
+],
   },
 ];
 
@@ -33,6 +32,6 @@ export const awardEntries: AwardEntry[] = [
     id: "deans-list",
     title: "Dean's List",
     issuer: "FAST NUCES",
-    date: "Spring 2024",
+    date: "Fall 2026",
   },
 ];
