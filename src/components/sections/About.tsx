@@ -4,6 +4,9 @@ import React, { useState, useEffect, useReducer, useCallback, useRef } from "rea
 import { useTheme } from "@/lib/theme-context";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { notepadPages } from "@/data/notepad-pages";
+import { EraseWriteText } from "@/components/erase-write-text";
+import { PaperButton } from "@/components/paper-button";
+import { DoodleGithub, DoodleLinkedin } from "@/components/doodle-icons";
 
 /* ─── Notepad sub-component ─────────────────────────────────── */
 
@@ -59,7 +62,8 @@ function notepadReducer(state: NotepadState, action: NotepadAction): NotepadStat
   }
 }
 
-const LINE_WRITE_DURATION = 600; // ms per line
+const LINE_WRITE_DURATION = 600;
+const AUTO_ADVANCE_DELAY = 3000;
 
 function Notepad() {
   const { theme } = useTheme();
@@ -135,27 +139,30 @@ function Notepad() {
     };
   }, [state.phase, state.lineIndex, totalLines, page.lines, animateLine]);
 
-  /** Page navigation */
-  const goToPage = useCallback(
-    (next: number) => {
-      if (next < 0 || next >= notepadPages.length || isFlipping) return;
+  /** Auto-advance to next page after display phase */
+  useEffect(() => {
+    if (state.phase !== "display") return;
+
+    const timer = setTimeout(() => {
+      const next = (currentPage + 1) % notepadPages.length;
+
       if (animRef.current) cancelAnimationFrame(animRef.current);
 
       if (reducedMotion) {
         setCurrentPage(next);
         dispatch({ type: "RESET" });
-        return;
+      } else {
+        setIsFlipping(true);
+        setTimeout(() => {
+          setCurrentPage(next);
+          dispatch({ type: "RESET" });
+          setIsFlipping(false);
+        }, 400);
       }
+    }, AUTO_ADVANCE_DELAY);
 
-      setIsFlipping(true);
-      setTimeout(() => {
-        setCurrentPage(next);
-        dispatch({ type: "RESET" });
-        setIsFlipping(false);
-      }, 400);
-    },
-    [isFlipping, reducedMotion],
-  );
+    return () => clearTimeout(timer);
+  }, [state.phase, currentPage, reducedMotion]);
 
   /** Is a given line fully or partially visible? */
   const lineVisible = (i: number) => {
@@ -179,21 +186,32 @@ function Notepad() {
 
   return (
     <div className="w-full max-w-xl mx-auto" style={{ perspective: "1000px" }}>
-      {/* Spiral binding dots */}
-      <div className="flex justify-center gap-6 mb-1">
+      {/* Enhanced spiral binding */}
+      <div className="flex justify-center gap-6 mb-0.5 relative">
         {Array.from({ length: 8 }).map((_, i) => (
-          <div
-            key={i}
-            className={`w-3 h-3 rounded-full border-2 ${
-              isChalkboard
-                ? "border-[var(--color-chalk-line)] bg-[var(--color-chalk-bg-dark)]"
-                : "border-[var(--color-kraft)] bg-white"
-            }`}
-          />
+          <div key={i} className="relative">
+            {/* Spiral wire */}
+            <div
+              className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-6 rounded-full border-2 ${
+                isChalkboard
+                  ? "border-[var(--color-chalk-line)]"
+                  : "border-[#A0937D]"
+              }`}
+              style={{ zIndex: 1 }}
+            />
+            {/* Hole */}
+            <div
+              className={`relative z-[2] w-3 h-3 rounded-full ${
+                isChalkboard
+                  ? "bg-[var(--color-chalk-bg)] border border-[var(--color-chalk-line)]"
+                  : "bg-[#E8E0D0] border border-[#C4B8A4]"
+              }`}
+            />
+          </div>
         ))}
       </div>
 
-      {/* Notepad body */}
+      {/* Notepad body — with deckled edges and shadow */}
       <div
         className={`relative rounded-sm border overflow-hidden ${
           isChalkboard
@@ -204,8 +222,32 @@ function Notepad() {
           transform: isFlipping ? "rotateY(-90deg)" : "rotateY(0deg)",
           transition: "transform 0.4s ease-in-out",
           transformStyle: "preserve-3d",
+          boxShadow: isChalkboard
+            ? "3px 4px 12px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)"
+            : "3px 4px 12px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.06), -1px 0 0 rgba(0,0,0,0.02), 1px 0 0 rgba(0,0,0,0.02)",
         }}
       >
+        {/* Deckled right edge */}
+        <div
+          className="absolute top-0 bottom-0 right-0 w-[3px] pointer-events-none"
+          style={{
+            background: isChalkboard
+              ? "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.03) 10%, transparent 20%, rgba(255,255,255,0.02) 30%, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%, rgba(255,255,255,0.02) 70%, transparent 80%, rgba(255,255,255,0.03) 90%, transparent 100%)"
+              : "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.03) 10%, transparent 20%, rgba(0,0,0,0.02) 30%, transparent 40%, rgba(0,0,0,0.04) 50%, transparent 60%, rgba(0,0,0,0.02) 70%, transparent 80%, rgba(0,0,0,0.03) 90%, transparent 100%)",
+          }}
+        />
+
+        {/* Paper texture/grain overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E\")",
+            backgroundSize: "200px 200px",
+            opacity: isChalkboard ? 0.04 : 0.06,
+            mixBlendMode: isChalkboard ? "overlay" : "multiply",
+          }}
+        />
+
         {/* Red margin line */}
         <div
           className="absolute top-0 bottom-0 left-12 w-[2px]"
@@ -247,7 +289,7 @@ function Notepad() {
                 }`}
                 style={{ clipPath: lineClip(i) }}
               >
-                {line || " "}
+                {line || " "}
               </span>
 
               {/* Pencil sprite on current writing line */}
@@ -279,45 +321,19 @@ function Notepad() {
           )}
         </div>
       </div>
-
-      {/* Navigation controls */}
-      <div className="flex justify-center gap-4 mt-4">
-        <button
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 0 || isFlipping}
-          className={`px-4 py-1.5 text-sm font-[family-name:var(--font-hand)] rounded-sm border transition-all duration-200
-            ${
-              currentPage === 0 || isFlipping
-                ? "opacity-40 cursor-not-allowed border-[var(--border-light)] text-[var(--text-faint)]"
-                : isChalkboard
-                  ? "border-[var(--color-chalk-line)] text-[var(--color-chalk-white)] hover:-translate-y-0.5 hover:shadow-md"
-                  : "border-[var(--border)] text-[var(--color-ink)] hover:-translate-y-0.5 hover:shadow-md"
-            }`}
-          aria-label="Previous page"
-        >
-          ← prev
-        </button>
-        <button
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === notepadPages.length - 1 || isFlipping}
-          className={`px-4 py-1.5 text-sm font-[family-name:var(--font-hand)] rounded-sm border transition-all duration-200
-            ${
-              currentPage === notepadPages.length - 1 || isFlipping
-                ? "opacity-40 cursor-not-allowed border-[var(--border-light)] text-[var(--text-faint)]"
-                : isChalkboard
-                  ? "border-[var(--color-chalk-line)] text-[var(--color-chalk-white)] hover:-translate-y-0.5 hover:shadow-md"
-                  : "border-[var(--border)] text-[var(--color-ink)] hover:-translate-y-0.5 hover:shadow-md"
-            }`}
-          aria-label="Next page"
-        >
-          next →
-        </button>
-      </div>
     </div>
   );
 }
 
-/* ─── About section ─────────────────────────────────────────── */
+/* ─── About section (merged Hero + About) ─────────────────── */
+
+const TAGLINES = [
+  "backend developer",
+  "system designer",
+  "CS student",
+  "problem solver",
+  "open-source tinkerer",
+];
 
 export function About() {
   const { theme } = useTheme();
@@ -326,36 +342,85 @@ export function About() {
   return (
     <section
       id="about"
-      className={`relative px-6 py-20 scroll-mt-20 ${
+      className={`relative px-6 py-20 scroll-mt-20 min-h-[85vh] flex items-center ${
         isChalkboard ? "bg-[var(--color-chalk-bg)]" : "bg-[var(--color-paper-warm)]"
       }`}
     >
-      <div className="max-w-3xl mx-auto">
-        {/* Section heading */}
-        <h2
-          className={`text-4xl font-[family-name:var(--font-hand)] font-bold mb-2 ${
-            isChalkboard ? "chalk-text" : "text-[var(--color-ink)]"
-          }`}
-        >
-          About Me
-        </h2>
-        <div
-          className="w-24 h-1 rounded-full mb-8"
-          style={{
-            background: isChalkboard
-              ? "var(--color-highlight-yellow)"
-              : "var(--color-highlight-yellow)",
-            opacity: isChalkboard ? 0.6 : 0.8,
-          }}
-        />
+      <div className="max-w-6xl mx-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left side — intro */}
+          <div>
+            <h1
+              className={`text-5xl sm:text-6xl md:text-7xl font-[family-name:var(--font-hand)] font-bold tracking-tight leading-tight ${
+                isChalkboard ? "chalk-text" : "text-[var(--color-ink)]"
+              }`}
+            >
+              Moiz Ansari
+            </h1>
 
-        <p className="text-lg text-[var(--text-secondary)] mb-10 max-w-2xl leading-relaxed">
-          CS undergrad at FAST NUCES who loves building backend systems that
-          don&apos;t fall over at 3 AM. When I&apos;m not writing code, I&apos;m
-          probably debugging someone else&apos;s.
-        </p>
+            {/* Cycling tagline */}
+            <div className="mt-4 text-2xl sm:text-3xl text-[var(--text-secondary)]">
+              <span className="font-[family-name:var(--font-hand)]">I&apos;m a </span>
+              <EraseWriteText
+                phrases={TAGLINES}
+                displayDuration={2200}
+                eraseDuration={1000}
+                writeDuration={1000}
+                className="text-2xl sm:text-3xl"
+              />
+            </div>
 
-        <Notepad />
+            {/* About paragraph */}
+            <p className="mt-6 text-lg text-[var(--text-secondary)] leading-relaxed max-w-lg">
+              CS undergrad at FAST NUCES who loves building backend systems that
+              don&apos;t fall over at 3 AM. When I&apos;m not writing code, I&apos;m
+              probably debugging someone else&apos;s.
+            </p>
+
+            {/* Action buttons */}
+            <div className="mt-8 flex flex-wrap gap-4">
+              <PaperButton
+                variant="primary"
+                onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                View Work →
+              </PaperButton>
+              <PaperButton
+                variant="secondary"
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                Get in Touch
+              </PaperButton>
+            </div>
+
+            {/* Social links */}
+            <div className="mt-6 flex gap-4">
+              <a
+                href="https://github.com/muhammad-moiz-ansari"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors"
+                aria-label="GitHub"
+              >
+                <DoodleGithub size={28} />
+              </a>
+              <a
+                href="https://linkedin.com/in/muhammad-moiz-ansari"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors"
+                aria-label="LinkedIn"
+              >
+                <DoodleLinkedin size={28} />
+              </a>
+            </div>
+          </div>
+
+          {/* Right side — Notepad */}
+          <div>
+            <Notepad />
+          </div>
+        </div>
       </div>
     </section>
   );

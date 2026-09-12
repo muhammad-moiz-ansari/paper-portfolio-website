@@ -1,8 +1,11 @@
 "use client";
 
 import { useTheme } from "@/lib/theme-context";
-import { PaperCard } from "@/components/paper-card";
+import { PushPin } from "@/components/push-pin";
 import { experienceEntries } from "@/data/experience";
+
+/** Small rotation values for scattered-pinned look */
+const ROTATIONS = [-1.5, 1, -0.5, 1.5];
 
 export function Experience() {
   const { theme } = useTheme();
@@ -29,13 +32,13 @@ export function Experience() {
 
         {/* Vertical timeline */}
         <div className="relative">
-          {/* Timeline spine */}
+          {/* Timeline spine — pink accent like style guide blockquote */}
           <div
-            className="absolute left-4 top-0 bottom-0 w-[2px]"
+            className="absolute left-4 top-0 bottom-0 w-[3px] rounded-full"
             style={{
               background: isChalkboard
-                ? "var(--color-chalk-line)"
-                : "var(--border)",
+                ? "rgba(232, 160, 168, 0.5)"
+                : "rgba(232, 160, 168, 0.7)",
             }}
           />
 
@@ -44,10 +47,10 @@ export function Experience() {
               <div key={entry.id} className="relative pl-12">
                 {/* Timeline dot */}
                 <div
-                  className={`absolute left-2.5 top-4 w-4 h-4 rounded-full border-2 ${
+                  className={`absolute left-[7px] top-4 w-5 h-5 rounded-full border-2 ${
                     isChalkboard
-                      ? "border-[var(--color-chalk-white)] bg-[var(--color-chalk-bg)]"
-                      : "border-[var(--color-ink)] bg-[var(--color-paper)]"
+                      ? "border-[rgba(232,160,168,0.6)] bg-[var(--color-chalk-bg)]"
+                      : "border-[#E8A0A8] bg-[var(--color-paper)]"
                   }`}
                   style={{ zIndex: 1 }}
                 />
@@ -63,34 +66,71 @@ export function Experience() {
                   {entry.date}
                 </span>
 
-                <PaperCard
-                  title={`${entry.role} — ${entry.company}`}
-                  description={entry.description}
-                  details={entry.location}
-                  tags={entry.bullets.length > 0 ? undefined : ["Details coming soon"]}
-                />
+                {/* Index card — pinned notebook page style */}
+                <div
+                  className={`relative p-5 rounded-sm transition-all duration-300 ${
+                    isChalkboard
+                      ? "bg-[var(--color-chalk-bg-dark)] border border-[var(--color-chalk-line)]"
+                      : "bg-[var(--color-paper)] border border-[var(--border-light)]"
+                  }`}
+                  style={{
+                    transform: `rotate(${ROTATIONS[i % ROTATIONS.length]}deg)`,
+                    boxShadow: isChalkboard
+                      ? "2px 3px 8px rgba(0,0,0,0.4)"
+                      : "2px 3px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06)",
+                  }}
+                >
+                  {/* Pin decoration */}
+                  <div className="absolute -top-3 right-6">
+                    <PushPin size={20} />
+                  </div>
 
-                {entry.bullets.length > 0 && (
-                  <ul className="mt-3 ml-4 space-y-1.5">
-                    {entry.bullets.map((bullet, j) => (
-                      <li
-                        key={j}
-                        className="text-sm text-[var(--text-secondary)] flex items-start gap-2"
-                      >
-                        <span
-                          className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"
-                          style={{
-                            background: isChalkboard
-                              ? "var(--color-chalk-white)"
-                              : "var(--color-ink)",
-                            opacity: 0.5,
-                          }}
-                        />
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                  {/* Red ruled line at top — like an index card */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-[2px]"
+                    style={{ background: "rgba(232, 160, 168, 0.5)" }}
+                  />
+
+                  {/* Left margin line — notebook style */}
+                  <div
+                    className="absolute top-0 bottom-0 left-10"
+                    style={{
+                      borderLeft: "1px solid rgba(232, 160, 168, 0.3)",
+                    }}
+                  />
+
+                  <h3 className="text-lg font-bold font-[family-name:var(--font-hand)] mb-1 text-[var(--text)]">
+                    {entry.role}
+                  </h3>
+                  <p className="text-sm text-[var(--text-secondary)] mb-1 font-[family-name:var(--font-hand)]">
+                    {entry.company} · {entry.location}
+                  </p>
+                  <p className="text-sm text-[var(--text-secondary)] italic mb-3">
+                    {entry.description}
+                  </p>
+
+                  {entry.bullets.length > 0 && (
+                    <ul className="space-y-1.5 ml-6">
+                      {entry.bullets.map((bullet, j) => (
+                        <li
+                          key={j}
+                          className="text-sm text-[var(--text-secondary)] flex items-start gap-2"
+                        >
+                          <span
+                            className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"
+                            style={{
+                              background: isChalkboard
+                                ? "var(--color-chalk-white)"
+                                : "var(--color-ink)",
+                              opacity: 0.5,
+                            }}
+                          />
+                          {bullet}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
             ))}
           </div>

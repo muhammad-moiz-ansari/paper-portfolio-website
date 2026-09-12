@@ -23,6 +23,8 @@ interface PaperCardProps {
   className?: string;
   /** Force a specific state for style guide demos */
   forceState?: "default" | "hover" | "open";
+  /** Label shown on the folder tab (defaults to "Project") */
+  tabLabel?: string;
 }
 
 export function PaperCard({
@@ -32,6 +34,7 @@ export function PaperCard({
   tags = [],
   className = "",
   forceState,
+  tabLabel = "Project",
 }: PaperCardProps) {
   const [isOpen, setIsOpen] = useState(forceState === "open");
   const [isHovering, setIsHovering] = useState(forceState === "hover");
@@ -64,7 +67,7 @@ export function PaperCard({
         `}
       >
         <span className="text-xs px-2 py-0.5 font-[family-name:var(--font-hand)] text-[var(--text)]">
-          Project
+          {tabLabel}
         </span>
       </div>
 

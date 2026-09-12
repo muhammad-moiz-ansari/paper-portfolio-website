@@ -32,6 +32,7 @@ export function Education() {
           {educationEntries.map((entry) => (
             <PaperCard
               key={entry.id}
+              tabLabel="Degree"
               title={`${entry.degree} — ${entry.institution}`}
               description={`${entry.location} · ${entry.date}`}
               details={entry.details.join(" • ")}

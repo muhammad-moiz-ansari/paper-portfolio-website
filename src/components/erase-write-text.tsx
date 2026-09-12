@@ -71,15 +71,23 @@ function reducer(state: State, action: Action): State {
       // Atomically transition to writing AND reset progress to 0
       return { ...state, phase: "writing", progress: 0, bobY: 0 };
     case "ADVANCE_PAUSE":
+      // Don't increment phraseIndex here — during pause/writing we show
+      // nextPhrase (phraseIndex+1). Incrementing now would skip a phrase.
       return {
         ...state,
         phase: "pause",
-        phraseIndex: (state.phraseIndex + 1) % 99999, // actual wrap handled by caller
         progress: 0,
         bobY: 0,
       };
     case "SET_DISPLAY":
-      return { ...state, phase: "display", progress: 1, bobY: 0 };
+      // NOW increment phraseIndex — the written phrase becomes the current display phrase
+      return {
+        ...state,
+        phase: "display",
+        phraseIndex: (state.phraseIndex + 1) % 99999,
+        progress: 1,
+        bobY: 0,
+      };
     case "TICK":
       return { ...state, progress: action.progress, bobY: action.bobY };
     default:
@@ -278,8 +286,10 @@ export function EraseWriteText({
           className="absolute -top-2"
           style={{
             left: `${progress * 100}%`,
-            // Horizontal centering + vertical sin-wave bob
-            transform: `translateX(-50%) translateY(${pencilBobPx}px)`,
+            // Shift so the pencil TIP (not center) aligns with the text reveal edge
+            // The tip in the rotated SVG is ~30% from left edge of the 28px viewBox
+            // So offset: -(28 * 0.30) = -8.4px, rounded to -8px
+            transform: `translateX(-8px) translateY(${pencilBobPx}px)`,
           }}
         >
           <PencilSprite />

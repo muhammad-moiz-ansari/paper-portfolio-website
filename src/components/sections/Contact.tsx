@@ -18,12 +18,12 @@ const CONTACT_LINKS = [
   },
   {
     icon: DoodleLinkedin,
-    label: "linkedin.com/in/muhammad-moiz-ansari",
+    label: "muhammad-moiz-ansari",
     href: "https://linkedin.com/in/muhammad-moiz-ansari",
   },
   {
     icon: DoodleGithub,
-    label: "github.com/muhammad-moiz-ansari",
+    label: "muhammad-moiz-ansari",
     href: "https://github.com/muhammad-moiz-ansari",
   },
 ];
@@ -38,7 +38,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative px-6 py-20 scroll-mt-20 paper-ruled">
+    <section id="contact" className="relative px-6 py-20 scroll-mt-20 paper-kraft">
       <div className="max-w-3xl mx-auto">
         {/* Section heading */}
         <h2
@@ -89,17 +89,13 @@ export function Contact() {
                       : "border-[var(--border-light)] bg-[var(--color-paper)]"
                   }`}
                 >
-                  <Icon size={18} />
+                  <Icon size={24} />
                 </span>
                 <span className="text-sm text-[var(--text-secondary)] group-hover:text-[var(--color-link)] transition-colors break-all">
                   {label}
                 </span>
               </a>
             ))}
-
-            <div className="mt-4 text-xs text-[var(--text-faint)] font-[family-name:var(--font-hand)]">
-              Phone: +92 315 468 6405
-            </div>
           </div>
         </div>
 

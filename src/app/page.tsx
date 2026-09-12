@@ -7,7 +7,6 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { TornEdge } from "@/components/torn-edge";
 import { useTheme } from "@/lib/theme-context";
 
-import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Experience } from "@/components/sections/Experience";
 import { Skills } from "@/components/sections/Skills";
@@ -16,7 +15,6 @@ import { Projects } from "@/components/sections/Projects";
 import { Contact } from "@/components/sections/Contact";
 
 const NAV_ITEMS = [
-  { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
   { label: "EXP", href: "#experience" },
   { label: "Skills", href: "#skills" },
@@ -102,8 +100,6 @@ export default function Home() {
       </header>
 
       <main>
-        <Hero />
-        <TornEdge />
         <About />
         <TornEdge flip />
         <Experience />
