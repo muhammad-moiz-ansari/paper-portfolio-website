@@ -69,30 +69,39 @@ body {
    PAPER TEXTURE BACKGROUNDS
    ============================================ */
 
-/* Subtle paper fiber/grain overlay */
+/*
+  Paper grain is produced by an inline SVG feTurbulence filter.
+  opacity was previously 0.04 — invisible to the eye.
+  Now 0.18 for base paper, giving a subtle but clearly perceptible grain.
+  Can be swapped for a photographed paper scan via background-image: url(...)
+  if you need a richer photographic texture.
+*/
 .paper-texture {
   background-color: var(--color-paper);
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
 }
 
 [data-theme="chalkboard"] .paper-texture {
   background-color: var(--color-chalk-bg);
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
 }
 
-/* Ruled notebook lines */
+/*
+  Ruled notebook lines: tighter 24px spacing and higher opacity
+  so the lines are clearly visible.  Previously 32px / rgba(…, 0.25).
+*/
 .paper-ruled {
   background-color: var(--color-paper);
   background-image:
     repeating-linear-gradient(
       transparent,
-      transparent 31px,
-      rgba(180, 160, 140, 0.25) 31px,
-      rgba(180, 160, 140, 0.25) 32px
+      transparent 23px,
+      rgba(160, 130, 100, 0.45) 23px,
+      rgba(160, 130, 100, 0.45) 24px
     );
-  background-size: 100% 32px;
+  background-size: 100% 24px;
 }
 
 [data-theme="chalkboard"] .paper-ruled {
@@ -100,13 +109,14 @@ body {
   background-image:
     repeating-linear-gradient(
       transparent,
-      transparent 31px,
-      var(--color-chalk-line) 31px,
-      var(--color-chalk-line) 32px
+      transparent 23px,
+      rgba(240, 237, 229, 0.25) 23px,
+      rgba(240, 237, 229, 0.25) 24px
     );
+  background-size: 100% 24px;
 }
 
-/* Graph paper grid */
+/* Graph paper grid — working correctly as-is, unchanged */
 .paper-graph {
   background-color: var(--color-paper);
   background-image:
@@ -123,11 +133,28 @@ body {
   background-size: 20px 20px;
 }
 
-/* Kraft paper */
+/*
+  Kraft paper: heavier, fibrous grain that reads as brown packaging paper.
+  Uses a higher baseFrequency and more octaves for the mottled fibre look.
+  Dark mode: colour shifts to a much darker brown (#5C3D1E) so it reads
+  as kraft-under-dim-light and stays clearly distinct from the chalkboard
+  background (#2A3B2A).
+
+  Grain opacity: 0.35 (was 0.08 — effectively invisible).
+  Can be replaced with a tiled photograph of real kraft paper
+  via background-image: url('/textures/kraft.webp').
+*/
 .paper-kraft {
-  background-color: var(--color-kraft);
+  background-color: var(--color-kraft);           /* #C4A882 — warm tan */
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0.4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23k)' opacity='0.35'/%3E%3C/svg%3E");
+}
+
+/* Dark kraft: deep brown so it's clearly distinct from the green chalkboard */
+[data-theme="chalkboard"] .paper-kraft {
+  background-color: #5C3D1E;                      /* dark, shadowed kraft */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0.3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23k)' opacity='0.45'/%3E%3C/svg%3E");
 }
 
 /* ============================================
@@ -163,14 +190,19 @@ body {
   border-left: 1px solid var(--color-chalk-line);
 }
 
+/*
+  Scrollbar thumb: was #FFE066 (too pale / low contrast in light mode).
+  Now uses a deeper amber-gold (#C9960A) for the solid stripes so
+  the washi-tape pattern reads clearly against the light track.
+*/
 ::-webkit-scrollbar-thumb {
   background:
     repeating-linear-gradient(
       45deg,
-      var(--color-highlight-yellow),
-      var(--color-highlight-yellow) 3px,
-      rgba(255, 224, 102, 0.6) 3px,
-      rgba(255, 224, 102, 0.6) 6px
+      #C9960A,
+      #C9960A 3px,
+      rgba(201, 150, 10, 0.55) 3px,
+      rgba(201, 150, 10, 0.55) 6px
     );
   border: 2px solid var(--color-paper-dark);
   border-radius: 4px;
@@ -202,7 +234,7 @@ body {
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-highlight-yellow) var(--color-paper-dark);
+  scrollbar-color: #C9960A var(--color-paper-dark);
 }
 
 [data-theme="chalkboard"] * {

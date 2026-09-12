@@ -12,6 +12,12 @@
  *   "crumple": subtle paper-crumple effect on press
  *
  * Also supports secondary (outline) and disabled states.
+ *
+ * --- Paper texture ---
+ * The grain overlay uses an inline SVG feTurbulence + feColorMatrix filter
+ * as a background-image data URI.  Opacity is 0.22 (was 0.03 — invisible).
+ * To use a real photographed paper texture, swap the background-image
+ * for url('/textures/paper-grain.webp') with background-size: 200px 200px.
  */
 
 import React from "react";
@@ -25,6 +31,19 @@ interface PaperButtonProps {
   className?: string;
   onClick?: () => void;
 }
+
+/**
+ * SVG feTurbulence grain filter as a data URI.
+ * baseFrequency ~1.2 gives a fine fibre texture like cardstock.
+ * feColorMatrix saturate desaturates so the grain is neutral grey,
+ * letting the button's own colour show through naturally.
+ *
+ * Can be replaced with a photographed texture via:
+ *   background-image: url('/textures/paper-grain.webp');
+ *   background-size: 200px 200px;
+ */
+const GRAIN_SVG =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E\")";
 
 export function PaperButton({
   children,
@@ -100,12 +119,25 @@ export function PaperButton({
       disabled={variant === "disabled"}
       aria-disabled={variant === "disabled"}
     >
-      {/* Paper grain texture overlay */}
+      {/*
+        Paper grain texture overlay.
+        Opacity 0.22 — clearly visible fibre without washing out the button colour.
+        mix-blend-mode: multiply lets the grain darken slightly into the
+        button surface (light mode). On dark/chalkboard we use overlay
+        so the chalk-dust noise brightens rather than darkens.
+
+        To swap for a photographed texture:
+          backgroundImage: "url('/textures/paper-grain.webp')"
+          backgroundSize: "200px 200px"
+      */}
       {variant !== "disabled" && (
         <span
-          className="absolute inset-0 opacity-[0.03] pointer-events-none rounded-sm"
+          className="absolute inset-0 pointer-events-none rounded-sm"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundImage: GRAIN_SVG,
+            backgroundSize: "200px 200px",
+            opacity: 0.22,
+            mixBlendMode: isChalkboard ? "overlay" : "multiply",
           }}
           aria-hidden="true"
         />

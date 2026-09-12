@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import { createContext, useContext, useState, useCallback } from "react";
 
 type Theme = "paper" | "chalkboard";
 
@@ -16,21 +16,35 @@ const ThemeContext = createContext<ThemeContextType>({
   setTheme: () => {},
 });
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("paper");
+/**
+ * Read the persisted theme from localStorage safely (SSR guard).
+ * Used as a lazy useState initializer so we never trigger a
+ * post-mount state update for the initial theme load.
+ */
+function readStoredTheme(): Theme {
+  if (typeof window === "undefined") return "paper";
+  try {
+    const stored = localStorage.getItem("paper-portfolio-theme");
+    if (stored === "chalkboard" || stored === "paper") return stored;
+  } catch {
+    // localStorage blocked (private browsing, etc.)
+  }
+  return "paper";
+}
 
-  useEffect(() => {
-    const stored = localStorage.getItem("paper-portfolio-theme") as Theme | null;
-    if (stored === "chalkboard" || stored === "paper") {
-      setThemeState(stored);
-      document.documentElement.setAttribute("data-theme", stored);
-    }
-  }, []);
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  // Lazy initializer — runs once on mount, avoids a post-mount setState.
+  // On the server `readStoredTheme` returns "paper" (SSR-safe guard inside).
+  const [theme, setThemeState] = useState<Theme>(readStoredTheme);
 
   const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("paper-portfolio-theme", newTheme);
+    try {
+      localStorage.setItem("paper-portfolio-theme", newTheme);
+    } catch {
+      // localStorage blocked
+    }
   }, []);
 
   const toggleTheme = useCallback(() => {

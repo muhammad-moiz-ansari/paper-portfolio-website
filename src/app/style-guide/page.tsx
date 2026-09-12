@@ -108,6 +108,64 @@ function ColorSwatch({
   );
 }
 
+/**
+ * TextureSwatch — shows a full texture swatch plus a 3× zoomed inset
+ * so that fine grain is visible even at small preview sizes.
+ */
+function TextureSwatch({
+  cssClass,
+  label,
+  description,
+}: {
+  cssClass: string;
+  label: string;
+  description: string;
+}) {
+  return (
+    <div>
+      <div className="relative">
+        {/* Main swatch */}
+        <div
+          className={`${cssClass} h-40 rounded-lg border border-[var(--border-light)] flex items-center justify-center`}
+        >
+          <span className="text-[var(--text-secondary)] font-[family-name:var(--font-hand)] text-lg drop-shadow-sm">
+            {label}
+          </span>
+        </div>
+
+        {/*
+          Zoomed inset — bottom-right corner.
+          Uses the same CSS class but scaled 3× via transform: scale(3)
+          with overflow hidden on the wrapper so only a small crop
+          is visible.  This reveals fine grain that would otherwise be
+          invisible at the swatch scale.
+        */}
+        <div
+          className="absolute bottom-2 right-2 w-20 h-16 rounded border-2 border-white/60 overflow-hidden shadow-md"
+          title="3× zoom preview of texture grain"
+          style={{ backdropFilter: "none" }}
+        >
+          <div
+            className={`${cssClass} w-full h-full`}
+            style={{
+              transform: "scale(3)",
+              transformOrigin: "top left",
+              width: "calc(100% / 3)",
+              height: "calc(100% / 3)",
+            }}
+          />
+        </div>
+
+        {/* Zoom label */}
+        <span className="absolute bottom-2 right-24 text-[10px] text-white/70 font-mono bg-black/30 px-1 rounded leading-none py-0.5 select-none">
+          3×
+        </span>
+      </div>
+      <p className="mt-2 text-sm text-[var(--text-faint)] italic">{description}</p>
+    </div>
+  );
+}
+
 
 export default function StyleGuidePage() {
   const { theme } = useTheme();
@@ -156,41 +214,26 @@ export default function StyleGuidePage() {
             Four background texture variants. Each can be applied as a CSS class.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <div className="paper-texture h-40 rounded-lg border border-[var(--border-light)] flex items-center justify-center">
-                <span className="text-[var(--text-secondary)] font-[family-name:var(--font-hand)] text-lg">
-                  Paper Grain / Fiber Texture
-                </span>
-              </div>
-              <DemoLabel>.paper-texture — subtle SVG noise overlay on warm paper base</DemoLabel>
-            </div>
-
-            <div>
-              <div className="paper-ruled h-40 rounded-lg border border-[var(--border-light)] flex items-center justify-center">
-                <span className="text-[var(--text-secondary)] font-[family-name:var(--font-hand)] text-lg">
-                  Ruled Notebook Lines
-                </span>
-              </div>
-              <DemoLabel>.paper-ruled — repeating horizontal lines like a school notebook</DemoLabel>
-            </div>
-
-            <div>
-              <div className="paper-graph h-40 rounded-lg border border-[var(--border-light)] flex items-center justify-center">
-                <span className="text-[var(--text-secondary)] font-[family-name:var(--font-hand)] text-lg">
-                  Graph Paper Grid
-                </span>
-              </div>
-              <DemoLabel>.paper-graph — 20px grid lines, horizontal + vertical</DemoLabel>
-            </div>
-
-            <div>
-              <div className="paper-kraft h-40 rounded-lg border border-[var(--border-light)] flex items-center justify-center">
-                <span className="text-white/80 font-[family-name:var(--font-hand)] text-lg">
-                  Kraft Paper
-                </span>
-              </div>
-              <DemoLabel>.paper-kraft — warm brown kraft paper with heavier grain</DemoLabel>
-            </div>
+            <TextureSwatch
+              cssClass="paper-texture"
+              label="Paper Grain / Fiber Texture"
+              description=".paper-texture — SVG feTurbulence noise. Inset shows 3× zoom of grain."
+            />
+            <TextureSwatch
+              cssClass="paper-ruled"
+              label="Ruled Notebook Lines"
+              description=".paper-ruled — 24px repeating lines. Inset shows line density at 3×."
+            />
+            <TextureSwatch
+              cssClass="paper-graph"
+              label="Graph Paper Grid"
+              description=".paper-graph — 20px grid, h + v. Inset shows grid intersections at 3×."
+            />
+            <TextureSwatch
+              cssClass="paper-kraft"
+              label="Kraft Paper"
+              description=".paper-kraft — heavy fibrous grain. Dark mode shifts to #5C3D1E. Inset shows weave at 3×."
+            />
           </div>
         </Section>
 

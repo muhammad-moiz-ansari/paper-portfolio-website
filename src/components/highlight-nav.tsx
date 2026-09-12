@@ -5,7 +5,12 @@
  *
  * Active tab: highlighted with a rough, slightly uneven SVG shape
  * that looks like a real highlighter marker was dragged over the text.
- * Uses mix-blend-mode: multiply so text stays legible.
+ *
+ * In light (paper) mode:  mix-blend-mode: multiply so highlight colour
+ *   blends into the paper background naturally.
+ * In dark (chalkboard) mode: blend mode switched to "screen" so the
+ *   yellow/blue highlights brighten rather than darken, making them
+ *   clearly visible on the dark green chalkboard surface.
  *
  * Hover: the highlighter stroke animates drawing on from left to right,
  * using a clip-path transition that reveals the highlight shape.
@@ -31,8 +36,19 @@ interface HighlightNavProps {
 /**
  * Inline SVG of a rough highlighter shape.
  * Slightly wobbly edges simulate a hand-drawn marker stroke.
+ *
+ * blend: "multiply" in light mode (darkens toward highlight colour),
+ *        "screen"   in dark mode  (brightens, making the colour visible)
  */
-function HighlighterShape({ color, className = "" }: { color: string; className?: string }) {
+function HighlighterShape({
+  color,
+  blend,
+  className = "",
+}: {
+  color: string;
+  blend: "multiply" | "screen";
+  className?: string;
+}) {
   return (
     <svg
       className={`absolute inset-0 w-full h-full ${className}`}
@@ -43,7 +59,7 @@ function HighlighterShape({ color, className = "" }: { color: string; className?
       <path
         d="M4,8 Q6,4 20,6 L60,5 Q100,3 140,7 L180,5 Q196,4 198,10 L199,18 Q198,28 190,30 L160,32 Q120,35 80,31 L40,33 Q10,35 4,30 L2,20 Q1,14 4,8Z"
         fill={color}
-        style={{ mixBlendMode: "multiply" }}
+        style={{ mixBlendMode: blend }}
       />
     </svg>
   );
@@ -53,12 +69,22 @@ export function HighlightNav({ items, activeIndex = 0, className = "" }: Highlig
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { theme } = useTheme();
 
-  const activeColor = theme === "chalkboard"
-    ? "rgba(255, 224, 102, 0.35)"
-    : "rgba(255, 224, 102, 0.55)";
-  const hoverColor = theme === "chalkboard"
-    ? "rgba(167, 199, 231, 0.3)"
-    : "rgba(167, 199, 231, 0.45)";
+  const isChalkboard = theme === "chalkboard";
+  // Blend mode: multiply (light mode) vs screen (dark mode).
+  // "screen" brightens on dark surfaces, making highlight colours pop.
+  const blend: "multiply" | "screen" = isChalkboard ? "screen" : "multiply";
+
+  /**
+   * Chalkboard: use higher-opacity colours so "screen" blend produces a
+   * clearly visible glow. Light mode keeps the softer multiply values.
+   */
+  const activeColor = isChalkboard
+    ? "rgba(255, 224, 102, 0.75)"   // bright yellow — screen-blends visibly on dark green
+    : "rgba(255, 224, 102, 0.55)";  // softer yellow on paper
+
+  const hoverColor = isChalkboard
+    ? "rgba(167, 199, 231, 0.65)"   // light blue — screen-blends as a cool glow
+    : "rgba(167, 199, 231, 0.45)";  // softer blue on paper
 
   return (
     <nav className={`flex items-center gap-1 ${className}`}>
@@ -68,13 +94,15 @@ export function HighlightNav({ items, activeIndex = 0, className = "" }: Highlig
 
         return (
           <a
-            key={item.href}
+            // Use index as key — item.href is "#" for all style-guide items,
+            // which causes React's duplicate-key warning.
+            key={i}
             href={item.href}
             className={`
               relative px-5 py-2 text-lg font-[family-name:var(--font-hand)]
               transition-colors duration-200
               ${isActive ? "font-bold" : ""}
-              ${theme === "chalkboard" ? "text-[var(--color-chalk-white)]" : "text-[var(--color-ink)]"}
+              ${isChalkboard ? "text-[var(--color-chalk-white)]" : "text-[var(--color-ink)]"}
             `}
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
@@ -82,7 +110,7 @@ export function HighlightNav({ items, activeIndex = 0, className = "" }: Highlig
           >
             {/* Active highlight — always visible */}
             {isActive && (
-              <HighlighterShape color={activeColor} />
+              <HighlighterShape color={activeColor} blend={blend} />
             )}
 
             {/* Hover highlight — clip-path animation draws it on from left to right */}
@@ -95,7 +123,7 @@ export function HighlightNav({ items, activeIndex = 0, className = "" }: Highlig
                     : "inset(0 100% 0 0)",
                 }}
               >
-                <HighlighterShape color={hoverColor} />
+                <HighlighterShape color={hoverColor} blend={blend} />
               </div>
             )}
 

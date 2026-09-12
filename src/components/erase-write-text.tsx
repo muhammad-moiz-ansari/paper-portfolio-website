@@ -17,9 +17,21 @@
  * Phases: display → erase → pause → write → display (loop)
  *
  * prefers-reduced-motion: falls back to a simple fade between phrases.
+ *
+ * --- Fix notes ---
+ * 1. Eliminated synchronous setState calls inside useEffect:
+ *    Previously `setProgress(0)` was called synchronously at the top of
+ *    the branch handling "erasing"/"writing" phases, causing React to batch
+ *    an extra render on every phase transition.  Now state is combined into
+ *    a single reducer dispatch so both `phase` and `progress` change atomically.
+ *
+ * 2. Vertical bobbing on sprites:
+ *    The eraser and pencil sprites now oscillate vertically using a
+ *    sin-wave keyed to `performance.now()`, sampled every animation frame.
+ *    This simulates the natural up-and-down wrist motion of handwriting.
  */
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useReducer, useEffect, useCallback, useRef } from "react";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 interface EraseWriteTextProps {
@@ -34,6 +46,46 @@ interface EraseWriteTextProps {
 }
 
 type Phase = "display" | "erasing" | "pause" | "writing";
+
+interface State {
+  phraseIndex: number;
+  phase: Phase;
+  progress: number;
+  /** Current vertical offset for sprite bobbing (-1 … 1 sin value) */
+  bobY: number;
+}
+
+type Action =
+  | { type: "START_ERASE" }
+  | { type: "START_WRITE" }
+  | { type: "ADVANCE_PAUSE" }
+  | { type: "SET_DISPLAY" }
+  | { type: "TICK"; progress: number; bobY: number };
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case "START_ERASE":
+      // Atomically transition to erasing AND reset progress to 0
+      return { ...state, phase: "erasing", progress: 0, bobY: 0 };
+    case "START_WRITE":
+      // Atomically transition to writing AND reset progress to 0
+      return { ...state, phase: "writing", progress: 0, bobY: 0 };
+    case "ADVANCE_PAUSE":
+      return {
+        ...state,
+        phase: "pause",
+        phraseIndex: (state.phraseIndex + 1) % 99999, // actual wrap handled by caller
+        progress: 0,
+        bobY: 0,
+      };
+    case "SET_DISPLAY":
+      return { ...state, phase: "display", progress: 1, bobY: 0 };
+    case "TICK":
+      return { ...state, progress: action.progress, bobY: action.bobY };
+    default:
+      return state;
+  }
+}
 
 /** A small SVG eraser icon */
 function EraserSprite({ className = "" }: { className?: string }) {
@@ -81,27 +133,34 @@ export function EraseWriteText({
   writeDuration = 1200,
   className = "",
 }: EraseWriteTextProps) {
-  const [phraseIndex, setPhraseIndex] = useState(0);
-  const [phase, setPhase] = useState<Phase>("display");
-  /**
-   * progress: 0 → 1 representing how far through the current
-   * erase or write animation we are.
-   */
-  const [progress, setProgress] = useState(0);
+  const [state, dispatch] = useReducer(reducer, {
+    phraseIndex: 0,
+    phase: "display" as Phase,
+    progress: 0,
+    bobY: 0,
+  });
+
   const reducedMotion = useReducedMotion();
   const animationRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
 
-  const currentPhrase = phrases[phraseIndex];
+  const { phraseIndex, phase, progress, bobY } = state;
+  const currentPhrase = phrases[phraseIndex % phrases.length];
   const nextPhrase = phrases[(phraseIndex + 1) % phrases.length];
 
-  /** Animate progress from 0 to 1 over `duration` ms */
+  /**
+   * Animate progress from 0 → 1 over `duration` ms.
+   * Also samples a sin-wave for the vertical bob on each frame.
+   */
   const animateProgress = useCallback((duration: number, onComplete: () => void) => {
     startTimeRef.current = performance.now();
     const step = (now: number) => {
       const elapsed = now - startTimeRef.current;
       const p = Math.min(elapsed / duration, 1);
-      setProgress(p);
+      // Bob amplitude: 3px equivalent converted to a normalised −1…1 value.
+      // We expose it as a raw sin value; the consumer multiplies by px.
+      const bob = Math.sin((now / 120) * Math.PI * 2);
+      dispatch({ type: "TICK", progress: p, bobY: bob });
       if (p < 1) {
         animationRef.current = requestAnimationFrame(step);
       } else {
@@ -115,7 +174,8 @@ export function EraseWriteText({
     if (reducedMotion) {
       // Simple cycle with no animation — just swap text with a delay
       const timer = setInterval(() => {
-        setPhraseIndex((i) => (i + 1) % phrases.length);
+        dispatch({ type: "ADVANCE_PAUSE" });
+        setTimeout(() => dispatch({ type: "SET_DISPLAY" }), 300);
       }, displayDuration + 500);
       return () => clearInterval(timer);
     }
@@ -123,23 +183,29 @@ export function EraseWriteText({
     let timeout: ReturnType<typeof setTimeout>;
 
     if (phase === "display") {
-      timeout = setTimeout(() => setPhase("erasing"), displayDuration);
+      timeout = setTimeout(() => dispatch({ type: "START_ERASE" }), displayDuration);
+
     } else if (phase === "erasing") {
-      setProgress(0);
-      animateProgress(eraseDuration, () => setPhase("pause"));
+      // progress and bobY start at 0 — already set atomically by START_ERASE
+      animateProgress(eraseDuration, () => {
+        dispatch({ type: "ADVANCE_PAUSE" });
+      });
+
     } else if (phase === "pause") {
-      setPhraseIndex((i) => (i + 1) % phrases.length);
-      timeout = setTimeout(() => setPhase("writing"), 300);
+      timeout = setTimeout(() => dispatch({ type: "START_WRITE" }), 300);
+
     } else if (phase === "writing") {
-      setProgress(0);
-      animateProgress(writeDuration, () => setPhase("display"));
+      // progress and bobY start at 0 — already set atomically by START_WRITE
+      animateProgress(writeDuration, () => {
+        dispatch({ type: "SET_DISPLAY" });
+      });
     }
 
     return () => {
       clearTimeout(timeout);
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [phase, reducedMotion, phrases.length, displayDuration, eraseDuration, writeDuration, animateProgress]);
+  }, [phase, reducedMotion, displayDuration, eraseDuration, writeDuration, animateProgress]);
 
   if (reducedMotion) {
     return (
@@ -150,11 +216,11 @@ export function EraseWriteText({
   }
 
   /** Calculate clip-path based on current phase and progress */
-  const getClipPath = () => {
+  const getTextClip = () => {
     if (phase === "erasing") {
-      // Reveal from right to left: hide text as eraser passes
-      const rightInset = progress * 100;
-      return `inset(0 0 0 0)`;
+      // Hide text from right to left as eraser moves
+      const visibleWidth = (1 - progress) * 100;
+      return `inset(0 ${100 - visibleWidth}% 0 0)`;
     }
     if (phase === "writing") {
       // Reveal from left to right: show text as pen passes
@@ -167,14 +233,13 @@ export function EraseWriteText({
     return "inset(0 0 0 0)"; // display — fully visible
   };
 
-  const getTextClip = () => {
-    if (phase === "erasing") {
-      // Hide text from right to left as eraser moves
-      const visibleWidth = (1 - progress) * 100;
-      return `inset(0 ${100 - visibleWidth}% 0 0)`;
-    }
-    return getClipPath();
-  };
+  /**
+   * Vertical bob offset in pixels.
+   * Amplitude: 3px for eraser (side-to-side scrubbing), 4px for pencil
+   * (slightly more pronounced handwriting arc).
+   */
+  const eraserBobPx = bobY * 3;
+  const pencilBobPx = bobY * 4;
 
   return (
     <span className={`relative inline-flex items-center ${className}`}>
@@ -195,7 +260,8 @@ export function EraseWriteText({
           className="absolute -top-1"
           style={{
             left: `${(1 - progress) * 100}%`,
-            transform: "translateX(-50%)",
+            // Horizontal centering + vertical sin-wave bob
+            transform: `translateX(-50%) translateY(${eraserBobPx}px)`,
           }}
         >
           <EraserSprite />
@@ -212,7 +278,8 @@ export function EraseWriteText({
           className="absolute -top-2"
           style={{
             left: `${progress * 100}%`,
-            transform: "translateX(-50%)",
+            // Horizontal centering + vertical sin-wave bob
+            transform: `translateX(-50%) translateY(${pencilBobPx}px)`,
           }}
         >
           <PencilSprite />
