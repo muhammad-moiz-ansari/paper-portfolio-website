@@ -12,16 +12,19 @@ import {
 
 const CONTACT_LINKS = [
   {
+    platform: "email",
     icon: DoodleMail,
     label: "moizansari2005@gmail.com",
     href: "mailto:moizansari2005@gmail.com",
   },
   {
+    platform: "linkedin",
     icon: DoodleLinkedin,
     label: "muhammad-moiz-ansari",
     href: "https://linkedin.com/in/muhammad-moiz-ansari",
   },
   {
+    platform: "github",
     icon: DoodleGithub,
     label: "muhammad-moiz-ansari",
     href: "https://github.com/muhammad-moiz-ansari",
@@ -56,7 +59,16 @@ export function Contact() {
           }}
         />
 
-        <p className="text-lg text-[var(--text-secondary)] mb-10 max-w-2xl leading-relaxed">
+        {/* Issue 2 fix: use --color-ink for kraft paper text in light mode
+            so the contrast ratio against #C4A882 passes WCAG AA.
+            --text-secondary (#5C5C5C) is too light on kraft. */}
+        <p
+          className={`text-lg mb-10 max-w-2xl leading-relaxed ${
+            isChalkboard
+              ? "text-[var(--text-secondary)]"
+              : "text-[var(--color-ink)]"
+          }`}
+        >
           Got a project idea, want to collaborate, or just want to say hi?
           Drop me a note below, or reach out through any of these channels.
         </p>
@@ -74,24 +86,33 @@ export function Contact() {
 
           {/* Contact info sidebar */}
           <div className="flex flex-col gap-5 md:pt-4">
-            {CONTACT_LINKS.map(({ icon: Icon, label, href }) => (
+            {/* Issue: duplicate React key fixed — use `platform` instead of `label` */}
+            {CONTACT_LINKS.map(({ platform, icon: Icon, label, href }) => (
               <a
-                key={label}
+                key={platform}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 group transition-colors"
               >
+                {/* Issue 3 fix: use transparent bg in light mode (was bg-[var(--color-paper)]
+                    which created a visible white halo on the kraft background) */}
                 <span
                   className={`shrink-0 p-2 rounded-sm border ${
                     isChalkboard
                       ? "border-[var(--color-chalk-line)] bg-[var(--color-chalk-bg-dark)]"
-                      : "border-[var(--border-light)] bg-[var(--color-paper)]"
+                      : "border-[var(--border-light)] bg-transparent"
                   }`}
                 >
                   <Icon size={24} />
                 </span>
-                <span className="text-sm text-[var(--text-secondary)] group-hover:text-[var(--color-link)] transition-colors break-all">
+                <span
+                  className={`text-sm group-hover:text-[var(--color-link)] transition-colors break-all ${
+                    isChalkboard
+                      ? "text-[var(--text-secondary)]"
+                      : "text-[var(--color-ink)]"
+                  }`}
+                >
                   {label}
                 </span>
               </a>

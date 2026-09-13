@@ -184,31 +184,51 @@ function Notepad() {
 
   const pencilBob = state.bobY * 3;
 
+  // Wire color for spiral binding
+  const wireColor = isChalkboard ? "rgba(240,237,229,0.25)" : "#908070";
+  const wireShadow = isChalkboard ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.15)";
+  const holeBg = isChalkboard ? "var(--color-chalk-bg)" : "#E8E0D0";
+  const holeBorder = isChalkboard ? "rgba(240,237,229,0.15)" : "#C4B8A4";
+
   return (
     <div className="w-full max-w-xl mx-auto" style={{ perspective: "1000px" }}>
-      {/* Enhanced spiral binding */}
-      <div className="flex justify-center gap-6 mb-0.5 relative">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="relative">
-            {/* Spiral wire */}
-            <div
-              className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-6 rounded-full border-2 ${
-                isChalkboard
-                  ? "border-[var(--color-chalk-line)]"
-                  : "border-[#A0937D]"
-              }`}
-              style={{ zIndex: 1 }}
-            />
-            {/* Hole */}
-            <div
-              className={`relative z-[2] w-3 h-3 rounded-full ${
-                isChalkboard
-                  ? "bg-[var(--color-chalk-bg)] border border-[var(--color-chalk-line)]"
-                  : "bg-[#E8E0D0] border border-[#C4B8A4]"
-              }`}
-            />
-          </div>
-        ))}
+      {/* Spiral binding — half-rings protruding from the top edge of the notepad.
+          Each ring is an SVG semicircle that sits above the notepad body,
+          with a matching punch-hole at the top of the pad. */}
+      <div className="relative" style={{ marginBottom: "-2px" }}>
+        <div className="flex justify-center gap-8 px-8">
+          {Array.from({ length: 7 }).map((_, i) => (
+            <div key={i} className="relative flex flex-col items-center" style={{ width: "20px" }}>
+              {/* Wire half-ring — arches above the notepad */}
+              <svg
+                width="20" height="14" viewBox="0 0 20 14"
+                className="block"
+                style={{
+                  filter: `drop-shadow(0 1px 1px ${wireShadow})`,
+                }}
+              >
+                <path
+                  d="M2,14 A8,10 0 0,1 18,14"
+                  fill="none"
+                  stroke={wireColor}
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+              {/* Punch hole — sits at the top of the notepad body */}
+              <div
+                className="w-3 h-3 rounded-full border"
+                style={{
+                  background: holeBg,
+                  borderColor: holeBorder,
+                  marginTop: "-2px",
+                  position: "relative",
+                  zIndex: 3,
+                }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Notepad body — with deckled edges and shadow */}

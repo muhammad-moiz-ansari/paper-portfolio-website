@@ -5,7 +5,6 @@ import { PencilCursor } from "@/components/pencil-cursor";
 import { HighlightNav } from "@/components/highlight-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { TornEdge } from "@/components/torn-edge";
-import { useTheme } from "@/lib/theme-context";
 
 import { About } from "@/components/sections/About";
 import { Experience } from "@/components/sections/Experience";
@@ -27,9 +26,6 @@ const SECTION_IDS = NAV_ITEMS.map((item) => item.href.slice(1));
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { theme } = useTheme();
-  const isChalkboard = theme === "chalkboard";
-  const observerRef = useRef<IntersectionObserver | null>(null);
 
   /** Smooth-scroll to the target section */
   const handleNavClick = useCallback((_index: number, href: string) => {
@@ -40,7 +36,14 @@ export default function Home() {
     }
   }, []);
 
-  /** IntersectionObserver tracks which section is most visible */
+  /**
+   * IntersectionObserver tracks which section is most visible.
+   *
+   * Uses a low threshold (0.01) so even short sections fire callbacks,
+   * then picks the section with the largest visible overlap area
+   * (intersectionRatio × boundingHeight). Falls back to whichever
+   * section's midpoint is closest to the viewport midpoint.
+   */
   useEffect(() => {
     const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
       Boolean,
@@ -48,46 +51,75 @@ export default function Home() {
 
     if (sections.length === 0) return;
 
-    observerRef.current = new IntersectionObserver(
+    // Track latest intersection ratios for all observed sections
+    const ratios = new Map<string, number>();
+
+    const observer = new IntersectionObserver(
       (entries) => {
-        // Find the entry with the largest intersection ratio
-        let bestIndex = -1;
-        let bestRatio = 0;
         for (const entry of entries) {
-          if (entry.isIntersecting && entry.intersectionRatio > bestRatio) {
-            bestRatio = entry.intersectionRatio;
-            const idx = SECTION_IDS.indexOf(entry.target.id);
-            if (idx !== -1) bestIndex = idx;
+          ratios.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
+        }
+
+        // Find the section with the largest visible area
+        let bestIndex = -1;
+        let bestScore = 0;
+
+        for (const section of sections) {
+          const ratio = ratios.get(section.id) ?? 0;
+          if (ratio <= 0) continue;
+
+          // Score = ratio × section height → rewards actual visible pixels
+          const score = ratio * section.getBoundingClientRect().height;
+          const idx = SECTION_IDS.indexOf(section.id);
+          if (score > bestScore && idx !== -1) {
+            bestScore = score;
+            bestIndex = idx;
           }
         }
+
+        // Fallback for short sections: pick the one whose midpoint is
+        // closest to the viewport's vertical midpoint
+        if (bestIndex === -1) {
+          const vpMid = window.innerHeight / 2;
+          let closestDist = Infinity;
+
+          for (const section of sections) {
+            const rect = section.getBoundingClientRect();
+            const secMid = rect.top + rect.height / 2;
+            const dist = Math.abs(secMid - vpMid);
+            const idx = SECTION_IDS.indexOf(section.id);
+            if (dist < closestDist && idx !== -1) {
+              closestDist = dist;
+              bestIndex = idx;
+            }
+          }
+        }
+
         if (bestIndex !== -1) {
           setActiveIndex(bestIndex);
         }
       },
       {
-        threshold: [0.1, 0.3, 0.5],
+        // Very low threshold so even tiny sections fire the callback
+        threshold: [0, 0.01, 0.1, 0.25, 0.5, 0.75, 1],
         rootMargin: "-80px 0px 0px 0px",
       },
     );
 
     for (const section of sections) {
-      observerRef.current.observe(section);
+      observer.observe(section);
     }
 
     return () => {
-      observerRef.current?.disconnect();
+      observer.disconnect();
     };
   }, []);
 
   return (
     <PencilCursor enableTrail>
-      {/* Sticky nav header */}
+      {/* Sticky nav header — uses CSS variables for theme-aware styling */}
       <header
-        className={`sticky top-0 z-40 flex items-center justify-between px-4 py-2 backdrop-blur-md border-b ${
-          isChalkboard
-            ? "bg-[var(--color-chalk-bg)]/90 border-[var(--color-chalk-line)]"
-            : "bg-[var(--color-paper)]/90 border-[var(--border-light)]"
-        }`}
+        className="sticky top-0 z-40 flex items-center justify-between px-4 py-2 backdrop-blur-md border-b bg-[var(--bg)]/90 border-[var(--border-light)]"
       >
         <div className="overflow-x-auto flex-1">
           <HighlightNav
@@ -101,26 +133,20 @@ export default function Home() {
 
       <main>
         <About />
-        <TornEdge flip />
+        <TornEdge flip seed={1} />
         <Experience />
-        <TornEdge />
+        <TornEdge seed={2} />
         <Skills />
-        <TornEdge flip />
+        <TornEdge flip seed={3} />
         <Education />
-        <TornEdge />
+        <TornEdge seed={4} />
         <Projects />
-        <TornEdge flip />
+        <TornEdge flip seed={5} />
         <Contact />
       </main>
 
-      {/* Simple footer */}
-      <footer
-        className={`py-6 text-center text-xs ${
-          isChalkboard
-            ? "text-[var(--color-chalk-white)] opacity-40"
-            : "text-[var(--text-faint)]"
-        }`}
-      >
+      {/* Simple footer — uses CSS variables for theme-aware styling */}
+      <footer className="py-6 text-center text-xs text-[var(--text-faint)]">
         © {new Date().getFullYear()} Moiz Ansari · Built with paper & pixels
       </footer>
     </PencilCursor>

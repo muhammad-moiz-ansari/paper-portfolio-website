@@ -91,13 +91,9 @@ export function Experience() {
                     style={{ background: "rgba(232, 160, 168, 0.5)" }}
                   />
 
-                  {/* Left margin line — notebook style */}
-                  <div
-                    className="absolute top-0 bottom-0 left-10"
-                    style={{
-                      borderLeft: "1px solid rgba(232, 160, 168, 0.3)",
-                    }}
-                  />
+                  {/* Left margin line removed — was rendering as a stray
+                     artifact at the card edge. The top ruled line + pin
+                     are enough to convey the index-card look. */}
 
                   <h3 className="text-lg font-bold font-[family-name:var(--font-hand)] mb-1 text-[var(--text)]">
                     {entry.role}

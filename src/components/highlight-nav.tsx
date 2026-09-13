@@ -39,16 +39,15 @@ interface HighlightNavProps {
  * Inline SVG of a rough highlighter shape.
  * Slightly wobbly edges simulate a hand-drawn marker stroke.
  *
- * blend: "multiply" in light mode (darkens toward highlight colour),
- *        "screen"   in dark mode  (brightens, making the colour visible)
+ * Blend mode is driven by the CSS variable --highlight-blend
+ * (set in globals.css per data-theme) so the server-rendered
+ * markup matches the client — no hydration mismatch.
  */
 function HighlighterShape({
   color,
-  blend,
   className = "",
 }: {
   color: string;
-  blend: "multiply" | "screen";
   className?: string;
 }) {
   return (
@@ -61,7 +60,7 @@ function HighlighterShape({
       <path
         d="M4,8 Q6,4 20,6 L60,5 Q100,3 140,7 L180,5 Q196,4 198,10 L199,18 Q198,28 190,30 L160,32 Q120,35 80,31 L40,33 Q10,35 4,30 L2,20 Q1,14 4,8Z"
         fill={color}
-        style={{ mixBlendMode: blend }}
+        style={{ mixBlendMode: "var(--highlight-blend)" as React.CSSProperties["mixBlendMode"] }}
       />
     </svg>
   );
@@ -72,13 +71,11 @@ export function HighlightNav({ items, activeIndex = 0, className = "", onItemCli
   const { theme } = useTheme();
 
   const isChalkboard = theme === "chalkboard";
-  // Blend mode: multiply (light mode) vs screen (dark mode).
-  // "screen" brightens on dark surfaces, making highlight colours pop.
-  const blend: "multiply" | "screen" = isChalkboard ? "screen" : "multiply";
 
   /**
    * Chalkboard: use higher-opacity colours so "screen" blend produces a
    * clearly visible glow. Light mode keeps the softer multiply values.
+   * Blend mode is handled by the CSS variable --highlight-blend.
    */
   const activeColor = isChalkboard
     ? "rgba(255, 224, 102, 0.75)"   // bright yellow — screen-blends visibly on dark green
@@ -115,7 +112,7 @@ export function HighlightNav({ items, activeIndex = 0, className = "", onItemCli
           >
             {/* Active highlight — always visible */}
             {isActive && (
-              <HighlighterShape color={activeColor} blend={blend} />
+              <HighlighterShape color={activeColor} />
             )}
 
             {/* Hover highlight — clip-path animation draws it on from left to right */}
@@ -128,7 +125,7 @@ export function HighlightNav({ items, activeIndex = 0, className = "", onItemCli
                     : "inset(0 100% 0 0)",
                 }}
               >
-                <HighlighterShape color={hoverColor} blend={blend} />
+                <HighlighterShape color={hoverColor} />
               </div>
             )}
 

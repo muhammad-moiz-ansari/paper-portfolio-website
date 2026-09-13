@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback } from "react";
+import { createContext, useContext, useState, useCallback, useEffect } from "react";
 
 type Theme = "paper" | "chalkboard";
 
@@ -17,25 +17,26 @@ const ThemeContext = createContext<ThemeContextType>({
 });
 
 /**
- * Read the persisted theme from localStorage safely (SSR guard).
- * Used as a lazy useState initializer so we never trigger a
- * post-mount state update for the initial theme load.
+ * ThemeProvider reads the *current* data-theme attribute on mount
+ * (which was already set by the blocking inline script in layout.tsx)
+ * to avoid any server/client mismatch. Server always renders "paper",
+ * and the blocking script may have changed it to "chalkboard" before
+ * React hydrates.
  */
-function readStoredTheme(): Theme {
-  if (typeof window === "undefined") return "paper";
-  try {
-    const stored = localStorage.getItem("paper-portfolio-theme");
-    if (stored === "chalkboard" || stored === "paper") return stored;
-  } catch {
-    // localStorage blocked (private browsing, etc.)
-  }
-  return "paper";
-}
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Lazy initializer — runs once on mount, avoids a post-mount setState.
-  // On the server `readStoredTheme` returns "paper" (SSR-safe guard inside).
-  const [theme, setThemeState] = useState<Theme>(readStoredTheme);
+  // Always start with "paper" on the server. On the client, the
+  // blocking script in <head> has already set data-theme, and we
+  // sync to it below in a useEffect.
+  const [theme, setThemeState] = useState<Theme>("paper");
+
+  // On mount, sync React state with the DOM attribute that the
+  // blocking inline script may have already set.
+  useEffect(() => {
+    const attr = document.documentElement.getAttribute("data-theme");
+    if (attr === "chalkboard") {
+      setThemeState("chalkboard");
+    }
+  }, []);
 
   const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);

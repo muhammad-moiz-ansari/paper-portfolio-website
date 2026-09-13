@@ -848,14 +848,14 @@ export default function StyleGuidePage() {
                 <div className="bg-[var(--color-highlight-green)]/20 p-6 text-center text-[var(--text-secondary)]">
                   Section above
                 </div>
-                <TornEdge color="var(--color-highlight-green)" />
+                <TornEdge seed={99} />
                 <div className="bg-[var(--bg-card)] p-6 text-center text-[var(--text-secondary)]">
                   Section below
                 </div>
               </div>
               <DemoLabel>
-                TornEdge component — irregular SVG path simulating a paper tear.
-                Accepts a color prop and can be flipped vertically.
+                TornEdge component — irregular jagged torn paper edge with interlocking halves.
+                Uses CSS variables for theme-aware colors; accepts seed and flip props.
               </DemoLabel>
             </div>
 

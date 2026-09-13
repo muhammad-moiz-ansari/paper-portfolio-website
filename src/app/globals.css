@@ -45,6 +45,15 @@
   --border: var(--color-kraft);
   --border-light: rgba(196, 168, 130, 0.3);
   --shadow-color: rgba(0, 0, 0, 0.1);
+
+  /* Torn edge divider tokens */
+  --torn-edge-top: #FAF0D7;
+  --torn-edge-bottom: #FDF6E3;
+  --torn-edge-gap: #1a1a1a;
+  --torn-edge-shadow: rgba(0, 0, 0, 0.18);
+
+  /* Highlighter blend mode — multiply on paper, screen on chalkboard */
+  --highlight-blend: multiply;
 }
 
 [data-theme="chalkboard"] {
@@ -56,6 +65,15 @@
   --border: var(--color-chalk-line);
   --border-light: rgba(240, 237, 229, 0.08);
   --shadow-color: rgba(0, 0, 0, 0.3);
+
+  /* Torn edge divider tokens — dark theme */
+  --torn-edge-top: #2A3B2A;
+  --torn-edge-bottom: #1E2D1E;
+  --torn-edge-gap: #0d0d0d;
+  --torn-edge-shadow: rgba(0, 0, 0, 0.35);
+
+  /* Highlighter blend mode — screen brightens on dark backgrounds */
+  --highlight-blend: screen;
 }
 
 body {
@@ -217,6 +235,18 @@ body {
       rgba(255, 179, 186, 0.6) 3px,
       rgba(255, 179, 186, 0.6) 6px
     );
+}
+
+[data-theme="chalkboard"] ::-webkit-scrollbar-thumb:hover {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(240, 237, 229, 0.45),
+      rgba(240, 237, 229, 0.45) 3px,
+      rgba(240, 237, 229, 0.25) 3px,
+      rgba(240, 237, 229, 0.25) 6px
+    );
+  border-color: var(--color-chalk-bg-dark);
 }
 
 [data-theme="chalkboard"] ::-webkit-scrollbar-thumb {
