@@ -133,15 +133,15 @@ export default function Home() {
 
       <main>
         <About />
-        <TornEdge flip seed={1} />
+        <TornEdge seed={1} />
         <Experience />
         <TornEdge seed={2} />
         <Skills />
-        <TornEdge flip seed={3} />
+        <TornEdge seed={3} />
         <Education />
         <TornEdge seed={4} />
         <Projects />
-        <TornEdge flip seed={5} />
+        <TornEdge seed={5} />
         <Contact />
       </main>
 
