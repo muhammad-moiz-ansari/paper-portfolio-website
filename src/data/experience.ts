@@ -15,9 +15,11 @@ export const experienceEntries: ExperienceEntry[] = [
     company: "Systems Limited",
     location: "Islamabad, Pakistan",
     date: "Jun 2026",
-    description: "Data analytics  internship.",
+    description: "Data Analytics  internship.",
     bullets: [
-      "// TODO: add bullet points once the internship wraps up",
+      "Built relational SQL databases structured around real-world company data requirements.", 
+      "Advanced core data analytics skills through rigorous internal technical evaluations.",
+      /*"Developed interactive Power BI dashboards to extract actionable insights from Excel data.",*/
     ],
   },
   {

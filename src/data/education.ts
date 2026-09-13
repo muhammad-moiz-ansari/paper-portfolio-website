@@ -22,7 +22,7 @@ export const educationEntries: EducationEntry[] = [
     location: "Islamabad, Pakistan",
     date: "2023 – 2027 (Expected)",
     details: [
-      "Relevant coursework: Data Structures, Algorithms, OOP, Database Systems, Operating Systems, Computer Networks", "Agentic AI",
+      "Relevant coursework: Data Structures, Algorithms, OOP, Database Systems, Operating Systems, Computer Networks, Agentic AI, Web Programming, Software Engineering",
 ],
   },
 ];
