@@ -43,7 +43,7 @@ export function PaperInput({
   const showFocus = forceState === "focused" || (isFocused && !forceState);
   const lineColor = showFocus
     ? (isChalkboard ? "var(--color-chalk-white)" : "var(--color-ink)")
-    : (isChalkboard ? "var(--color-chalk-line)" : "rgba(180, 160, 140, 0.5)");
+    : (isChalkboard ? "var(--color-chalk-line)" : "var(--color-ink-light)");
 
   return (
     <div className={`relative ${className}`}>
@@ -53,9 +53,10 @@ export function PaperInput({
           absolute left-0 transition-all duration-200 font-[family-name:var(--font-hand)]
           pointer-events-none
           ${showFocus || hasValue
-            ? "text-xs -top-4 text-[var(--text-faint)]"
-            : "text-base top-2 text-[var(--text-secondary)]"
+            ? "text-xs -top-4"
+            : "text-base top-2"
           }
+          ${isChalkboard ? "text-[var(--text-secondary)]" : "text-[var(--color-ink)]"}
         `}
       >
         {label}
@@ -111,12 +112,14 @@ export function PaperTextarea({
   const showFocus = forceState === "focused" || (isFocused && !forceState);
 
   /* Ruled lines behind the textarea */
-  const lineColorCss = isChalkboard ? "rgba(240,237,229,0.12)" : "rgba(180,160,140,0.25)";
+  const lineColorCss = isChalkboard ? "rgba(240,237,229,0.12)" : "rgba(97, 87, 76, 0.25)";
   const ruledBg = `repeating-linear-gradient(transparent, transparent 29px, ${lineColorCss} 29px, ${lineColorCss} 30px)`;
 
   return (
     <div className={`relative ${className}`}>
-      <label className="block text-sm font-[family-name:var(--font-hand)] text-[var(--text-secondary)] mb-1">
+      <label className={`block text-sm font-[family-name:var(--font-hand)] mb-1 ${
+        isChalkboard ? "text-[var(--text-secondary)]" : "text-[var(--color-ink)]"
+      }`}>
         {label}
       </label>
       <textarea
@@ -127,14 +130,14 @@ export function PaperTextarea({
         onFocus={() => !forceState && setIsFocused(true)}
         onBlur={() => !forceState && setIsFocused(false)}
         className={`
-          w-full bg-transparent p-3 rounded-sm
+          w-full bg-transparent px-3 pb-3 pt-2 rounded-sm
           text-base font-[family-name:var(--font-hand)] leading-[30px]
           text-[var(--text)] placeholder:text-[var(--text-faint)]
           outline-none resize-y transition-all duration-200
           border-2
           ${showFocus
             ? (isChalkboard ? "border-[var(--color-chalk-white)]" : "border-[var(--color-ink)]")
-            : (isChalkboard ? "border-[var(--color-chalk-line)]" : "border-[var(--border-light)]")
+            : (isChalkboard ? "border-[var(--color-chalk-line)]" : "border-[var(--color-ink-light)]")
           }
         `}
         style={{ backgroundImage: ruledBg, backgroundSize: "100% 30px" }}

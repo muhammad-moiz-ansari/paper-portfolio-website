@@ -95,13 +95,13 @@ export function Contact() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 group transition-colors"
               >
-                {/* Issue 3 fix: use transparent bg in light mode (was bg-[var(--color-paper)]
-                    which created a visible white halo on the kraft background) */}
+                {/* Issue 3 fix: use transparent bg in both light and dark modes
+                    to avoid visible background boxes on the kraft background */}
                 <span
-                  className={`shrink-0 p-2 rounded-sm border ${
+                  className={`shrink-0 p-2 rounded-sm border bg-transparent ${
                     isChalkboard
-                      ? "border-[var(--color-chalk-line)] bg-[var(--color-chalk-bg-dark)]"
-                      : "border-[var(--border-light)] bg-transparent"
+                      ? "border-[var(--color-chalk-line)]"
+                      : "border-[var(--border-light)]"
                   }`}
                 >
                   <Icon size={24} />

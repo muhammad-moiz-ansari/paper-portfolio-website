@@ -237,18 +237,7 @@ body {
     );
 }
 
-[data-theme="chalkboard"] ::-webkit-scrollbar-thumb:hover {
-  background:
-    repeating-linear-gradient(
-      45deg,
-      rgba(240, 237, 229, 0.45),
-      rgba(240, 237, 229, 0.45) 3px,
-      rgba(240, 237, 229, 0.25) 3px,
-      rgba(240, 237, 229, 0.25) 6px
-    );
-  border-color: var(--color-chalk-bg-dark);
-}
-
+/* Dark mode scrollbar - must come after light mode rules */
 [data-theme="chalkboard"] ::-webkit-scrollbar-thumb {
   background:
     repeating-linear-gradient(
@@ -257,6 +246,18 @@ body {
       rgba(240, 237, 229, 0.3) 3px,
       rgba(240, 237, 229, 0.15) 3px,
       rgba(240, 237, 229, 0.15) 6px
+    );
+  border-color: var(--color-chalk-bg-dark);
+}
+
+[data-theme="chalkboard"] ::-webkit-scrollbar-thumb:hover {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(240, 237, 229, 0.45),
+      rgba(240, 237, 229, 0.45) 3px,
+      rgba(240, 237, 229, 0.25) 3px,
+      rgba(240, 237, 229, 0.25) 6px
     );
   border-color: var(--color-chalk-bg-dark);
 }
