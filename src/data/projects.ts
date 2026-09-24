@@ -11,6 +11,7 @@ export interface Project {
   isPlaceholder?: boolean;
 }
 
+// EDIT: PROJECT DATA — array of project entries (title, description, tech stack, links, emoji icons)
 export const projects: Project[] = [
   {
     id: "gpu-klt-tracker",

@@ -3,6 +3,7 @@ export interface NotepadPage {
   lines: string[];
 }
 
+// EDIT: NOTEPAD PAGES — the 4 pages of content shown in the About section notepad animation
 export const notepadPages: NotepadPage[] = [
   {
     id: 1,

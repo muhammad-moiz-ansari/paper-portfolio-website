@@ -10,6 +10,7 @@ import {
   DoodleLinkedin,
 } from "@/components/doodle-icons";
 
+// EDIT: CONTACT INFO — email address, LinkedIn handle, and GitHub username with links
 const CONTACT_LINKS = [
   {
     platform: "email",
@@ -62,6 +63,7 @@ export function Contact() {
         {/* Issue 2 fix: use --color-ink for kraft paper text in light mode
             so the contrast ratio against #C4A882 passes WCAG AA.
             --text-secondary (#5C5C5C) is too light on kraft. */}
+        {/* EDIT: CONTACT INTRO — the introductory paragraph text in the Contact section */}
         <p
           className={`text-lg mb-10 max-w-2xl leading-relaxed ${
             isChalkboard
@@ -76,9 +78,11 @@ export function Contact() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact form */}
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* EDIT: CONTACT FORM LABELS — field labels and placeholder text for the contact form */}
             <PaperInput label="Your Name" placeholder="Jane Doe" />
             <PaperInput label="Email" placeholder="jane@example.com" />
             <PaperTextarea label="Message" placeholder="Write something..." />
+            {/* EDIT: CONTACT SUBMIT BUTTON — text shown on the form submit button */}
             <PaperButton variant="primary" pressStyle="press">
               Send Note ✉
             </PaperButton>
@@ -122,6 +126,7 @@ export function Contact() {
 
         {/* Sign-off */}
         <div className="mt-16 text-center">
+          {/* EDIT: CONTACT SIGN-OFF — the closing message at the end of the Contact section */}
           <p
             className={`text-xl font-[family-name:var(--font-hand)] ${
               isChalkboard ? "chalk-text" : "text-[var(--color-ink)]"

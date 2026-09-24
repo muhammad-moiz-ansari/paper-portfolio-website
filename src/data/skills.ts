@@ -3,6 +3,7 @@ export interface SkillCategory {
   items: string[];
 }
 
+// EDIT: SKILLS DATA — array of skill categories (Technical, Professional) with items
 export const skillCategories: SkillCategory[] = [
   {
     label: "Technical",

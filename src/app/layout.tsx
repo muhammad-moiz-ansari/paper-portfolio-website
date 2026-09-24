@@ -15,8 +15,9 @@ const inter = Inter({
   display: "swap",
 });
 
+// EDIT: PAGE METADATA — browser tab title and site description
 export const metadata: Metadata = {
-  title: "Paper Portfolio",
+  title: "Moiz Ansari | Scratchpad",
   description: "A notebook-themed personal portfolio",
 };
 

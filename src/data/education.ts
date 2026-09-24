@@ -14,6 +14,7 @@ export interface AwardEntry {
   date: string;
 }
 
+// EDIT: EDUCATION DATA — array of education entries (degree, institution, location, date, coursework details)
 export const educationEntries: EducationEntry[] = [
   {
     id: "fast-bscs",
@@ -27,6 +28,7 @@ export const educationEntries: EducationEntry[] = [
   },
 ];
 
+// EDIT: AWARDS DATA — array of awards and honors (title, issuer, date)
 export const awardEntries: AwardEntry[] = [
   {
     id: "deans-list",

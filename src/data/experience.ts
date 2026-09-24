@@ -8,6 +8,7 @@ export interface ExperienceEntry {
   bullets: string[];
 }
 
+// EDIT: EXPERIENCE DATA — array of work experience entries (role, company, location, date, description, bullets)
 export const experienceEntries: ExperienceEntry[] = [
   {
     id: "systems-limited",

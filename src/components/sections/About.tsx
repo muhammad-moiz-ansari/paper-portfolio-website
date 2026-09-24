@@ -347,6 +347,7 @@ function Notepad() {
 
 /* ─── About section (merged Hero + About) ─────────────────── */
 
+// EDIT: ABOUT TAGLINE — the cycling "I'm a ..." animated role phrases shown in the About section
 const TAGLINES = [
   "backend developer",
   "system designer",
@@ -370,6 +371,7 @@ export function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left side — intro */}
           <div>
+            {/* EDIT: ABOUT NAME — the main name heading in the About section */}
             <h1
               className={`text-5xl sm:text-6xl md:text-7xl font-[family-name:var(--font-hand)] font-bold tracking-tight leading-tight ${
                 isChalkboard ? "chalk-text" : "text-[var(--color-ink)]"
@@ -391,6 +393,7 @@ export function About() {
             </div>
 
             {/* About paragraph */}
+            {/* EDIT: ABOUT PARAGRAPH — the main bio/description text in the About section */}
             <p className="mt-6 text-lg text-[var(--text-secondary)] leading-relaxed max-w-lg">
               CS undergrad at FAST NUCES who loves building backend systems that
               don&apos;t fall over at 3 AM. When I&apos;m not writing code, I&apos;m
@@ -399,12 +402,14 @@ export function About() {
 
             {/* Action buttons */}
             <div className="mt-8 flex flex-wrap gap-4">
+              {/* EDIT: ABOUT BUTTON PRIMARY — text shown on the primary action button */}
               <PaperButton
                 variant="primary"
                 onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
               >
                 View Work →
               </PaperButton>
+              {/* EDIT: ABOUT BUTTON SECONDARY — text shown on the secondary action button */}
               <PaperButton
                 variant="secondary"
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
@@ -414,6 +419,7 @@ export function About() {
             </div>
 
             {/* Social links */}
+            {/* EDIT: ABOUT SOCIAL LINKS — GitHub and LinkedIn profile URLs */}
             <div className="mt-6 flex gap-4">
               <a
                 href="https://github.com/muhammad-moiz-ansari"

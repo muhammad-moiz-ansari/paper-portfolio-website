@@ -13,6 +13,7 @@ import { Education } from "@/components/sections/Education";
 import { Projects } from "@/components/sections/Projects";
 import { Contact } from "@/components/sections/Contact";
 
+// EDIT: NAV LABELS — the text labels for navigation tabs in the header
 const NAV_ITEMS = [
   { label: "About", href: "#about" },
   { label: "EXP", href: "#experience" },
@@ -146,6 +147,7 @@ export default function Home() {
       </main>
 
       {/* Simple footer — uses CSS variables for theme-aware styling */}
+      {/* EDIT: FOOTER TEXT — copyright and footer message */}
       <footer className="py-6 text-center text-xs text-[var(--text-faint)]">
         © {new Date().getFullYear()} Moiz Ansari · Built with paper & pixels
       </footer>

@@ -1,0 +1,174 @@
+================================================================================
+  EDITING GUIDE — Content Locations in Paper Portfolio
+================================================================================
+
+HOW TO USE THIS GUIDE:
+Every entry below corresponds to a // EDIT: comment in the code. To jump to any
+content location, search your editor/IDE for "EDIT: [LABEL]" (e.g., search for
+"EDIT: HERO HEADING" to find the hero section title). This convention keeps all
+editable content easy to locate without reading through component logic.
+
+
+================================================================================
+HERO SECTION
+================================================================================
+
+HERO HEADING
+File: src/components/sections/Hero.tsx (around line 29)
+What it is: The big name/title text on the hero section
+How to find it: search for "EDIT: HERO HEADING" in this file
+
+HERO TAGLINE
+File: src/components/sections/Hero.tsx (around line 7)
+What it is: The cycling "I'm a ..." animated role phrases shown below the name
+How to find it: search for "EDIT: HERO TAGLINE" in this file
+
+HERO SUBTITLE
+File: src/components/sections/Hero.tsx (around line 47)
+What it is: The short descriptive paragraph under the cycling tagline
+How to find it: search for "EDIT: HERO SUBTITLE" in this file
+
+SCROLL HINT TEXT
+File: src/components/sections/Hero.tsx (around line 53)
+What it is: The animated scroll instruction at bottom of hero
+How to find it: search for "EDIT: SCROLL HINT TEXT" in this file
+
+
+================================================================================
+ABOUT SECTION
+================================================================================
+
+ABOUT NAME
+File: src/components/sections/About.tsx (around line 374)
+What it is: The main name heading in the About section
+How to find it: search for "EDIT: ABOUT NAME" in this file
+
+ABOUT TAGLINE
+File: src/components/sections/About.tsx (around line 351)
+What it is: The cycling "I'm a ..." animated role phrases shown in the About section
+How to find it: search for "EDIT: ABOUT TAGLINE" in this file
+
+ABOUT PARAGRAPH
+File: src/components/sections/About.tsx (around line 395)
+What it is: The main bio/description text in the About section
+How to find it: search for "EDIT: ABOUT PARAGRAPH" in this file
+
+ABOUT BUTTON PRIMARY
+File: src/components/sections/About.tsx (around line 403)
+What it is: Text shown on the primary action button ("View Work →")
+How to find it: search for "EDIT: ABOUT BUTTON PRIMARY" in this file
+
+ABOUT BUTTON SECONDARY
+File: src/components/sections/About.tsx (around line 408)
+What it is: Text shown on the secondary action button ("Get in Touch")
+How to find it: search for "EDIT: ABOUT BUTTON SECONDARY" in this file
+
+ABOUT SOCIAL LINKS
+File: src/components/sections/About.tsx (around line 418)
+What it is: GitHub and LinkedIn profile URLs
+How to find it: search for "EDIT: ABOUT SOCIAL LINKS" in this file
+
+NOTEPAD PAGES
+File: src/data/notepad-pages.ts (around line 6)
+What it is: The 4 pages of content written out in the About notepad animation
+How to find it: search for "EDIT: NOTEPAD PAGES" in this file
+
+
+================================================================================
+EXPERIENCE SECTION
+================================================================================
+
+EXPERIENCE DATA
+File: src/data/experience.ts (around line 11)
+What it is: Array of work experience entries (role, company, location, date, description, bullets)
+How to find it: search for "EDIT: EXPERIENCE DATA" in this file
+
+
+================================================================================
+SKILLS SECTION
+================================================================================
+
+SKILLS DATA
+File: src/data/skills.ts (around line 6)
+What it is: Array of skill categories (Technical, Professional) with items
+How to find it: search for "EDIT: SKILLS DATA" in this file
+
+
+================================================================================
+EDUCATION SECTION
+================================================================================
+
+EDUCATION DATA
+File: src/data/education.ts (around line 17)
+What it is: Array of education entries (degree, institution, location, date, coursework details)
+How to find it: search for "EDIT: EDUCATION DATA" in this file
+
+AWARDS DATA
+File: src/data/education.ts (around line 30)
+What it is: Array of awards and honors (title, issuer, date)
+How to find it: search for "EDIT: AWARDS DATA" in this file
+
+
+================================================================================
+PROJECTS SECTION
+================================================================================
+
+PROJECT DATA
+File: src/data/projects.ts (around line 14)
+What it is: Array of project entries (title, description, tech stack, links, emoji icons)
+How to find it: search for "EDIT: PROJECT DATA" in this file
+
+
+================================================================================
+CONTACT SECTION
+================================================================================
+
+CONTACT INTRO
+File: src/components/sections/Contact.tsx (around line 67)
+What it is: The introductory paragraph text in the Contact section
+How to find it: search for "EDIT: CONTACT INTRO" in this file
+
+CONTACT INFO
+File: src/components/sections/Contact.tsx (around line 13)
+What it is: Email address, LinkedIn handle, and GitHub username with links
+How to find it: search for "EDIT: CONTACT INFO" in this file
+
+CONTACT FORM LABELS
+File: src/components/sections/Contact.tsx (around line 80)
+What it is: Field labels and placeholder text for the contact form
+How to find it: search for "EDIT: CONTACT FORM LABELS" in this file
+
+CONTACT SUBMIT BUTTON
+File: src/components/sections/Contact.tsx (around line 83)
+What it is: Text shown on the form submit button
+How to find it: search for "EDIT: CONTACT SUBMIT BUTTON" in this file
+
+CONTACT SIGN-OFF
+File: src/components/sections/Contact.tsx (around line 126)
+What it is: The closing message at the end of the Contact section
+How to find it: search for "EDIT: CONTACT SIGN-OFF" in this file
+
+
+================================================================================
+NAV / GLOBAL
+================================================================================
+
+NAV LABELS
+File: src/app/page.tsx (around line 16)
+What it is: The text labels for navigation tabs in the header
+How to find it: search for "EDIT: NAV LABELS" in this file
+
+PAGE METADATA
+File: src/app/layout.tsx (around line 18)
+What it is: Browser tab title and site description
+How to find it: search for "EDIT: PAGE METADATA" in this file
+
+FOOTER TEXT
+File: src/app/page.tsx (around line 149)
+What it is: Copyright and footer message
+How to find it: search for "EDIT: FOOTER TEXT" in this file
+
+
+================================================================================
+END OF GUIDE
+================================================================================
