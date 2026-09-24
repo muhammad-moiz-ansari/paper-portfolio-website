@@ -30,6 +30,7 @@ interface PaperButtonProps {
   pressStyle?: "press" | "crumple";
   className?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 /**
@@ -51,9 +52,13 @@ export function PaperButton({
   pressStyle = "press",
   className = "",
   onClick,
+  disabled = false,
 }: PaperButtonProps) {
   const { theme } = useTheme();
   const isChalkboard = theme === "chalkboard";
+
+  // If disabled prop is true, treat as disabled regardless of variant
+  const isDisabled = disabled || variant === "disabled";
 
   const baseClasses = `
     relative inline-flex items-center justify-center
@@ -69,7 +74,7 @@ export function PaperButton({
   const handCutClip = "polygon(1% 3%, 98% 0%, 100% 97%, 2% 100%)";
 
   const variantClasses = () => {
-    if (variant === "disabled") {
+    if (isDisabled) {
       return isChalkboard
         ? "bg-[var(--color-chalk-bg-dark)] text-[var(--text-faint)] border-2 border-dashed border-[var(--color-chalk-line)] cursor-not-allowed opacity-60"
         : "bg-[var(--color-paper-dark)] text-[var(--color-ink-faint)] border-2 border-dashed border-[var(--border-light)] cursor-not-allowed opacity-60";
@@ -113,11 +118,12 @@ export function PaperButton({
 
   return (
     <button
+      type="submit"
       className={`${baseClasses} ${variantClasses()} ${className}`}
-      style={{ clipPath: variant !== "disabled" ? handCutClip : undefined }}
-      onClick={variant === "disabled" ? undefined : onClick}
-      disabled={variant === "disabled"}
-      aria-disabled={variant === "disabled"}
+      style={{ clipPath: !isDisabled ? handCutClip : undefined }}
+      onClick={isDisabled ? undefined : onClick}
+      disabled={isDisabled}
+      aria-disabled={isDisabled}
     >
       {/*
         Paper grain texture overlay.
@@ -130,7 +136,7 @@ export function PaperButton({
           backgroundImage: "url('/textures/paper-grain.webp')"
           backgroundSize: "200px 200px"
       */}
-      {variant !== "disabled" && (
+      {!isDisabled && (
         <span
           className="absolute inset-0 pointer-events-none rounded-sm"
           style={{

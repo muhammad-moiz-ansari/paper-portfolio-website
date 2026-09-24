@@ -19,6 +19,7 @@
  */
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { PushPin } from "./push-pin";
 import { useTheme } from "@/lib/theme-context";
 
@@ -99,15 +100,19 @@ export function HighlightNav({ items, activeIndex = 0, className = "", onItemCli
         }}
       >
         {/* Shows ONLY in light (paper) mode */}
-        <img 
+        <Image 
           src="/ma-logo-light.png" 
           alt="Moiz Ansari Logo" 
+          width={36}
+          height={36}
           className={`w-9 h-9 object-contain ${isChalkboard ? "hidden" : "block"}`}
         />
         {/* Shows ONLY in dark (chalkboard) mode */}
-        <img 
+        <Image 
           src="/ma-logo-dark.png" 
           alt="Moiz Ansari Logo" 
+          width={36}
+          height={36}
           className={`w-9 h-9 object-contain ${isChalkboard ? "block" : "hidden"}`}
         />
       </a>

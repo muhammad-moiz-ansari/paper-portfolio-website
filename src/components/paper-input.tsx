@@ -20,6 +20,8 @@ interface PaperInputProps {
   placeholder?: string;
   value?: string;
   className?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
   /** Force a visual state for the style guide demo */
   forceState?: "default" | "focused" | "filled";
 }
@@ -29,6 +31,8 @@ export function PaperInput({
   placeholder = "",
   value: controlledValue,
   className = "",
+  onChange,
+  disabled = false,
   forceState,
 }: PaperInputProps) {
   const [internalValue, setInternalValue] = useState(
@@ -38,12 +42,22 @@ export function PaperInput({
   const { theme } = useTheme();
   const isChalkboard = theme === "chalkboard";
 
-  const value = internalValue;
+  // Use controlled value if onChange is provided, otherwise use internal state
+  const value = onChange ? (controlledValue || "") : internalValue;
   const hasValue = value.length > 0;
   const showFocus = forceState === "focused" || (isFocused && !forceState);
   const lineColor = showFocus
     ? (isChalkboard ? "var(--color-chalk-white)" : "var(--color-ink)")
     : (isChalkboard ? "var(--color-chalk-line)" : "var(--color-ink-light)");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (forceState) return;
+    if (onChange) {
+      onChange(e);
+    } else {
+      setInternalValue(e.target.value);
+    }
+  };
 
   return (
     <div className={`relative ${className}`}>
@@ -66,14 +80,16 @@ export function PaperInput({
         type="text"
         value={value}
         placeholder={showFocus ? placeholder : ""}
-        onChange={(e) => !forceState && setInternalValue(e.target.value)}
+        onChange={handleChange}
         onFocus={() => !forceState && setIsFocused(true)}
         onBlur={() => !forceState && setIsFocused(false)}
+        disabled={disabled}
         className={`
           w-full bg-transparent border-0 border-b-2 py-2 px-0
           text-base font-[family-name:var(--font-hand)]
           text-[var(--text)] placeholder:text-[var(--text-faint)]
           outline-none transition-colors duration-200
+          disabled:opacity-50 disabled:cursor-not-allowed
         `}
         style={{ borderBottomColor: lineColor }}
         readOnly={!!forceState}
@@ -88,6 +104,8 @@ interface PaperTextareaProps {
   value?: string;
   rows?: number;
   className?: string;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  disabled?: boolean;
   forceState?: "default" | "focused" | "filled";
 }
 
@@ -97,6 +115,8 @@ export function PaperTextarea({
   value: controlledValue,
   rows = 4,
   className = "",
+  onChange,
+  disabled = false,
   forceState,
 }: PaperTextareaProps) {
   const [internalValue, setInternalValue] = useState(
@@ -108,12 +128,22 @@ export function PaperTextarea({
   const { theme } = useTheme();
   const isChalkboard = theme === "chalkboard";
 
-  const value = internalValue;
+  // Use controlled value if onChange is provided, otherwise use internal state
+  const value = onChange ? (controlledValue || "") : internalValue;
   const showFocus = forceState === "focused" || (isFocused && !forceState);
 
   /* Ruled lines behind the textarea */
   const lineColorCss = isChalkboard ? "rgba(240,237,229,0.12)" : "rgba(97, 87, 76, 0.25)";
   const ruledBg = `repeating-linear-gradient(transparent, transparent 29px, ${lineColorCss} 29px, ${lineColorCss} 30px)`;
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (forceState) return;
+    if (onChange) {
+      onChange(e);
+    } else {
+      setInternalValue(e.target.value);
+    }
+  };
 
   return (
     <div className={`relative ${className}`}>
@@ -126,15 +156,17 @@ export function PaperTextarea({
         value={value}
         placeholder={placeholder}
         rows={rows}
-        onChange={(e) => !forceState && setInternalValue(e.target.value)}
+        onChange={handleChange}
         onFocus={() => !forceState && setIsFocused(true)}
         onBlur={() => !forceState && setIsFocused(false)}
+        disabled={disabled}
         className={`
           w-full bg-transparent px-3 pb-3 pt-2 rounded-sm
           text-base font-[family-name:var(--font-hand)] leading-[30px]
           text-[var(--text)] placeholder:text-[var(--text-faint)]
           outline-none resize-y transition-all duration-200
           border-2
+          disabled:opacity-50 disabled:cursor-not-allowed
           ${showFocus
             ? (isChalkboard ? "border-[var(--color-chalk-white)]" : "border-[var(--color-ink)]")
             : (isChalkboard ? "border-[var(--color-chalk-line)]" : "border-[var(--color-ink-light)]")
