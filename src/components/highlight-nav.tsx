@@ -87,6 +87,32 @@ export function HighlightNav({ items, activeIndex = 0, className = "", onItemCli
 
   return (
     <nav className={`flex items-center gap-1 ${className}`}>
+      {/* MA Logo */}
+      <a
+        href="#about" 
+        aria-label="Back to top"
+        className="mr-6 flex items-center hover:opacity-70 transition-opacity"
+        onClick={(e) => {
+          e.preventDefault();
+          // Smooth scroll to the about section
+          document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
+        }}
+      >
+        {/* Shows ONLY in light (paper) mode */}
+        <img 
+          src="/ma-logo-light.png" 
+          alt="Moiz Ansari Logo" 
+          className={`w-9 h-9 object-contain ${isChalkboard ? "hidden" : "block"}`}
+        />
+        {/* Shows ONLY in dark (chalkboard) mode */}
+        <img 
+          src="/ma-logo-dark.png" 
+          alt="Moiz Ansari Logo" 
+          className={`w-9 h-9 object-contain ${isChalkboard ? "block" : "hidden"}`}
+        />
+      </a>
+
+      {/* Nav items */}
       {items.map((item, i) => {
         const isActive = i === activeIndex;
         const isHovered = i === hoveredIndex && !isActive;
