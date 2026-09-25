@@ -3,10 +3,14 @@
 /**
  * PaperButton — Realistic torn-paper button with SVG displacement-map edges
  *
- * Uses an invisible inline SVG filter (`feTurbulence` + `feDisplacementMap`)
- * to create organic, torn-paper edges on the button shape.  Paired with
- * `drop-shadow()` (not `box-shadow`) so the shadow follows the irregular
- * torn outline.
+ * The torn-edge filter is applied only to an absolutely-positioned background
+ * <span> that sits behind the text.  The <button> itself is a clean wrapper
+ * with no filter on it, so the children text is never distorted.
+ *
+ * Layers (back → front):
+ *   1. bg span   – carries the fill colour, border, and torn-edge filter
+ *   2. grain span – paper-fibre texture overlay (multiply / overlay blend)
+ *   3. text span  – children, always crisp, relative z-10
  *
  * Active press hooks up the `paper-crumple` keyframes from globals.css
  * for a satisfying tactile squish.
@@ -17,7 +21,7 @@
  *   disabled  – muted, dashed border, no torn edge
  */
 
-import React from "react";
+import React, { useRef } from "react";
 import { useTheme } from "@/lib/theme-context";
 
 interface PaperButtonProps {
@@ -57,6 +61,9 @@ export function PaperButton({
   // If disabled prop is true, treat as disabled regardless of variant
   const isDisabled = disabled || variant === "disabled";
 
+  // Ref to the background span so we can swap its filter on hover
+  const bgRef = useRef<HTMLSpanElement>(null);
+
   /* ─── Drop shadow that follows the torn edge ────────────────── */
 
   // EDIT: BUTTON SHADOWS — drop-shadow values for primary and secondary variants
@@ -79,56 +86,9 @@ export function PaperButton({
   const tornFilter = (shadow: string) =>
     `url(#${FILTER_ID}) ${shadow}`;
 
-  /* ─── Classes ───────────────────────────────────────────────── */
+  /* ─── Background span style (carries the filter) ────────────── */
 
-  const baseClasses = `
-    relative inline-flex items-center justify-center
-    px-6 py-3 text-base font-[family-name:var(--font-hand)] font-semibold
-    rounded-sm transition-all duration-200 ease-out
-    select-none
-  `;
-
-  /**
-   * Active press: hooks into `paper-crumple` keyframes from globals.css
-   * via Tailwind's arbitrary animation syntax.
-   */
-  const activePress =
-    pressStyle === "crumple"
-      ? "active:animate-[paper-crumple_0.15s_ease-out_forwards]"
-      : "active:translate-y-0.5 active:rotate-0 active:scale-[0.97]";
-
-  const variantClasses = (): string => {
-    if (isDisabled) {
-      return isChalkboard
-        ? "bg-[var(--color-chalk-bg-dark)] text-[var(--text-faint)] border-2 border-dashed border-[var(--color-chalk-line)] cursor-not-allowed opacity-60"
-        : "bg-[var(--color-paper-dark)] text-[var(--color-ink-faint)] border-2 border-dashed border-[var(--border-light)] cursor-not-allowed opacity-60";
-    }
-
-    if (variant === "secondary") {
-      return isChalkboard
-        ? `bg-transparent text-[var(--color-chalk-white)] border border-[var(--color-chalk-line)]
-           hover:-translate-y-0.5 hover:rotate-1
-           ${activePress}`
-        : `bg-transparent text-[var(--color-ink)] border border-[var(--color-kraft)]
-           hover:-translate-y-0.5 hover:rotate-1
-           ${activePress}`;
-    }
-
-    // Primary
-    return isChalkboard
-      ? `bg-[var(--color-chalk-bg-dark)] text-[var(--color-chalk-white)]
-         border border-[var(--color-chalk-white)]
-         hover:-translate-y-1 hover:rotate-[2deg]
-         ${activePress}`
-      : `bg-[var(--color-paper-warm)] text-[var(--color-ink)]
-         border border-[var(--color-kraft-dark)]
-         hover:-translate-y-1 hover:rotate-[2deg]
-         ${activePress}`;
-  };
-
-  /* ─── Inline styles for the torn-edge + drop-shadow filter ── */
-
-  const buttonStyle: React.CSSProperties = isDisabled
+  const bgStyle: React.CSSProperties = isDisabled
     ? {}
     : {
         filter:
@@ -136,6 +96,66 @@ export function PaperButton({
             ? tornFilter(secondaryDropShadow)
             : tornFilter(primaryDropShadow),
       };
+
+  /* ─── Background span classes (fill + border) ───────────────── */
+
+  const bgClasses = (): string => {
+    if (isDisabled) return ""; // disabled: button itself carries the styling
+
+    if (variant === "secondary") {
+      return isChalkboard
+        ? "bg-transparent border border-[var(--color-chalk-line)]"
+        : "bg-transparent border border-[var(--color-kraft)]";
+    }
+
+    // Primary
+    return isChalkboard
+      ? "bg-[var(--color-chalk-bg-dark)] border border-[var(--color-chalk-white)]"
+      : "bg-[var(--color-paper-warm)] border border-[var(--color-kraft-dark)]";
+  };
+
+  /* ─── Button wrapper classes ─────────────────────────────────── */
+
+  /*
+   * The <button> is a clean layout wrapper — no filter, no background.
+   * Background, border, and the torn-edge filter all live on the bgSpan.
+   * Text color stays here so it's never distorted.
+   */
+  const activePress =
+    pressStyle === "crumple"
+      ? "active:animate-[paper-crumple_0.15s_ease-out_forwards]"
+      : "active:translate-y-0.5 active:rotate-0 active:scale-[0.97]";
+
+  const buttonClasses = (): string => {
+    if (isDisabled) {
+      return isChalkboard
+        ? "bg-[var(--color-chalk-bg-dark)] text-[var(--text-faint)] border-2 border-dashed border-[var(--color-chalk-line)] cursor-not-allowed opacity-60"
+        : "bg-[var(--color-paper-dark)] text-[var(--color-ink-faint)] border-2 border-dashed border-[var(--border-light)] cursor-not-allowed opacity-60";
+    }
+
+    const textColor =
+      variant === "secondary"
+        ? isChalkboard
+          ? "text-[var(--color-chalk-white)]"
+          : "text-[var(--color-ink)]"
+        : isChalkboard
+          ? "text-[var(--color-chalk-white)]"
+          : "text-[var(--color-ink)]";
+
+    const hover =
+      variant === "secondary"
+        ? "hover:-translate-y-0.5 hover:rotate-1"
+        : "hover:-translate-y-1 hover:rotate-[2deg]";
+
+    return `bg-transparent ${textColor} ${hover} ${activePress}`;
+  };
+
+  const baseClasses = `
+    relative inline-flex items-center justify-center
+    px-6 py-3 text-base font-[family-name:var(--font-hand)] font-semibold
+    rounded-sm transition-all duration-200 ease-out
+    select-none
+  `;
 
   return (
     /*
@@ -173,34 +193,43 @@ export function PaperButton({
         </svg>
       )}
 
-      {/* ── The button itself ────────────────────────────────── */}
+      {/* ── The button itself — clean wrapper, no filter ──────── */}
       <button
         type="submit"
-        className={`${baseClasses} ${variantClasses()} ${className}`}
-        style={buttonStyle}
+        className={`${baseClasses} ${buttonClasses()} ${className}`}
         onClick={isDisabled ? undefined : onClick}
         disabled={isDisabled}
         aria-disabled={isDisabled}
-        /* Swap filter on hover for the lifted shadow */
-        onMouseEnter={(e) => {
-          if (isDisabled) return;
-          const shadow =
-            variant === "secondary"
-              ? secondaryHoverShadow
-              : primaryHoverShadow;
-          e.currentTarget.style.filter = tornFilter(shadow);
+        /* Swap the bg span's filter on hover for the lifted shadow */
+        onMouseEnter={() => {
+          if (isDisabled || !bgRef.current) return;
+          bgRef.current.style.filter = tornFilter(
+            variant === "secondary" ? secondaryHoverShadow : primaryHoverShadow
+          );
         }}
-        onMouseLeave={(e) => {
-          if (isDisabled) return;
-          const shadow =
-            variant === "secondary"
-              ? secondaryDropShadow
-              : primaryDropShadow;
-          e.currentTarget.style.filter = tornFilter(shadow);
+        onMouseLeave={() => {
+          if (isDisabled || !bgRef.current) return;
+          bgRef.current.style.filter = tornFilter(
+            variant === "secondary" ? secondaryDropShadow : primaryDropShadow
+          );
         }}
       >
         {/*
-          Paper grain texture overlay.
+          Layer 1 — torn-paper background shape.
+          This span receives the displacement-map filter, so only the
+          fill + border silhouette is distorted. Text above it is untouched.
+        */}
+        {!isDisabled && (
+          <span
+            ref={bgRef}
+            className={`absolute inset-0 w-full h-full pointer-events-none rounded-sm ${bgClasses()}`}
+            style={bgStyle}
+            aria-hidden="true"
+          />
+        )}
+
+        {/*
+          Layer 2 — paper grain texture overlay.
           Opacity 0.22 — clearly visible fibre without washing out the button colour.
           mix-blend-mode: multiply lets the grain darken slightly into the
           button surface (light mode). On dark/chalkboard we use overlay
@@ -218,7 +247,11 @@ export function PaperButton({
             aria-hidden="true"
           />
         )}
-        <span className="relative z-10">{children}</span>
+
+        {/* Layer 3 — text content, always crisp, never filtered */}
+        <span className="relative z-10 font-[family-name:var(--font-hand)] text-lg flex items-center justify-center">
+          {children}
+        </span>
       </button>
     </span>
   );
