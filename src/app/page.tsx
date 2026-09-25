@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { PencilCursor } from "@/components/pencil-cursor";
 import { HighlightNav } from "@/components/highlight-nav";
 import { MobileFoldNav } from "@/components/mobile-fold-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { TornEdge } from "@/components/torn-edge";
+import { useTheme } from "@/lib/theme-context";
 
 import { About } from "@/components/sections/About";
 import { Experience } from "@/components/sections/Experience";
@@ -28,6 +30,9 @@ const SECTION_IDS = NAV_ITEMS.map((item) => item.href.slice(1));
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const { theme } = useTheme();
+  const isChalkboard = theme === "chalkboard";
 
   /** Smooth-scroll to the target section */
   const handleNavClick = useCallback((_index: number, href: string) => {
@@ -119,29 +124,38 @@ export default function Home() {
 
   return (
     <PencilCursor enableTrail>
-      {/* Sticky nav header — uses CSS variables for theme-aware styling */}
-      <header
-        className="sticky top-0 z-40 flex items-center justify-between px-4 py-2 backdrop-blur-md border-b bg-[var(--bg)]/90 border-[var(--border-light)]"
-      >
-        {/* Desktop nav — hidden on mobile */}
-        <div className="hidden md:flex overflow-x-auto flex-1">
-          <HighlightNav
-            items={NAV_ITEMS}
-            activeIndex={activeIndex}
-            onItemClick={handleNavClick}
-          />
+      {/* Sticky nav header — 3-column flex grid for perfect centering */}
+      <header className="sticky top-0 z-50 flex items-center justify-between px-4 py-2 backdrop-blur-md border-b bg-[var(--bg)]/90 border-[var(--border-light)] min-h-[60px]">
+        {/* Left: Nav items (Desktop) or Mobile Toggle (Mobile) */}
+        <div className="flex-1 flex justify-start">
+          <div className="hidden md:flex">
+            <HighlightNav items={NAV_ITEMS} activeIndex={activeIndex} onItemClick={handleNavClick} />
+          </div>
+          <div className="flex md:hidden">
+            <MobileFoldNav items={NAV_ITEMS} activeIndex={activeIndex} onItemClick={handleNavClick} />
+          </div>
         </div>
 
-        {/* Mobile nav — visible only below md breakpoint */}
-        <div className="flex md:hidden flex-1">
-          <MobileFoldNav
-            items={NAV_ITEMS}
-            activeIndex={activeIndex}
-            onItemClick={handleNavClick}
-          />
+        {/* Center: Logo */}
+        <div className="flex-1 flex justify-center">
+          <a
+            href="#about"
+            aria-label="Back to top"
+            className="flex items-center hover:opacity-70 transition-opacity"
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            <Image src="/ma-logo-light.png" alt="Moiz Ansari Logo" width={36} height={36} className={`w-9 h-9 object-contain ${isChalkboard ? "hidden" : "block"}`} />
+            <Image src="/ma-logo-dark.png" alt="Moiz Ansari Logo" width={36} height={36} className={`w-9 h-9 object-contain ${isChalkboard ? "block" : "hidden"}`} />
+          </a>
         </div>
 
-        <ThemeToggle className="ml-2 shrink-0" />
+        {/* Right: Theme Toggle */}
+        <div className="flex-1 flex justify-end">
+          <ThemeToggle />
+        </div>
       </header>
 
       <main>

@@ -16,7 +16,6 @@
  */
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import Image from "next/image";
 import { PushPin } from "./push-pin";
 import { useTheme } from "@/lib/theme-context";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
@@ -65,12 +64,6 @@ function HighlighterShape({
  */
 const GRAIN_SVG =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E\")";
-
-/**
- * Per-panel rotation tilts for handmade feel.
- * Small, physically plausible values (±1–2°).
- */
-const PANEL_TILTS = [0.8, -0.6, 1.1, -0.9, 0.5, -1.2];
 
 export function MobileFoldNav({
   items,
@@ -183,32 +176,6 @@ export function MobileFoldNav({
         />
       </button>
 
-      {/* 2. MA Logo — locked to the dead center */}
-      <a
-        href="#about"
-        aria-label="Back to top"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center hover:opacity-70 transition-opacity z-50"
-        onClick={(e) => {
-          e.preventDefault();
-          document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
-        }}
-      >
-        <Image
-          src="/ma-logo-light.png"
-          alt="Moiz Ansari Logo"
-          width={32}
-          height={32}
-          className={`w-8 h-8 object-contain ${isChalkboard ? "hidden" : "block"}`}
-        />
-        <Image
-          src="/ma-logo-dark.png"
-          alt="Moiz Ansari Logo"
-          width={32}
-          height={32}
-          className={`w-8 h-8 object-contain ${isChalkboard ? "block" : "hidden"}`}
-        />
-      </a>
-
       {/* Fold-out panel container */}
       {isOpen && (
         <div
@@ -217,7 +184,7 @@ export function MobileFoldNav({
           role="navigation"
           aria-label="Main navigation"
           className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-40"
-          style={{ width: "min(280px, calc(100vw - 32px))" }}
+          style={{ width: "min(280px, calc(100vw - 32px))", perspective: "1200px" }}
         >
           {/* Backdrop shadow under the whole dropdown */}
           <div
@@ -234,24 +201,20 @@ export function MobileFoldNav({
           {items.map((item, i) => {
             const isActive = i === activeIndex;
             const isHovered = i === hoveredIndex && !isActive;
-            const tilt = PANEL_TILTS[i % PANEL_TILTS.length];
             const isFirst = i === 0;
             const isLast = i === items.length - 1;
-
-            // Stagger the unfold — each panel has an increasing delay
-            const unfoldDelay = prefersReduced ? 0 : i * 60;
-            const unfoldDuration = prefersReduced ? 0 : 280;
 
             return (
               <div
                 key={i}
                 className="relative"
                 style={{
-                  // Panel-by-panel unfold animation
+                  // Panel-by-panel 3D accordion hinge animation
                   animation: prefersReduced
-                    ? "mobileFoldFadeIn 0.01ms ease-out forwards"
-                    : `mobileFoldUnfold ${unfoldDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1) ${unfoldDelay}ms both`,
+                    ? "mobileFoldFadeIn 0.1s ease-out forwards"
+                    : `accordion-fold 400ms cubic-bezier(0.4, 0, 0.2, 1) ${i * 120}ms both`,
                   transformOrigin: "top center",
+                  zIndex: 50 - i,
                 }}
               >
                 {/* Crease shadow between panels */}
@@ -283,7 +246,6 @@ export function MobileFoldNav({
                     borderRight: `1px solid ${panelBorder}`,
                     borderTop: isFirst ? `1px solid ${panelBorder}` : "none",
                     borderBottom: `1px solid ${panelBorder}`,
-                    transform: `rotate(${tilt}deg)`,
                   }}
                   onClick={(e) => {
                     e.preventDefault();

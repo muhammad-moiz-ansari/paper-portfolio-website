@@ -360,20 +360,20 @@ body {
 }
 
 /* ============================================
-   MOBILE FOLD NAV — Panel unfold animation
+   MOBILE FOLD NAV — 3D accordion hinge animation
    ============================================ */
-@keyframes mobileFoldUnfold {
+@keyframes accordion-fold {
   0% {
     opacity: 0;
-    transform: rotateX(-90deg) scaleY(0.6);
+    transform: rotateX(-90deg);
   }
   60% {
     opacity: 1;
-    transform: rotateX(8deg) scaleY(1.02);
+    transform: rotateX(15deg);
   }
   100% {
     opacity: 1;
-    transform: rotateX(0deg) scaleY(1);
+    transform: rotateX(0deg);
   }
 }
 
