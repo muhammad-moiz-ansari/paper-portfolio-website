@@ -8,8 +8,8 @@
   --color-paper: #FDF6E3;
   --color-paper-dark: #F5E6C8;
   --color-paper-warm: #FAF0D7;
-  --color-kraft: #C4A882;
-  --color-kraft-dark: #A8896A;
+  --color-kraft: #DEC7A9; /*#C4A882;*/
+  --color-kraft-dark: #452c14;
   --color-ink: #2C2C2C;
   --color-ink-light: #5C5C5C;
   --color-ink-faint: #8C8C8C;
@@ -170,7 +170,7 @@ body {
 
 /* Dark kraft: deep brown so it's clearly distinct from the green chalkboard */
 [data-theme="chalkboard"] .paper-kraft {
-  background-color: #5C3D1E;                      /* dark, shadowed kraft */
+  background-color: var(--color-kraft-dark);                      /* dark, shadowed kraft */
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0.3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23k)' opacity='0.45'/%3E%3C/svg%3E");
 }
@@ -380,4 +380,73 @@ body {
 @keyframes mobileFoldFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* ============================================
+   CRUMPLED PAPER EFFECT
+   ============================================ */
+.bg-crumpled {
+  position: relative;
+}
+
+.bg-crumpled::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('/textures/crumpled-light.jpg');
+  background-size: cover;
+  background-position: center;
+  /* Multiply makes the dark creases show up on your light paper */
+  mix-blend-mode: var(--highlight-blend); 
+  opacity: 0.3; /* Keep it subtle! 10% to 20% is the sweet spot */
+  pointer-events: none; /* Ensures it doesn't block clicks */
+  z-index: 0;
+}
+
+.bg-crumpled > * {
+  position: relative;
+  z-index: 10; /* Keeps your text above the texture */
+}
+
+[data-theme="chalkboard"] .bg-crumpled::before {
+  background-image: url('/textures/crumpled-dark.jpg');
+  opacity: 0.35; /* Slightly less visible on dark mode */
+}
+
+/* ============================================
+   HALFTONE DOT PATTERN EFFECT
+   ============================================ */
+
+.bg-halftone {
+  position: relative;
+}
+
+.bg-halftone::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('/textures/halftone-light.jpg');
+  
+  /* Tile the pattern instead of stretching it */
+  background-size: 1000px; /* Increase/decrease this to change the dot size */
+  background-repeat: repeat;
+  
+  mix-blend-mode: var(--highlight-blend); 
+  
+  /* Halftone patterns are visually loud, so opacity needs to be very low */
+  opacity: 0.12; 
+  
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-halftone > * {
+  position: relative;
+  z-index: 10;
+}
+
+[data-theme="chalkboard"] .bg-halftone::before {
+  background-image: url('/textures/halftone-dark.jpg');
+  /* Dark mode usually needs a slight opacity bump to be visible */
+  opacity: 0.15; 
 }

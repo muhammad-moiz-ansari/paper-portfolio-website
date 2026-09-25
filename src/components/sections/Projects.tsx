@@ -15,7 +15,7 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className={`relative px-6 py-20 scroll-mt-20 ${
+      className={`relative px-6 py-20 scroll-mt-20 bg-halftone ${
         isChalkboard ? "bg-[var(--color-chalk-bg)]" : "bg-[var(--color-paper-warm)]"
       }`}
     >

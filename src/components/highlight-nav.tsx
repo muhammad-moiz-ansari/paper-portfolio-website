@@ -19,7 +19,6 @@
  */
 
 import React, { useState } from "react";
-import { PushPin } from "./push-pin";
 import { useTheme } from "@/lib/theme-context";
 
 interface NavItem {
@@ -133,7 +132,6 @@ export function HighlightNav({ items, activeIndex = 0, className = "", onItemCli
             {/* Tab text — sits above the highlight */}
             <span className="relative z-10 flex items-center gap-1.5">
               {item.label}
-              {isActive && <PushPin size={16} className="inline-block -mt-1" />}
             </span>
           </a>
         );

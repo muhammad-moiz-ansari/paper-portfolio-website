@@ -101,7 +101,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative px-6 py-20 scroll-mt-20 paper-kraft">
+    <section id="contact" className="relative px-6 py-20 scroll-mt-20 paper-kraft bg-crumpled">
       <div className="max-w-3xl mx-auto">
         {/* Section heading */}
         <h2
