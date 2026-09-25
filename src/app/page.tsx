@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { PencilCursor } from "@/components/pencil-cursor";
 import { HighlightNav } from "@/components/highlight-nav";
+import { MobileFoldNav } from "@/components/mobile-fold-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { TornEdge } from "@/components/torn-edge";
 
@@ -122,13 +123,24 @@ export default function Home() {
       <header
         className="sticky top-0 z-40 flex items-center justify-between px-4 py-2 backdrop-blur-md border-b bg-[var(--bg)]/90 border-[var(--border-light)]"
       >
-        <div className="overflow-x-auto flex-1">
+        {/* Desktop nav — hidden on mobile */}
+        <div className="hidden md:flex overflow-x-auto flex-1">
           <HighlightNav
             items={NAV_ITEMS}
             activeIndex={activeIndex}
             onItemClick={handleNavClick}
           />
         </div>
+
+        {/* Mobile nav — visible only below md breakpoint */}
+        <div className="flex md:hidden flex-1">
+          <MobileFoldNav
+            items={NAV_ITEMS}
+            activeIndex={activeIndex}
+            onItemClick={handleNavClick}
+          />
+        </div>
+
         <ThemeToggle className="ml-2 shrink-0" />
       </header>
 
