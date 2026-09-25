@@ -73,6 +73,11 @@ File: src/data/notepad-pages.ts (around line 6)
 What it is: The 4 pages of content written out in the About notepad animation
 How to find it: search for "EDIT: NOTEPAD PAGES" in this file
 
+PINHOLE GLOW COLORS
+File: src/components/pinhole-paper-background.tsx (around line 66)
+What it is: The glow color/intensity for the pinhole dots in light and dark themes
+How to find it: search for "EDIT: PINHOLE GLOW COLORS" in this file
+
 
 ================================================================================
 EXPERIENCE SECTION
