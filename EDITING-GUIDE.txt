@@ -185,5 +185,30 @@ How to find it: search for "EDIT: FOOTER TEXT" in this file
 
 
 ================================================================================
+PAPER BUTTON (shared component)
+================================================================================
+
+BUTTON TORN EDGE
+File: src/components/paper-button.tsx (around line 49)
+What it is: The SVG filter ID used for the torn-paper edge displacement effect
+How to find it: search for "EDIT: BUTTON TORN EDGE" in this file
+
+TORN EDGE TURBULENCE
+File: src/components/paper-button.tsx (around line 141)
+What it is: feTurbulence baseFrequency and numOctaves that control edge roughness
+How to find it: search for "EDIT: TORN EDGE TURBULENCE" in this file
+
+TORN EDGE DISPLACEMENT
+File: src/components/paper-button.tsx (around line 149)
+What it is: feDisplacementMap scale that controls how far the edge is displaced
+How to find it: search for "EDIT: TORN EDGE DISPLACEMENT" in this file
+
+BUTTON SHADOWS
+File: src/components/paper-button.tsx (around line 69)
+What it is: Drop-shadow values for primary and secondary button variants (light/dark)
+How to find it: search for "EDIT: BUTTON SHADOWS" in this file
+
+
+================================================================================
 END OF GUIDE
 ================================================================================
