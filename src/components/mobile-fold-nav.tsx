@@ -160,12 +160,34 @@ export function MobileFoldNav({
   const grainBlend = isChalkboard ? "overlay" : "multiply";
 
   return (
-    <div className="relative flex items-center justify-center">
-      {/* MA Logo — sits to the left */}
+    <div className="relative flex items-center w-full h-full">
+      
+      {/* 1. Pushpin toggle button — sits naturally on the left */}
+      <button
+        ref={buttonRef}
+        onClick={toggle}
+        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={isOpen}
+        aria-controls="mobile-fold-nav-menu"
+        className={`
+          relative z-50 p-1 transition-transform
+          ${isOpen ? "-translate-y-0.5" : ""}
+        `}
+        style={{
+          transitionDuration: prefersReduced ? "0ms" : "300ms",
+        }}
+      >
+        <PushPin
+          size={28}
+          color={isChalkboard ? "#E8C84A" : "#D94F4F"}
+        />
+      </button>
+
+      {/* 2. MA Logo — locked to the dead center */}
       <a
         href="#about"
         aria-label="Back to top"
-        className="absolute left-0 flex items-center hover:opacity-70 transition-opacity"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center hover:opacity-70 transition-opacity z-50"
         onClick={(e) => {
           e.preventDefault();
           document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
@@ -186,27 +208,6 @@ export function MobileFoldNav({
           className={`w-8 h-8 object-contain ${isChalkboard ? "block" : "hidden"}`}
         />
       </a>
-
-      {/* Pushpin toggle button — centered */}
-      <button
-        ref={buttonRef}
-        onClick={toggle}
-        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-        aria-expanded={isOpen}
-        aria-controls="mobile-fold-nav-menu"
-        className={`
-          relative z-50 p-1 transition-transform
-          ${isOpen ? "-translate-y-0.5" : ""}
-        `}
-        style={{
-          transitionDuration: prefersReduced ? "0ms" : "300ms",
-        }}
-      >
-        <PushPin
-          size={28}
-          color={isChalkboard ? "#E8C84A" : "#D94F4F"}
-        />
-      </button>
 
       {/* Fold-out panel container */}
       {isOpen && (
