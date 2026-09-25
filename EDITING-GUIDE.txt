@@ -154,9 +154,14 @@ NAV / GLOBAL
 ================================================================================
 
 NAV LABELS
-File: src/app/page.tsx (around line 16)
+File: src/app/page.tsx (around line 20)
 What it is: The text labels for navigation tabs in the header
 How to find it: search for "EDIT: NAV LABELS" in this file
+
+LOGO
+File: src/app/page.tsx (around line 140)
+What it is: The single site logo image — centered on mobile, far-left on desktop
+How to find it: search for "EDIT: LOGO" in this file
 
 PAGE METADATA
 File: src/app/layout.tsx (around line 18)

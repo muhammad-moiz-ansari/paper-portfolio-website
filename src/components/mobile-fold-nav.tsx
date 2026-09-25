@@ -186,18 +186,6 @@ export function MobileFoldNav({
           className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-40"
           style={{ width: "min(280px, calc(100vw - 32px))", perspective: "1200px" }}
         >
-          {/* Backdrop shadow under the whole dropdown */}
-          <div
-            className="absolute inset-0 rounded-sm pointer-events-none"
-            style={{
-              boxShadow: isChalkboard
-                ? "0 8px 32px rgba(0,0,0,0.5)"
-                : "0 8px 32px rgba(0,0,0,0.15)",
-              borderRadius: "4px",
-            }}
-            aria-hidden="true"
-          />
-
           {items.map((item, i) => {
             const isActive = i === activeIndex;
             const isHovered = i === hoveredIndex && !isActive;
@@ -229,7 +217,7 @@ export function MobileFoldNav({
                 <a
                   href={item.href}
                   className={`
-                    relative block w-full text-center py-3.5 px-6
+                    relative flex items-center justify-center w-full py-3.5 px-6
                     text-lg font-[family-name:var(--font-hand)]
                     transition-colors duration-200
                     ${isActive ? "font-bold" : "font-medium"}
@@ -246,6 +234,7 @@ export function MobileFoldNav({
                     borderRight: `1px solid ${panelBorder}`,
                     borderTop: isFirst ? `1px solid ${panelBorder}` : "none",
                     borderBottom: `1px solid ${panelBorder}`,
+                    boxShadow: isChalkboard ? "0 4px 12px rgba(0,0,0,0.4)" : "0 4px 12px rgba(0,0,0,0.12)",
                   }}
                   onClick={(e) => {
                     e.preventDefault();

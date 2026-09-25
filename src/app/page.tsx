@@ -124,20 +124,16 @@ export default function Home() {
 
   return (
     <PencilCursor enableTrail>
-      {/* Sticky nav header — 3-column flex grid for perfect centering */}
+      {/* Sticky nav header — responsive grid: logo absolute-centers on mobile, far-left on desktop */}
       <header className="sticky top-0 z-50 flex items-center justify-between px-4 py-2 backdrop-blur-md border-b bg-[var(--bg)]/90 border-[var(--border-light)] min-h-[60px]">
-        {/* Left: Nav items (Desktop) or Mobile Toggle (Mobile) */}
-        <div className="flex-1 flex justify-start">
-          <div className="hidden md:flex">
-            <HighlightNav items={NAV_ITEMS} activeIndex={activeIndex} onItemClick={handleNavClick} />
-          </div>
-          <div className="flex md:hidden">
-            <MobileFoldNav items={NAV_ITEMS} activeIndex={activeIndex} onItemClick={handleNavClick} />
-          </div>
+        {/* Mobile Menu Toggle (Left on mobile, hidden on desktop) */}
+        <div className="flex md:hidden w-1/3 justify-start">
+          <MobileFoldNav items={NAV_ITEMS} activeIndex={activeIndex} onItemClick={handleNavClick} />
         </div>
 
-        {/* Center: Logo */}
-        <div className="flex-1 flex justify-center">
+        {/* EDIT: LOGO — single logo, absolute-centered on mobile, far-left on desktop */}
+        {/* Single Logo (Centered on mobile, Far-Left on desktop) */}
+        <div className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 md:flex md:w-1/3 md:justify-start z-50">
           <a
             href="#about"
             aria-label="Back to top"
@@ -152,8 +148,13 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Right: Theme Toggle */}
-        <div className="flex-1 flex justify-end">
+        {/* Desktop Nav (Hidden on mobile, Centered on desktop) */}
+        <div className="hidden md:flex md:w-1/3 md:justify-center">
+          <HighlightNav items={NAV_ITEMS} activeIndex={activeIndex} onItemClick={handleNavClick} />
+        </div>
+
+        {/* Theme Toggle (Right) */}
+        <div className="flex w-1/3 justify-end z-50">
           <ThemeToggle />
         </div>
       </header>
