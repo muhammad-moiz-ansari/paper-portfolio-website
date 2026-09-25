@@ -78,6 +78,11 @@ File: src/components/pinhole-paper-background.tsx (around line 66)
 What it is: The glow color/intensity for the pinhole dots in light and dark themes
 How to find it: search for "EDIT: PINHOLE GLOW COLORS" in this file
 
+INK WASH COLORS
+File: src/components/ink-wash-background.tsx (around line 41)
+What it is: Bloom color palettes (indigo, sepia, slate-blue) for ink-wash background in light and dark themes
+How to find it: search for "EDIT: INK WASH COLORS" in this file
+
 
 ================================================================================
 EXPERIENCE SECTION

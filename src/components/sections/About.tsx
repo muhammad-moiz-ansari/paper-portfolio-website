@@ -7,7 +7,7 @@ import { notepadPages } from "@/data/notepad-pages";
 import { EraseWriteText } from "@/components/erase-write-text";
 import { PaperButton } from "@/components/paper-button";
 import { DoodleGithub, DoodleLinkedin } from "@/components/doodle-icons";
-import { PinholePaperBackground } from "@/components/pinhole-paper-background";
+import { InkWashBackground } from "@/components/ink-wash-background";
 
 /* ─── Notepad sub-component ─────────────────────────────────── */
 
@@ -368,8 +368,8 @@ export function About() {
         isChalkboard ? "bg-[var(--color-chalk-bg)]" : "bg-[var(--color-paper-warm)]"
       }`}
     >
-      {/* Pinhole / light-box paper background — canvas behind all content */}
-      <PinholePaperBackground />
+      {/* Ink-wash bloom paper background — canvas behind all content */}
+      <InkWashBackground />
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
