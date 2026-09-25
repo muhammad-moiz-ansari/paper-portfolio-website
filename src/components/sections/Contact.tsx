@@ -201,12 +201,9 @@ export function Contact() {
                 >
                   <Icon size={24} />
                 </span>
+                {/* EDIT: SOCIAL LINK TEXT — text color and hover for email/LinkedIn/GitHub links */}
                 <span
-                  className={`text-sm group-hover:text-[var(--color-link)] transition-colors break-all ${
-                    isChalkboard
-                      ? "text-[var(--text-secondary)]"
-                      : "text-[var(--color-ink)]"
-                  }`}
+                  className={`text-sm group-hover:text-[var(--text)] transition-colors break-all text-[var(--text-secondary)]`}
                 >
                   {label}
                 </span>

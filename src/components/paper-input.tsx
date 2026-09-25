@@ -46,9 +46,10 @@ export function PaperInput({
   const value = onChange ? (controlledValue || "") : internalValue;
   const hasValue = value.length > 0;
   const showFocus = forceState === "focused" || (isFocused && !forceState);
+  // EDIT: INPUT BORDER COLOR — underline border color for text input (focused vs default, chalkboard vs paper)
   const lineColor = showFocus
     ? (isChalkboard ? "var(--color-chalk-white)" : "var(--color-ink)")
-    : (isChalkboard ? "var(--color-chalk-line)" : "var(--color-ink-light)");
+    : (isChalkboard ? "rgba(240,237,229,0.3)" : "var(--color-ink-light)");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (forceState) return;
@@ -76,6 +77,7 @@ export function PaperInput({
         {label}
       </label>
 
+      {/* EDIT: INPUT PLACEHOLDER COLOR — placeholder text contrast on crumpled kraft/dark backgrounds */}
       <input
         type="text"
         value={value}
@@ -86,8 +88,8 @@ export function PaperInput({
         disabled={disabled}
         className={`
           w-full bg-transparent border-0 border-b-2 py-2 px-0
-          text-base font-[family-name:var(--font-hand)]
-          text-[var(--text)] placeholder:text-[var(--text-faint)]
+          text-base font-[family-name:var(--font-body)]
+          text-[var(--text)] placeholder:text-[var(--text-secondary)]
           outline-none transition-colors duration-200
           disabled:opacity-50 disabled:cursor-not-allowed
         `}
@@ -133,7 +135,8 @@ export function PaperTextarea({
   const showFocus = forceState === "focused" || (isFocused && !forceState);
 
   /* Ruled lines behind the textarea */
-  const lineColorCss = isChalkboard ? "rgba(240,237,229,0.12)" : "rgba(97, 87, 76, 0.25)";
+  // EDIT: TEXTAREA RULED LINES — line opacity for ruled background (light vs chalkboard)
+  const lineColorCss = isChalkboard ? "rgba(240,237,229,0.2)" : "rgba(44, 44, 44, 0.2)";
   const ruledBg = `repeating-linear-gradient(transparent, transparent 29px, ${lineColorCss} 29px, ${lineColorCss} 30px)`;
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -152,6 +155,8 @@ export function PaperTextarea({
       }`}>
         {label}
       </label>
+      {/* EDIT: TEXTAREA PLACEHOLDER COLOR — placeholder text contrast on crumpled kraft/dark backgrounds */}
+      {/* EDIT: TEXTAREA BORDER — stronger border in chalkboard/dark mode so it shows against the paper texture */}
       <textarea
         value={value}
         placeholder={placeholder}
@@ -162,14 +167,14 @@ export function PaperTextarea({
         disabled={disabled}
         className={`
           w-full bg-transparent px-3 pb-3 pt-2 rounded-sm
-          text-base font-[family-name:var(--font-hand)] leading-[30px]
-          text-[var(--text)] placeholder:text-[var(--text-faint)]
+          text-base font-[family-name:var(--font-body)] leading-[29px]
+          text-[var(--text)] placeholder:text-[var(--text-secondary)]
           outline-none resize-y transition-all duration-200
           border-2
           disabled:opacity-50 disabled:cursor-not-allowed
           ${showFocus
             ? (isChalkboard ? "border-[var(--color-chalk-white)]" : "border-[var(--color-ink)]")
-            : (isChalkboard ? "border-[var(--color-chalk-line)]" : "border-[var(--color-ink-light)]")
+            : (isChalkboard ? "border-[rgba(240,237,229,0.3)]" : "border-[var(--color-ink-light)]")
           }
         `}
         style={{ backgroundImage: ruledBg, backgroundSize: "100% 30px" }}

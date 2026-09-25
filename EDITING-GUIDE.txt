@@ -144,9 +144,14 @@ What it is: Email address, LinkedIn handle, and GitHub username with links
 How to find it: search for "EDIT: CONTACT INFO" in this file
 
 CONTACT FORM LABELS
-File: src/components/sections/Contact.tsx (around line 80)
+File: src/components/sections/Contact.tsx (around line 140)
 What it is: Field labels and placeholder text for the contact form
 How to find it: search for "EDIT: CONTACT FORM LABELS" in this file
+
+SOCIAL LINK TEXT
+File: src/components/sections/Contact.tsx (around line 204)
+What it is: Text color and hover style for email/LinkedIn/GitHub link labels in the Contact sidebar
+How to find it: search for "EDIT: SOCIAL LINK TEXT" in this file
 
 CONTACT SUBMIT BUTTON
 File: src/components/sections/Contact.tsx (around line 83)
@@ -207,6 +212,36 @@ BUTTON SHADOWS
 File: src/components/paper-button.tsx (around line 69)
 What it is: Drop-shadow values for primary and secondary button variants (light/dark)
 How to find it: search for "EDIT: BUTTON SHADOWS" in this file
+
+
+================================================================================
+PAPER INPUT (shared component)
+================================================================================
+
+INPUT PLACEHOLDER COLOR
+File: src/components/paper-input.tsx (around line 80)
+What it is: Placeholder text color for the text input — uses --text-secondary for contrast on textured/kraft paper
+How to find it: search for "EDIT: INPUT PLACEHOLDER COLOR" in this file
+
+INPUT BORDER COLOR
+File: src/components/paper-input.tsx (around line 49)
+What it is: Underline border color for the text input (default vs focused, chalkboard vs paper)
+How to find it: search for "EDIT: INPUT BORDER COLOR" in this file
+
+TEXTAREA PLACEHOLDER COLOR
+File: src/components/paper-input.tsx (around line 157)
+What it is: Placeholder text color for the textarea — uses --text-secondary for contrast on textured/kraft paper
+How to find it: search for "EDIT: TEXTAREA PLACEHOLDER COLOR" in this file
+
+TEXTAREA BORDER
+File: src/components/paper-input.tsx (around line 157)
+What it is: Border color for the textarea box (default vs focused, chalkboard vs paper)
+How to find it: search for "EDIT: TEXTAREA BORDER" in this file
+
+TEXTAREA RULED LINES
+File: src/components/paper-input.tsx (around line 136)
+What it is: Ruled line color and opacity in the textarea background gradient
+How to find it: search for "EDIT: TEXTAREA RULED LINES" in this file
 
 
 ================================================================================
