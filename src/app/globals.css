@@ -507,11 +507,11 @@ body {
   inset: 0;
   
   background-image: url('/textures/paper-light.jpg'); 
-  background-size: 1000px; 
-  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
   
   mix-blend-mode: multiply; 
-  opacity: 0.65; 
+  opacity: 0.75; 
   
   pointer-events: none;
   z-index: 0;
@@ -527,5 +527,5 @@ body {
   background-image: url('/textures/paper-light.jpg'); 
   filter: invert(1) contrast(0.85);
   mix-blend-mode: screen; 
-  opacity: 0.3;
+  opacity: 0.4;
 }

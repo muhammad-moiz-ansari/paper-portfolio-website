@@ -1,30 +1,12 @@
 "use client";
 
-/**
- * TornEdge — A torn/ripped paper edge divider
- *
- * Renders a single dark torn "strip" sitting at the seam between two
- * sections. Both edges of the strip (the one touching the section above,
- * and the one touching the section below) are generated from the SAME
- * underlying jagged wobble, just offset by the strip's thickness — so they
- * read as the two edges of one continuous tear, not two unrelated shapes.
- *
- * This is a single closed, non-self-intersecting polygon: top edge traced
- * left-to-right, bottom edge traced right-to-left, closed.
- */
-
 import React, { useMemo } from "react";
 
 interface TornEdgeProps {
   className?: string;
-  /** Deterministic seed for reproducible randomness */
   seed?: number;
 }
 
-/**
- * Seeded pseudo-random number generator (mulberry32).
- * Returns a function that produces deterministic values in [0, 1).
- */
 function mulberry32(seed: number) {
   let t = seed;
   return () => {
@@ -35,25 +17,19 @@ function mulberry32(seed: number) {
   };
 }
 
-const SVG_WIDTH = 1200;
+// 1. Made the base width massive to cover up to 4K monitors without stretching
+const SVG_WIDTH = 6500; 
 const SVG_HEIGHT = 40;
-const BAND_BASELINE = SVG_HEIGHT / 2; // center of the torn strip
-const BAND_THICKNESS = 10; // vertical distance between the two edges
+const BAND_BASELINE = SVG_HEIGHT / 2; 
+const BAND_THICKNESS = 22; // Keeping the wider gap from our previous fix!
 
-/**
- * Generate ONE shared jagged wobble sampled across the width. Both the top
- * and bottom edges of the strip will be built from this same array, offset
- * by +/- half the band thickness — so they're guaranteed to be "the same
- * crack", just parallel copies of it, rather than two independently random
- * shapes that happen to sit near each other.
- */
 function buildWobble(rand: () => number, segments: number): number[] {
   const wobble: number[] = [];
   for (let i = 0; i <= segments; i++) {
     const isBigTear = rand() > 0.7;
     const amplitude = isBigTear
-      ? 6 + rand() * 10 // big tear: 6-16px
-      : 1.5 + rand() * 4.5; // small rip: 1.5-6px
+      ? 6 + rand() * 10 
+      : 1.5 + rand() * 4.5; 
     const direction = rand() > 0.5 ? -1 : 1;
     wobble.push(direction * amplitude);
   }
@@ -63,25 +39,21 @@ function buildWobble(rand: () => number, segments: number): number[] {
 export function TornEdge({ className = "", seed = 42 }: TornEdgeProps) {
   const path = useMemo(() => {
     const rand = mulberry32(seed);
-    const segments = 90;
+    // 2. Scaled segments up from 90 to 300 so the teeth stay the exact same physical size
+    const segments = 300; 
     const wobble = buildWobble(rand, segments);
 
     const xAt = (i: number) => (i / segments) * SVG_WIDTH;
-    const topY = (i: number) =>
-      BAND_BASELINE - BAND_THICKNESS / 2 + wobble[i];
-    const bottomY = (i: number) =>
-      BAND_BASELINE + BAND_THICKNESS / 2 + wobble[i];
+    const topY = (i: number) => BAND_BASELINE - BAND_THICKNESS / 2 + wobble[i];
+    const bottomY = (i: number) => BAND_BASELINE + BAND_THICKNESS / 2 + wobble[i];
 
     const parts: string[] = [];
 
-    // Top edge, left -> right
     parts.push(`M${xAt(0).toFixed(1)},${topY(0).toFixed(1)}`);
     for (let i = 1; i <= segments; i++) {
       parts.push(`L${xAt(i).toFixed(1)},${topY(i).toFixed(1)}`);
     }
 
-    // Bottom edge, right -> left (same wobble array, so it's the same
-    // crack shape as the top edge, just shifted down by BAND_THICKNESS)
     for (let i = segments; i >= 0; i--) {
       parts.push(`L${xAt(i).toFixed(1)},${bottomY(i).toFixed(1)}`);
     }
@@ -96,26 +68,21 @@ export function TornEdge({ className = "", seed = 42 }: TornEdgeProps) {
       aria-hidden="true"
       style={{
         height: `${SVG_HEIGHT}px`,
-        zIndex: 5,
-        marginTop: "-1px",
-        marginBottom: "-1px",
+        zIndex: 20, 
+        marginTop: `-${SVG_HEIGHT / 2}px`, 
+        marginBottom: `-${SVG_HEIGHT / 2}px`,
       }}
     >
       <svg
         viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
-        preserveAspectRatio="none"
+        // 3. THE MAGIC FIX: Keeps aspect ratio perfectly 1:1 and crops the edges natively!
+        preserveAspectRatio="xMidYMid slice" 
         className="absolute top-0 left-0 w-full h-full"
         style={{
-          // Single color variable with a safe fallback — the previous
-          // version split this into --torn-edge-top / --torn-edge-bottom /
-          // --torn-edge-gap / --torn-edge-shadow with no fallback values,
-          // so any one of them being undefined in the stylesheet caused
-          // inconsistent/wrong colors. One variable, one fallback, always
-          // renders correctly even before any theme CSS is wired up.
-          filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2))",
+          filter: "drop-shadow(0px 6px 4px var(--torn-edge-shadow))",
         }}
       >
-        <path d={path} fill="var(--torn-edge-dark, #1a1a1a)" stroke="none" />
+        <path d={path} fill="var(--torn-edge-gap)" stroke="none" />
       </svg>
     </div>
   );
