@@ -10,6 +10,9 @@
   --color-paper-warm: #FAF0D7;
   --color-kraft: #DEC7A9; /*#C4A882;*/
   --color-kraft-dark: #452c14;
+  /* EDIT: FELT BOARD COLORS — base color tokens for the felt memo board background in Skills section */
+  --color-felt: #7B8B9C;          /* dusty blue-gray bulletin board felt */
+  --color-felt-dark: #242B3A;     /* deep navy-slate felt (distinct from chalkboard green) */
   --color-ink: #2C2C2C;
   --color-ink-light: #5C5C5C;
   --color-ink-faint: #8C8C8C;
@@ -173,6 +176,56 @@ body {
   background-color: var(--color-kraft-dark);                      /* dark, shadowed kraft */
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0.3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23k)' opacity='0.45'/%3E%3C/svg%3E");
+}
+
+/*
+  Felt / fabric memo board — used in the Skills section.
+  A fine woven-crosshatch SVG feTurbulence texture reads as soft fabric
+  rather than paper grain.  The vignette ::after layer darkens the edges
+  for subtle depth.  No animation needed — sticky notes carry the visual
+  interest.
+
+  Light:  dusty blue-gray felt (#7B8B9C) — classic classroom bulletin board.
+  Dark:   deep navy-slate (#242B3A) — distinct from the chalkboard green.
+
+  Sticky-note pastels (yellow #FFF9C4, pink #FCE4EC, blue #E3F2FD) stay
+  legible on both backgrounds.  In chalkboard mode the notes are very
+  transparent (0.12–0.15 opacity), so the dark felt must be deep enough
+  to give them contrast — #242B3A achieves this.
+*/
+.paper-felt {
+  position: relative;
+  background-color: var(--color-felt);
+  /* Woven crosshatch texture — low-contrast fractalNoise reads as fabric */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65 0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0.1'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)' opacity='0.22'/%3E%3C/svg%3E");
+}
+
+/* Soft vignette — darkens edges for depth without obscuring sticky notes */
+.paper-felt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.18) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* All direct children float above the vignette */
+.paper-felt > * {
+  position: relative;
+  z-index: 10;
+}
+
+[data-theme="chalkboard"] .paper-felt {
+  background-color: var(--color-felt-dark);
+  /* Slightly stronger texture opacity on the dark variant for visibility */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65 0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0.1'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)' opacity='0.30'/%3E%3C/svg%3E");
 }
 
 /* ============================================

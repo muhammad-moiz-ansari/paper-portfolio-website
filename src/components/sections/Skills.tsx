@@ -20,9 +20,8 @@ export function Skills() {
   return (
     <section
       id="skills"
-      className={`relative px-6 py-20 scroll-mt-20 ${
-        isChalkboard ? "bg-[var(--color-chalk-bg)]" : "bg-[var(--color-paper-warm)]"
-      }`}
+      // EDIT: FELT BOARD COLORS — felt memo board texture class; light/dark variants defined in globals.css
+      className="relative px-6 py-20 scroll-mt-20 paper-felt"
     >
       <div className="max-w-4xl mx-auto">
         {/* Section heading */}

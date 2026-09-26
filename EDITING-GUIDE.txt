@@ -103,6 +103,11 @@ File: src/data/skills.ts (around line 6)
 What it is: Array of skill categories (Technical, Professional) with items
 How to find it: search for "EDIT: SKILLS DATA" in this file
 
+FELT BOARD COLORS
+File: src/app/globals.css (around line 14)
+What it is: Base color tokens for the felt memo board background (--color-felt, --color-felt-dark)
+How to find it: search for "EDIT: FELT BOARD COLORS" in this file
+
 
 ================================================================================
 EDUCATION SECTION
