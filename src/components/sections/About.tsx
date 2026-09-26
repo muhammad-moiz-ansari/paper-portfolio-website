@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useReducer, useCallback, useRef } from "react";
 import { useTheme } from "@/lib/theme-context";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
-import { notepadPages } from "@/data/notepad-pages";
+import { notepadPages, notepadPagesMobile } from "@/data/notepad-pages";
 import { EraseWriteText } from "@/components/erase-write-text";
 import { PaperButton } from "@/components/paper-button";
 import { DoodleGithub, DoodleLinkedin } from "@/components/doodle-icons";
@@ -57,6 +57,7 @@ function notepadReducer(state: NotepadState, action: NotepadAction): NotepadStat
   }
 }
 
+/* Pencil animation speed and duration */
 const LINE_WRITE_DURATION = 600;
 const AUTO_ADVANCE_DELAY = 3000;
 
@@ -67,6 +68,8 @@ function Notepad() {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
   const [state, dispatch] = useReducer(notepadReducer, {
     phase: "idle" as NotepadPhase,
     lineIndex: 0,
@@ -74,11 +77,26 @@ function Notepad() {
     bobY: 0,
   });
 
+  // Check window size on mount and window resize
+  useEffect(() => {
+    const checkMobile = () => {
+      // 640px matches Tailwind's 'sm' breakpoint
+      setIsMobile(window.innerWidth < 640);
+    };
+    
+    checkMobile(); // Run immediately on client load
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const animRef = useRef<number | null>(null);
   const startRef = useRef(0);
+
+  // Dynamically select the correct array based on screen width
+  const activePages = isMobile ? notepadPagesMobile : notepadPages;
   
-  const page = notepadPages[currentPage];
-  const nextPage = notepadPages[(currentPage + 1) % notepadPages.length];
+  const page = activePages[currentPage];
+  const nextPage = activePages[(currentPage + 1) % activePages.length];
   const totalLines = page.lines.length;
 
   const animateLine = useCallback((onComplete: () => void) => {
@@ -135,7 +153,7 @@ function Notepad() {
     if (state.phase !== "display") return;
 
     const timer = setTimeout(() => {
-      const next = (currentPage + 1) % notepadPages.length;
+      const next = (currentPage + 1) % activePages.length;
 
       if (animRef.current) cancelAnimationFrame(animRef.current);
 
@@ -172,7 +190,8 @@ function Notepad() {
     return "inset(0 100% 0 0)";
   };
 
-  const pencilBob = state.bobY * 3;
+  /* Pencil bobbing animation (Up and Down) */
+  const pencilBob = state.bobY * 4; // Bobbing amplitude in pixels
   const textColor = isChalkboard ? "text-[var(--color-chalk-white)]" : "text-[var(--color-ink)]";
   const linkColor = isChalkboard ? "text-[var(--color-highlight-green)]" : "text-[var(--color-link)]";
 
@@ -190,20 +209,15 @@ function Notepad() {
       </div>
 
       {/* 2. STATIC BACKGROUND PAGE (Layer underneath) */}
-      {/* 
-          FIX 1: Removed all text from this layer. 
-          Now, when the page flips, the paper underneath is completely blank! 
-      */}
       <div className="absolute top-10 left-0 w-full h-[352px] bg-legal-pad rounded-b-md z-0 shadow-inner" />
 
       {/* 3. FLIPPING TOP PAGE (Current Page) */}
       <div 
-        className={`absolute top-10 left-0 w-full h-[352px] bg-legal-pad rounded-b-md origin-top shadow-sm ${
+        className={`absolute top-10 left-0 w-full h-[352px] bg-legal-pad rounded-b-md origin-top shadow-sm overflow-hidden ${
           isFlipping ? 'animate-page-flip z-30' : 'z-10'
         }`}
       >
-        {/* FIX 2: Added pt-[32px] to push the text down by exactly one empty line */}
-        <div className="pl-[64px] pr-6 pt-[32px]">
+        <div className="pl-[40px] min-[408px]:pl-[64px] pr-6 pt-[32px]">
           {page.lines.map((line, i) => (
             <div
               key={`${currentPage}-${i}`}
@@ -227,11 +241,16 @@ function Notepad() {
                   <span
                     className="absolute top-1"
                     style={{
-                      left: `${state.lineProgress * 100}%`,
+                      /* 
+                        Change 1.5 to adjust pencil horizontal speed!
+                        - 1.5 makes the pencil move 50% faster than the text
+                        - 0.8 makes the pencil move slower than the text 
+                      */
+                      left: `${Math.min(state.lineProgress * 0.8 * 100, 100)}%`,
                       transform: `translateX(-50%) translateY(${pencilBob}px)`,
                     }}
                   >
-                    <NotepadPencil className="rotate-180" />
+                    <NotepadPencil className="rotate-80" />
                   </span>
                 )}
             </div>
@@ -239,8 +258,8 @@ function Notepad() {
         </div>
 
         {/* Page indicator forced to the very last line segment at the bottom */}
-        <div className="absolute bottom-0 h-[32px] left-[64px] right-6 flex items-center justify-between text-xs text-[var(--text-faint)] font-mono">
-          <span>page {currentPage + 1} / {notepadPages.length}</span>
+        <div className="absolute bottom-0 h-[32px] left-[40px] min-[408px]:left-[64px] right-6 flex items-center justify-between text-xs text-[var(--text-faint)] font-mono">
+          <span>page {currentPage + 1} / {activePages.length}</span>
           {lineVisible(totalLines - 1) && (
             <span className={linkColor}>▊</span>
           )}

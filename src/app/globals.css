@@ -536,7 +536,7 @@ body {
 
 .bg-legal-pad {
   /* Classic pale yellow */
-  background-color: #FDF3A9; 
+  background-color: #fff7bb; 
   /* Blue ruled lines */
   background-image: repeating-linear-gradient(
     transparent,
@@ -545,6 +545,17 @@ body {
     rgba(100, 150, 200, 0.4) 32px
   );
   background-size: 100% 32px;
+}
+
+/* Dark mode version (Greyish Black) */
+[data-theme="chalkboard"] .bg-legal-pad {
+  background-color: #161616; /* Greyish black */
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    rgba(100, 150, 200, 0.25) 31px, /* Softer blue lines */
+    rgba(100, 150, 200, 0.25) 32px
+  );
 }
 
 /* The double red margin line */
@@ -559,6 +570,19 @@ body {
   border-right: 1px solid rgba(220, 50, 50, 0.5);
   pointer-events: none;
   z-index: 1;
+}
+
+/* Move red line to the left on screens 407px and below */
+@media (max-width: 407px) {
+  .bg-legal-pad::before {
+    left: 28px; 
+  }
+}
+
+/* Dark mode version of the red margin */
+[data-theme="chalkboard"] .bg-legal-pad::before {
+  border-left: 1px solid rgba(220, 50, 50, 0.25);
+  border-right: 1px solid rgba(220, 50, 50, 0.25);
 }
 
 /* 3D Page Flip Animation */
