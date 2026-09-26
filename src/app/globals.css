@@ -9,7 +9,7 @@
   --color-paper-dark: #F5E6C8;
   --color-paper-warm: #FAF0D7;
   --color-kraft: #DEC7A9; /*#C4A882;*/
-  --color-kraft-dark: #452c14;
+  --color-kraft-dark: #36210D;
   /* EDIT: FELT BOARD COLORS — base color tokens for the felt memo board background in Skills section */
   --color-felt: #7B8B9C;          /* dusty blue-gray bulletin board felt */
   --color-felt-dark: #242B3A;     /* deep navy-slate felt (distinct from chalkboard green) */
@@ -24,8 +24,8 @@
   --color-error: #D94F4F;
 
   /* Chalkboard tokens */
-  --color-chalk-bg: #2A3B2A;
-  --color-chalk-bg-dark: #1E2D1E;
+  --color-chalk-bg: #1A1A1A;      /* Main blackish background */
+  --color-chalk-bg-dark: #101010; /* Darker tone for contrast/cards */
   --color-chalk-white: #F0EDE5;
   --color-chalk-dust: rgba(240, 237, 229, 0.08);
   --color-chalk-line: rgba(240, 237, 229, 0.15);
@@ -70,8 +70,8 @@
   --shadow-color: rgba(0, 0, 0, 0.3);
 
   /* Torn edge divider tokens — dark theme */
-  --torn-edge-top: #2A3B2A;
-  --torn-edge-bottom: #1E2D1E;
+  --torn-edge-top: #1A1A1A;       /* Must match --color-chalk-bg */
+  --torn-edge-bottom: #101010;    /* Must match --color-chalk-bg-dark */
   --torn-edge-gap: #0d0d0d;
   --torn-edge-shadow: rgba(0, 0, 0, 0.35);
 
