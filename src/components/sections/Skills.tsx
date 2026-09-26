@@ -20,8 +20,8 @@ export function Skills() {
   return (
     <section
       id="skills"
-      // EDIT: FELT BOARD COLORS — felt memo board texture class; light/dark variants defined in globals.css
-      className="relative px-6 py-20 scroll-mt-20 paper-felt"
+      // EDIT: PAPER BOARD COLORS — paper memo board texture class; light/dark variants defined in globals.css
+      className="relative px-6 py-20 scroll-mt-20 paper-board"
     >
       <div className="max-w-4xl mx-auto">
         {/* Section heading */}
