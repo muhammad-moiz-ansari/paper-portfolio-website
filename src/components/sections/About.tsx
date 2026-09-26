@@ -11,7 +11,6 @@ import { InkWashBackground } from "@/components/ink-wash-background";
 
 /* ─── Notepad sub-component ─────────────────────────────────── */
 
-/** Small pencil SVG for the writing animation (adapted from erase-write-text) */
 function NotepadPencil({ className = "" }: { className?: string }) {
   return (
     <svg width="22" height="22" viewBox="0 0 28 28" className={className} aria-hidden="true">
@@ -25,17 +24,12 @@ function NotepadPencil({ className = "" }: { className?: string }) {
   );
 }
 
-/* ─── Writing animation state machine ──────────────────────── */
-
 type NotepadPhase = "idle" | "writing" | "display";
 
 interface NotepadState {
   phase: NotepadPhase;
-  /** Which line is currently being written (0-based within the page) */
   lineIndex: number;
-  /** 0→1 progress within the current line */
   lineProgress: number;
-  /** sin-wave bob value for the pencil */
   bobY: number;
 }
 
@@ -82,10 +76,11 @@ function Notepad() {
 
   const animRef = useRef<number | null>(null);
   const startRef = useRef(0);
+  
   const page = notepadPages[currentPage];
+  const nextPage = notepadPages[(currentPage + 1) % notepadPages.length];
   const totalLines = page.lines.length;
 
-  /** Animate one line from 0→1 over LINE_WRITE_DURATION, then call onComplete */
   const animateLine = useCallback((onComplete: () => void) => {
     startRef.current = performance.now();
     const step = (now: number) => {
@@ -102,13 +97,11 @@ function Notepad() {
     animRef.current = requestAnimationFrame(step);
   }, []);
 
-  /** Kick off the writing sequence whenever a page becomes active */
   useEffect(() => {
     if (reducedMotion) {
       dispatch({ type: "FINISH" });
       return;
     }
-    // Start writing when idle (new page loaded)
     if (state.phase === "idle") {
       const t = setTimeout(() => dispatch({ type: "START_WRITING" }), 300);
       return () => clearTimeout(t);
@@ -116,7 +109,6 @@ function Notepad() {
     return undefined;
   }, [state.phase, reducedMotion, currentPage]);
 
-  /** Drive line-by-line writing */
   useEffect(() => {
     if (state.phase !== "writing") return;
 
@@ -125,7 +117,6 @@ function Notepad() {
       return;
     }
 
-    // Skip empty lines instantly
     if (page.lines[state.lineIndex].trim() === "") {
       const t = setTimeout(() => dispatch({ type: "ADVANCE_LINE" }), 80);
       return () => clearTimeout(t);
@@ -140,7 +131,6 @@ function Notepad() {
     };
   }, [state.phase, state.lineIndex, totalLines, page.lines, animateLine]);
 
-  /** Auto-advance to next page after display phase */
   useEffect(() => {
     if (state.phase !== "display") return;
 
@@ -158,14 +148,13 @@ function Notepad() {
           setCurrentPage(next);
           dispatch({ type: "RESET" });
           setIsFlipping(false);
-        }, 400);
+        }, 600);
       }
     }, AUTO_ADVANCE_DELAY);
 
     return () => clearTimeout(timer);
   }, [state.phase, currentPage, reducedMotion]);
 
-  /** Is a given line fully or partially visible? */
   const lineVisible = (i: number) => {
     if (reducedMotion || state.phase === "display") return true;
     if (state.phase === "idle") return false;
@@ -184,171 +173,86 @@ function Notepad() {
   };
 
   const pencilBob = state.bobY * 3;
-
-  // Wire color for spiral binding
-  const wireColor = isChalkboard ? "rgba(240,237,229,0.25)" : "#908070";
-  const wireShadow = isChalkboard ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.15)";
-  const holeBg = isChalkboard ? "var(--color-chalk-bg)" : "#E8E0D0";
-  const holeBorder = isChalkboard ? "rgba(240,237,229,0.15)" : "#C4B8A4";
+  const textColor = isChalkboard ? "text-[var(--color-chalk-white)]" : "text-[var(--color-ink)]";
+  const linkColor = isChalkboard ? "text-[var(--color-highlight-green)]" : "text-[var(--color-link)]";
 
   return (
-    <div className="w-full max-w-xl mx-auto" style={{ perspective: "1000px" }}>
-      {/* Spiral binding — half-rings protruding from the top edge of the notepad.
-          Each ring is an SVG semicircle that sits above the notepad body,
-          with a matching punch-hole at the top of the pad. */}
-      <div className="relative" style={{ marginBottom: "-2px" }}>
-        <div className="flex justify-center gap-8 px-8">
-          {Array.from({ length: 7 }).map((_, i) => (
-            <div key={i} className="relative flex flex-col items-center" style={{ width: "20px" }}>
-              {/* Wire half-ring — arches above the notepad */}
-              <svg
-                width="20" height="14" viewBox="0 0 20 14"
-                className="block"
-                style={{
-                  filter: `drop-shadow(0 1px 1px ${wireShadow})`,
-                }}
-              >
-                <path
-                  d="M2,14 A8,10 0 0,1 18,14"
-                  fill="none"
-                  stroke={wireColor}
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-              {/* Punch hole — sits at the top of the notepad body */}
-              <div
-                className="w-3 h-3 rounded-full border"
-                style={{
-                  background: holeBg,
-                  borderColor: holeBorder,
-                  marginTop: "-2px",
-                  position: "relative",
-                  zIndex: 3,
-                }}
-              />
-            </div>
-          ))}
-        </div>
+    // Outer wrapper is strictly 392px tall (40px tape + 352px paper)
+    <div className="w-full max-w-xl mx-auto drop-shadow-xl relative h-[392px]" style={{ perspective: "1200px" }}>
+      
+      {/* 1. TOP BINDING (Glued Edge) - Absolute sibling so it doesn't trap z-indexes */}
+      <div className={`absolute top-0 left-0 w-full h-10 rounded-t-md z-20 overflow-hidden border-b-2 ${
+        isChalkboard ? "bg-[#2A1111] border-[#1A0A0A]" : "bg-[#5A1818] border-[#3A0F0F]"
+      }`}>
+        <div className="absolute inset-0 opacity-30 mix-blend-multiply bg-[url('/textures/paper-light.jpg')] bg-cover pointer-events-none" />
+        <div className="absolute top-1/2 left-1/4 w-4 h-1.5 bg-gray-400/80 rounded-sm -translate-y-1/2 shadow-inner" />
+        <div className="absolute top-1/2 right-1/4 w-4 h-1.5 bg-gray-400/80 rounded-sm -translate-y-1/2 shadow-inner" />
       </div>
 
-      {/* Notepad body — with deckled edges and shadow */}
-      <div
-        className={`relative rounded-sm border overflow-hidden ${
-          isChalkboard
-            ? "border-[var(--color-chalk-line)] bg-[var(--color-chalk-bg-dark)]"
-            : "border-[var(--border)] bg-[var(--color-paper)]"
+      {/* 2. STATIC BACKGROUND PAGE (Layer underneath) */}
+      {/* 
+          FIX 1: Removed all text from this layer. 
+          Now, when the page flips, the paper underneath is completely blank! 
+      */}
+      <div className="absolute top-10 left-0 w-full h-[352px] bg-legal-pad rounded-b-md z-0 shadow-inner" />
+
+      {/* 3. FLIPPING TOP PAGE (Current Page) */}
+      <div 
+        className={`absolute top-10 left-0 w-full h-[352px] bg-legal-pad rounded-b-md origin-top shadow-sm ${
+          isFlipping ? 'animate-page-flip z-30' : 'z-10'
         }`}
-        style={{
-          transform: isFlipping ? "rotateY(-90deg)" : "rotateY(0deg)",
-          transition: "transform 0.4s ease-in-out",
-          transformStyle: "preserve-3d",
-          boxShadow: isChalkboard
-            ? "3px 4px 12px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)"
-            : "3px 4px 12px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.06), -1px 0 0 rgba(0,0,0,0.02), 1px 0 0 rgba(0,0,0,0.02)",
-        }}
       >
-        {/* Deckled right edge */}
-        <div
-          className="absolute top-0 bottom-0 right-0 w-[3px] pointer-events-none"
-          style={{
-            background: isChalkboard
-              ? "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.03) 10%, transparent 20%, rgba(255,255,255,0.02) 30%, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%, rgba(255,255,255,0.02) 70%, transparent 80%, rgba(255,255,255,0.03) 90%, transparent 100%)"
-              : "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.03) 10%, transparent 20%, rgba(0,0,0,0.02) 30%, transparent 40%, rgba(0,0,0,0.04) 50%, transparent 60%, rgba(0,0,0,0.02) 70%, transparent 80%, rgba(0,0,0,0.03) 90%, transparent 100%)",
-          }}
-        />
-
-        {/* Paper texture/grain overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E\")",
-            backgroundSize: "200px 200px",
-            opacity: isChalkboard ? 0.04 : 0.06,
-            mixBlendMode: isChalkboard ? "overlay" : "multiply",
-          }}
-        />
-
-        {/* Red margin line */}
-        <div
-          className="absolute top-0 bottom-0 left-12 w-[2px]"
-          style={{
-            background: isChalkboard
-              ? "rgba(220, 80, 80, 0.3)"
-              : "rgba(220, 80, 80, 0.45)",
-          }}
-        />
-
-        {/* Ruled lines background */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: isChalkboard
-              ? "repeating-linear-gradient(transparent, transparent 23px, rgba(240,237,229,0.15) 23px, rgba(240,237,229,0.15) 24px)"
-              : "repeating-linear-gradient(transparent, transparent 23px, rgba(160,130,100,0.35) 23px, rgba(160,130,100,0.35) 24px)",
-            backgroundSize: "100% 24px",
-          }}
-        />
-
-        {/* Page content */}
-        <div className="relative pl-16 pr-6 py-6 min-h-[220px]">
+        {/* FIX 2: Added pt-[32px] to push the text down by exactly one empty line */}
+        <div className="pl-[64px] pr-6 pt-[32px]">
           {page.lines.map((line, i) => (
             <div
               key={`${currentPage}-${i}`}
               className="relative"
-              style={{ height: "24px", lineHeight: "24px" }}
+              style={{ height: "32px", lineHeight: "32px" }}
             >
               <span
                 className={`font-mono text-sm whitespace-pre ${
-                  line.startsWith("->") || line.startsWith("//")
-                    ? isChalkboard
-                      ? "text-[var(--color-highlight-green)]"
-                      : "text-[var(--color-link)]"
-                    : isChalkboard
-                      ? "text-[var(--color-chalk-white)]"
-                      : "text-[var(--color-ink)]"
+                  line.startsWith("->") || line.startsWith("//") ? linkColor : textColor
                 }`}
                 style={{ clipPath: lineClip(i) }}
               >
                 {line || " "}
               </span>
 
-              {/* Pencil sprite on current writing line */}
+              {/* Pencil sprite flipped 180 degrees */}
               {state.phase === "writing" &&
                 i === state.lineIndex &&
                 !reducedMotion &&
                 line.trim() !== "" && (
                   <span
-                    className="absolute -top-1"
+                    className="absolute top-1"
                     style={{
                       left: `${state.lineProgress * 100}%`,
                       transform: `translateX(-50%) translateY(${pencilBob}px)`,
                     }}
                   >
-                    <NotepadPencil />
+                    <NotepadPencil className="rotate-180" />
                   </span>
                 )}
             </div>
           ))}
         </div>
 
-        {/* Page indicator */}
-        <div className="px-6 pb-3 flex items-center justify-between text-xs text-[var(--text-faint)] font-mono">
+        {/* Page indicator forced to the very last line segment at the bottom */}
+        <div className="absolute bottom-0 h-[32px] left-[64px] right-6 flex items-center justify-between text-xs text-[var(--text-faint)] font-mono">
           <span>page {currentPage + 1} / {notepadPages.length}</span>
           {lineVisible(totalLines - 1) && (
-            <span className={isChalkboard ? "text-[var(--color-highlight-green)]" : "text-[var(--color-link)]"}>
-              ▊
-            </span>
+            <span className={linkColor}>▊</span>
           )}
         </div>
       </div>
+
     </div>
   );
 }
 
 /* ─── About section (merged Hero + About) ─────────────────── */
 
-// EDIT: ABOUT TAGLINE — the cycling "I'm a ..." animated role phrases shown in the About section
 const TAGLINES = [
   "backend developer",
   "system designer",
@@ -368,14 +272,11 @@ export function About() {
         isChalkboard ? "bg-[var(--color-chalk-bg)]" : "bg-[var(--color-paper-warm)]"
       }`}
     >
-      {/* Ink-wash bloom paper background — canvas behind all content */}
       <InkWashBackground />
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left side — intro */}
           <div>
-            {/* EDIT: ABOUT NAME — the main name heading in the About section */}
             <h1
               className={`text-5xl sm:text-6xl md:text-7xl font-[family-name:var(--font-hand)] font-bold tracking-tight leading-tight ${
                 isChalkboard ? "chalk-text" : "text-[var(--color-ink)]"
@@ -384,7 +285,6 @@ export function About() {
               Moiz Ansari
             </h1>
 
-            {/* Cycling tagline */}
             <div className="mt-4 text-2xl sm:text-3xl text-[var(--text-secondary)]">
               <span className="font-[family-name:var(--font-hand)]">I&apos;m a </span>
               <EraseWriteText
@@ -396,24 +296,19 @@ export function About() {
               />
             </div>
 
-            {/* About paragraph */}
-            {/* EDIT: ABOUT PARAGRAPH — the main bio/description text in the About section */}
             <p className="mt-6 text-lg text-[var(--text-secondary)] leading-relaxed max-w-lg">
               CS undergrad at FAST NUCES who loves building backend systems that
               don&apos;t fall over at 3 AM. When I&apos;m not writing code, I&apos;m
               probably debugging someone else&apos;s.
             </p>
 
-            {/* Action buttons */}
             <div className="mt-8 flex flex-wrap gap-4">
-              {/* EDIT: ABOUT BUTTON PRIMARY — text shown on the primary action button */}
               <PaperButton
                 variant="primary"
                 onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
               >
                 View Work →
               </PaperButton>
-              {/* EDIT: ABOUT BUTTON SECONDARY — text shown on the secondary action button */}
               <PaperButton
                 variant="secondary"
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
@@ -422,8 +317,6 @@ export function About() {
               </PaperButton>
             </div>
 
-            {/* Social links */}
-            {/* EDIT: ABOUT SOCIAL LINKS — GitHub and LinkedIn profile URLs */}
             <div className="mt-6 flex gap-4">
               <a
                 href="https://github.com/muhammad-moiz-ansari"
@@ -446,7 +339,6 @@ export function About() {
             </div>
           </div>
 
-          {/* Right side — Notepad */}
           <div>
             <Notepad />
           </div>

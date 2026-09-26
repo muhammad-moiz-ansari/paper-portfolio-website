@@ -529,3 +529,57 @@ body {
   mix-blend-mode: screen; 
   opacity: 0.4;
 }
+
+/* ============================================
+   YELLOW LEGAL PAD & ANIMATIONS
+   ============================================ */
+
+.bg-legal-pad {
+  /* Classic pale yellow */
+  background-color: #FDF3A9; 
+  /* Blue ruled lines */
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    rgba(100, 150, 200, 0.4) 31px,
+    rgba(100, 150, 200, 0.4) 32px
+  );
+  background-size: 100% 32px;
+}
+
+/* The double red margin line */
+.bg-legal-pad::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 48px; /* Margin width */
+  width: 4px; /* Space between the two lines */
+  border-left: 1px solid rgba(220, 50, 50, 0.5);
+  border-right: 1px solid rgba(220, 50, 50, 0.5);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 3D Page Flip Animation */
+@keyframes page-flip-up {
+  0% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 20px 20px rgba(0,0,0,0.2);
+  }
+  100% {
+    /* Flips up and over the top binding */
+    transform: rotateX(180deg); 
+    opacity: 0; /* Fades out as it folds over */
+  }
+}
+
+.animate-page-flip {
+  /* top hinge */
+  transform-origin: top center; 
+  animation: page-flip-up 0.6s ease-in-out forwards;
+}
