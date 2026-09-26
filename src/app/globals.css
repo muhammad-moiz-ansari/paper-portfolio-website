@@ -503,3 +503,45 @@ body {
   /* Dark mode usually needs a slight opacity bump to be visible */
   opacity: 0.15; 
 }
+
+/* ============================================
+   CORKBOARD BACKGROUND (Experience Section)
+   ============================================ */
+.bg-corkboard {
+  position: relative;
+}
+
+.bg-corkboard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  
+  /* Make sure you save a seamless cork image here */
+  background-image: url('/textures/cork-light.jpg'); 
+  
+  /* Tile the texture so the cork grains stay crisp and realistic */
+  background-size: 300px; 
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
+  
+  /* Multiply blends the cork grain into your warm paper color */
+  mix-blend-mode: multiply; 
+  opacity: 0.2; /* Keep it low so text stays 100% readable */
+  
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-corkboard > * {
+  position: relative;
+  z-index: 10;
+}
+
+/* Dark Mode Adjustment */
+[data-theme="chalkboard"] .bg-corkboard::before {
+  background-image: url('/textures/cork-dark.jpg'); /* Optional: Use a darker cork image */
+  /* Overlay or Color-Dodge works better in dark mode to keep contrast */
+  mix-blend-mode: overlay; 
+  opacity: 0.3; 
+}

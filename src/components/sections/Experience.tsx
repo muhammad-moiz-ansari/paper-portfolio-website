@@ -12,7 +12,7 @@ export function Experience() {
   const isChalkboard = theme === "chalkboard";
 
   return (
-    <section id="experience" className="relative px-6 py-20 scroll-mt-20 paper-texture">
+    <section id="experience" className="relative px-6 py-20 scroll-mt-20 paper-texture bg-corkboard">
       <div className="max-w-3xl mx-auto">
         {/* Section heading */}
         <h2
