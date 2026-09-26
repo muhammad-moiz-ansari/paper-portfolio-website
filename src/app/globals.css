@@ -572,8 +572,8 @@ body {
   z-index: 1;
 }
 
-/* Move red line to the left on screens 407px and below */
-@media (max-width: 407px) {
+/* Move red line to the left on screens 420px and below */
+@media (max-width: 420px) {
   .bg-legal-pad::before {
     left: 28px; 
   }

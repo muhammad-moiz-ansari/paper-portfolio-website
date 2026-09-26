@@ -6,8 +6,8 @@ import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { notepadPages, notepadPagesMobile } from "@/data/notepad-pages";
 import { EraseWriteText } from "@/components/erase-write-text";
 import { PaperButton } from "@/components/paper-button";
-import { DoodleGithub, DoodleLinkedin } from "@/components/doodle-icons";
 import { InkWashBackground } from "@/components/ink-wash-background";
+import Image from "next/image";
 
 /* ─── Notepad sub-component ─────────────────────────────────── */
 
@@ -217,7 +217,7 @@ function Notepad() {
           isFlipping ? 'animate-page-flip z-30' : 'z-10'
         }`}
       >
-        <div className="pl-[40px] min-[408px]:pl-[64px] pr-6 pt-[32px]">
+        <div className="pl-[40px] min-[420px]:pl-[64px] pr-6 pt-[32px]">
           {page.lines.map((line, i) => (
             <div
               key={`${currentPage}-${i}`}
@@ -258,7 +258,7 @@ function Notepad() {
         </div>
 
         {/* Page indicator forced to the very last line segment at the bottom */}
-        <div className="absolute bottom-0 h-[32px] left-[40px] min-[408px]:left-[64px] right-6 flex items-center justify-between text-xs text-[var(--text-faint)] font-mono">
+        <div className="absolute bottom-0 h-[32px] left-[40px] min-[420px]:left-[64px] right-6 flex items-center justify-between text-xs text-[var(--text-faint)] font-mono">
           <span>page {currentPage + 1} / {activePages.length}</span>
           {lineVisible(totalLines - 1) && (
             <span className={linkColor}>▊</span>
@@ -341,19 +341,19 @@ export function About() {
                 href="https://github.com/muhammad-moiz-ansari"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors"
+                className="hover:opacity-60 transition-opacity [[data-theme='chalkboard']_&]:invert"
                 aria-label="GitHub"
               >
-                <DoodleGithub size={28} />
+                <Image src="/icons/github-icon.png" alt="GitHub" width={28} height={28} className="w-[28px] h-[28px] object-contain" />
               </a>
               <a
                 href="https://linkedin.com/in/muhammad-moiz-ansari"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors"
+                className="hover:opacity-60 transition-opacity [[data-theme='chalkboard']_&]:invert"
                 aria-label="LinkedIn"
               >
-                <DoodleLinkedin size={28} />
+                <Image src="/icons/linkedin-icon.png" alt="LinkedIn" width={28} height={28} className="w-[28px] h-[28px] object-contain" />
               </a>
             </div>
           </div>

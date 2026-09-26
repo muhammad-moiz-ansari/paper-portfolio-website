@@ -4,30 +4,26 @@ import React, { useState } from "react";
 import { useTheme } from "@/lib/theme-context";
 import { PaperInput, PaperTextarea } from "@/components/paper-input";
 import { PaperButton } from "@/components/paper-button";
-import {
-  DoodleMail,
-  DoodleGithub,
-  DoodleLinkedin,
-} from "@/components/doodle-icons";
 import emailjs from "@emailjs/browser";
+import Image from "next/image";
 
 // EDIT: CONTACT INFO — email address, LinkedIn handle, and GitHub username with links
 const CONTACT_LINKS = [
   {
     platform: "email",
-    icon: DoodleMail,
+    iconSrc: "/icons/email-icon.png",
     label: "moizansari2005@gmail.com",
     href: "mailto:moizansari2005@gmail.com",
   },
   {
     platform: "linkedin",
-    icon: DoodleLinkedin,
+    iconSrc: "/icons/linkedin-icon.png",
     label: "muhammad-moiz-ansari",
     href: "https://linkedin.com/in/muhammad-moiz-ansari",
   },
   {
     platform: "github",
-    icon: DoodleGithub,
+    iconSrc: "/icons/github-icon.png",
     label: "muhammad-moiz-ansari",
     href: "https://github.com/muhammad-moiz-ansari",
   },
@@ -182,7 +178,7 @@ export function Contact() {
           {/* Contact info sidebar */}
           <div className="flex flex-col gap-5 md:pt-4">
             {/* Issue: duplicate React key fixed — use `platform` instead of `label` */}
-            {CONTACT_LINKS.map(({ platform, icon: Icon, label, href }) => (
+            {CONTACT_LINKS.map(({ platform, iconSrc, label, href }) => (
               <a
                 key={platform}
                 href={href}
@@ -199,7 +195,13 @@ export function Contact() {
                       : "border-[var(--border-light)]"
                   }`}
                 >
-                  <Icon size={24} />
+                  <Image 
+                    src={iconSrc} 
+                    alt={platform} 
+                    width={24} 
+                    height={24} 
+                    className="w-[24px] h-[24px] object-contain [[data-theme='chalkboard']_&]:invert" 
+                  />
                 </span>
                 {/* EDIT: SOCIAL LINK TEXT — text color and hover for email/LinkedIn/GitHub links */}
                 <span
