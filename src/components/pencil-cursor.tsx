@@ -1,187 +1,96 @@
 "use client";
 
-/**
- * PencilCursor — Custom cursor provider with optional sketch trail
- *
- * Replaces the default cursor with a pencil-tip cursor (via CSS class on body).
- * Optionally draws a very light, fast-fading sketch trail that follows
- * cursor movement using a canvas overlay.
- *
- * Gracefully falls back to default cursor on:
- * - Touch devices (pointer: coarse)
- * - prefers-reduced-motion
- *
- * Canvas fade strategy:
- * - The canvas has a solid, theme-matching fill painted each frame
- *   (via clearRect + fillRect with the background colour) before re-drawing
- *   the trail.  This avoids the `destination-out` approach which creates
- *   holes to transparency — on a transparent canvas that exposes the
- *   page content behind rather than fading the marks.
- *
- * Trail colour is theme-aware:
- * - Light (paper) mode: dark ink stroke, clearly visible on cream paper
- * - Dark (chalkboard) mode: light chalk stroke, clearly visible on dark green
- *
- * TDZ fix: `fadeCanvas` no longer calls itself directly inside the callback
- * body.  Instead a `MutableRefObject` (`fadeCanvasRef`) always holds the
- * latest version of the callback, and the rAF lambda calls it through the
- * ref — breaking the self-reference that tools flag as a TDZ violation.
- */
-
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef } from "react";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { useTheme } from "@/lib/theme-context";
 
 interface PencilCursorProps {
-  /** Enable the sketch trail effect */
   enableTrail?: boolean;
   children: React.ReactNode;
   className?: string;
 }
 
-export function PencilCursor({
-  enableTrail = true,
-  children,
-  className = "",
-}: PencilCursorProps) {
+/** Viewport overlay. The original 0.04/frame fade is calibrated to 60Hz (2.4/s). */
+export function PencilCursor({ enableTrail = true, children, className = "" }: PencilCursorProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
-  const lastPos = useRef<{ x: number; y: number } | null>(null);
-  const rafId = useRef<number | null>(null);
   const { theme } = useTheme();
-
-  // Keep theme accessible inside callbacks without re-creating them.
   const themeRef = useRef(theme);
   useEffect(() => { themeRef.current = theme; }, [theme]);
 
-  const isTouchDevice = useRef(false);
-
   useEffect(() => {
-    // Check if this is primarily a touch device
-    isTouchDevice.current = window.matchMedia("(pointer: coarse)").matches;
-  }, []);
-
-  /**
-   * Ref that always holds the latest `fadeCanvas` callback.
-   * The rAF lambda calls through this ref to avoid the TDZ
-   * that `requestAnimationFrame(fadeCanvas)` inside `fadeCanvas`
-   * itself would create.
-   */
-  const fadeCanvasRef = useRef<() => void>(() => {});
-
-  /**
-   * Trail segments: each entry is a line from `from` → `to`,
-   * drawn with decreasing alpha so older marks appear more faded.
-   */
-  const trailRef = useRef<Array<{
-    from: { x: number; y: number };
-    to: { x: number; y: number };
-    alpha: number;
-  }>>([]);
-
-  /** Redraw the entire trail and advance fade */
-  const fadeCanvas = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // Clear with theme-matched background so we get a real visual fade
-    // rather than transparent holes that expose the page behind.
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    const isChalkboard = themeRef.current === "chalkboard";
-
-    // Decay each segment's alpha and drop fully-transparent ones
-    trailRef.current = trailRef.current
-      .map((seg) => ({ ...seg, alpha: seg.alpha - 0.04 }))
-      .filter((seg) => seg.alpha > 0);
-
-    // Draw remaining segments
-    for (const seg of trailRef.current) {
-      ctx.beginPath();
-      ctx.moveTo(seg.from.x, seg.from.y);
-      ctx.lineTo(seg.to.x, seg.to.y);
-      // Light chalk stroke on dark, dark ink stroke on light
-      const baseColor = isChalkboard
-        ? `rgba(240, 237, 229, ${seg.alpha})`   // chalk-white on chalkboard
-        : `rgba(44, 44, 44, ${seg.alpha})`;      // ink on paper
-      ctx.strokeStyle = baseColor;
-      ctx.lineWidth = 1;
-      ctx.lineCap = "round";
-      ctx.stroke();
-    }
-
-    rafId.current = requestAnimationFrame(() => fadeCanvasRef.current());
-  }, []); // stable — reads everything through refs
-
-  // Keep the ref up-to-date with the latest callback
-  useEffect(() => { fadeCanvasRef.current = fadeCanvas; }, [fadeCanvas]);
-
-  useEffect(() => {
-    if (!enableTrail || reducedMotion || isTouchDevice.current) return;
-
     const canvas = canvasRef.current;
     const container = containerRef.current;
-    if (!canvas || !container) return;
-
-    // Size canvas to container
+    if (!canvas || !container || !enableTrail || reducedMotion) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const coarse = window.matchMedia("(pointer: coarse)");
+    type Point = { x: number; y: number };
+    let last: Point | null = null;
+    let segments: { from: Point; to: Point; born: number }[] = [];
+    let frame: number | null = null;
+    const clear = () => {
+      if (frame !== null) cancelAnimationFrame(frame);
+      frame = null;
+      segments = [];
+      last = null;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    };
     const resize = () => {
-      canvas.width = container.offsetWidth;
-      canvas.height = container.offsetHeight;
-      // Clear the trail on resize — stale positions would look wrong
-      trailRef.current = [];
+      clear();
+      // Retain the original one backing pixel per CSS pixel appearance; no DPR inflation.
+      canvas.width = coarse.matches ? 0 : window.innerWidth;
+      canvas.height = coarse.matches ? 0 : window.innerHeight;
     };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const handleMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      if (lastPos.current) {
-        // Add a new segment with full opacity — it decays in the rAF loop
-        trailRef.current.push({
-          from: { ...lastPos.current },
-          to: { x, y },
-          alpha: 0.35,
-        });
+    const draw = (now: number) => {
+      frame = null;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      segments = segments.filter(s => 0.35 - (now - s.born) * 0.0024 > 0);
+      const rgb = themeRef.current === "chalkboard" ? "240, 237, 229" : "44, 44, 44";
+      for (const segment of segments) {
+        ctx.beginPath();
+        ctx.moveTo(segment.from.x, segment.from.y);
+        ctx.lineTo(segment.to.x, segment.to.y);
+        ctx.strokeStyle = `rgba(${rgb}, ${0.35 - (now - segment.born) * 0.0024})`;
+        ctx.lineWidth = 1;
+        ctx.lineCap = "round";
+        ctx.stroke();
       }
-
-      lastPos.current = { x, y };
+      if (segments.length) frame = requestAnimationFrame(draw);
     };
-
-    const handleLeave = () => {
-      lastPos.current = null;
+    const move = (event: MouseEvent) => {
+      if (coarse.matches || document.hidden) return;
+      const point = { x: event.clientX, y: event.clientY };
+      if (last) {
+        segments.push({ from: last, to: point, born: performance.now() });
+        if (frame === null) frame = requestAnimationFrame(draw);
+      }
+      last = point;
     };
-
-    container.addEventListener("mousemove", handleMove);
-    container.addEventListener("mouseleave", handleLeave);
-
-    // Start the fade/redraw loop
-    rafId.current = requestAnimationFrame(() => fadeCanvasRef.current());
-
+    const leave = () => { last = null; };
+    resize();
+    container.addEventListener("mousemove", move);
+    container.addEventListener("mouseleave", leave);
+    window.addEventListener("resize", resize);
+    window.addEventListener("scroll", clear, { passive: true });
+    document.addEventListener("visibilitychange", clear);
+    coarse.addEventListener("change", resize);
     return () => {
-      container.removeEventListener("mousemove", handleMove);
-      container.removeEventListener("mouseleave", handleLeave);
+      clear();
+      container.removeEventListener("mousemove", move);
+      container.removeEventListener("mouseleave", leave);
       window.removeEventListener("resize", resize);
-      if (rafId.current) cancelAnimationFrame(rafId.current);
+      window.removeEventListener("scroll", clear);
+      document.removeEventListener("visibilitychange", clear);
+      coarse.removeEventListener("change", resize);
     };
-  }, [enableTrail, reducedMotion]); // fadeCanvas intentionally excluded — called via ref
+  }, [enableTrail, reducedMotion]);
 
   return (
-    <div
-      ref={containerRef}
-      className={`relative pencil-cursor ${className}`}
-    >
+    <div ref={containerRef} className={`relative pencil-cursor ${className}`}>
       {enableTrail && !reducedMotion && (
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 pointer-events-none z-50"
-          aria-hidden="true"
-        />
+        <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-50" aria-hidden="true" />
       )}
       {children}
     </div>

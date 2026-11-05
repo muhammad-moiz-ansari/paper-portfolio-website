@@ -149,7 +149,7 @@ What it is: Email address, LinkedIn handle, and GitHub username with links
 How to find it: search for "EDIT: CONTACT INFO" in this file
 
 CONTACT FORM LABELS
-File: src/components/sections/Contact.tsx (around line 140)
+File: src/components/contact-form.tsx (search EDIT label)
 What it is: Field labels and placeholder text for the contact form
 How to find it: search for "EDIT: CONTACT FORM LABELS" in this file
 
@@ -159,7 +159,7 @@ What it is: Text color and hover style for email/LinkedIn/GitHub link labels in 
 How to find it: search for "EDIT: SOCIAL LINK TEXT" in this file
 
 CONTACT SUBMIT BUTTON
-File: src/components/sections/Contact.tsx (around line 83)
+File: src/components/contact-form.tsx (search EDIT label)
 What it is: Text shown on the form submit button
 How to find it: search for "EDIT: CONTACT SUBMIT BUTTON" in this file
 
@@ -174,12 +174,12 @@ NAV / GLOBAL
 ================================================================================
 
 NAV LABELS
-File: src/app/page.tsx (around line 20)
+File: src/components/site-header.tsx (search EDIT label)
 What it is: The text labels for navigation tabs in the header
 How to find it: search for "EDIT: NAV LABELS" in this file
 
 LOGO
-File: src/app/page.tsx (around line 140)
+File: src/components/site-header.tsx (search EDIT label)
 What it is: The single site logo image — centered on mobile, far-left on desktop
 How to find it: search for "EDIT: LOGO" in this file
 
@@ -248,6 +248,15 @@ File: src/components/paper-input.tsx (around line 136)
 What it is: Ruled line color and opacity in the textarea background gradient
 How to find it: search for "EDIT: TEXTAREA RULED LINES" in this file
 
+
+TEXTURE FORMATS
+File: src/app/globals.css (search EDIT label)
+What it is: AVIF and JPEG fallback URLs for cork, crumpled, and halftone textures.
+
+SERVER THEME PRESENTATION
+File: src/app/globals.css (search EDIT label)
+What it is: Theme selectors/variables preserving server-rendered section colors, opacity, and shadows.
+How to find it: search for "EDIT: SERVER THEME PRESENTATION" in this file
 
 ================================================================================
 END OF GUIDE

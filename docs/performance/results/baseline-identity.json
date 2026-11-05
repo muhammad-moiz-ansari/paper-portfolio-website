@@ -1,0 +1,333 @@
+{
+  "head": "2edc1bf8ffd74da1117eaf5eb36ff8df4a2e9fd0",
+  "branch": "main",
+  "dirty": "",
+  "node": "v24.19.0",
+  "os": "Windows 11 Pro",
+  "release": "10.0.26200",
+  "cpu": "Intel(R) Core(TM) i7-8650U CPU @ 1.90GHz",
+  "logicalCPUs": 8,
+  "memory": 17052286976,
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 480,
+      "sha256": "207e265ff4901f9ad9f96d8ce08530e04f9fc600815472a66d0a446096d654cd"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 678,
+      "sha256": "63f2c50380ed6303237cce215ce27af1d620d094c215e28d1b1538a3c070e3bb"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 1596,
+      "sha256": "9dd80c4847108912e6b8cc7e06a73e02e7643a42189d4a7e31000bbfd7a35d91"
+    },
+    {
+      "path": "EDITING-GUIDE.txt",
+      "bytes": 10629,
+      "sha256": "2afd3f6194a5288858fd6e0d600fb5fb6f47821b1efead32bbecd196eb32e03f"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1450,
+      "sha256": "60b55ff7df79af72590f9524208e46642bc32bdc175cdad41349681c0e2f958f"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "bytes": 465,
+      "sha256": "870f1adccecf3051cbcd9fd307cef51d7633cf510979c181a81f4b1797273493"
+    },
+    {
+      "path": "next.config.ts",
+      "bytes": 133,
+      "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 237148,
+      "sha256": "82153892494876cf84854fa96c85508c9f9cc7d2071fb48c88968749845eb4bd"
+    },
+    {
+      "path": "package.json",
+      "bytes": 579,
+      "sha256": "2952ed1b202f878efc791f72cdbcb160419422c63539fab8cc8c54332d0fe1cd"
+    },
+    {
+      "path": "postcss.config.mjs",
+      "bytes": 94,
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    },
+    {
+      "path": "public/file.svg",
+      "bytes": 391,
+      "sha256": "2b67812c325c199a02536cdbeea0c593a72f707d323b72ee3e08dbab06753bd4"
+    },
+    {
+      "path": "public/globe.svg",
+      "bytes": 1035,
+      "sha256": "b614b9bf183925957661ac851498fe1d8029fd43a62fbfed86f9e2624a57e7cf"
+    },
+    {
+      "path": "public/icons/email-icon.png",
+      "bytes": 67578,
+      "sha256": "296cd19768063ccc086199dc849340bd5829a1a74b52f7cdfede3d84905f8f76"
+    },
+    {
+      "path": "public/icons/github-icon.png",
+      "bytes": 65930,
+      "sha256": "a1b9d5de832ad3f812c3ecb95046c85dfeb5da875627bda3615106b6b52bc711"
+    },
+    {
+      "path": "public/icons/linkedin-icon.png",
+      "bytes": 65959,
+      "sha256": "7b4b83273d998d18a0adffaa988799746e85954dc4ccd512247026e6ad80c829"
+    },
+    {
+      "path": "public/ma-logo-dark.png",
+      "bytes": 556254,
+      "sha256": "d5197833fdea4c7da38879de7a398175b99be2edfae407c233fdec11600fa148"
+    },
+    {
+      "path": "public/ma-logo-light.png",
+      "bytes": 597609,
+      "sha256": "6bf9fb362d34af1ac076a5970e132a0fb1563b19fdd9345b975ebd50892427d1"
+    },
+    {
+      "path": "public/next.svg",
+      "bytes": 1375,
+      "sha256": "55995dfad6ecb4945a1e856ddca03c5e16aa5bf13fd21b4df6a74ae79357bcfc"
+    },
+    {
+      "path": "public/textures/cork-dark.jpg",
+      "bytes": 510242,
+      "sha256": "97ce352832fae6262a3db9c4d3dd2134d378bc3e6562786f8fd863203c84b754"
+    },
+    {
+      "path": "public/textures/cork-light.jpg",
+      "bytes": 537430,
+      "sha256": "57266cb6a2682c739be27927ce79aa452fef801e9ff81724d6dcb5fb751995bc"
+    },
+    {
+      "path": "public/textures/crumpled-dark.jpg",
+      "bytes": 158528,
+      "sha256": "081580d7c37fb3351502fb663df371594dd32bf4fd3eec6f80e3fb445f8b5658"
+    },
+    {
+      "path": "public/textures/crumpled-light.jpg",
+      "bytes": 185230,
+      "sha256": "7f91a000d4b0abd8e899e39e9025cfa795b6d5d36131312d98b95db2d77e9864"
+    },
+    {
+      "path": "public/textures/halftone-dark.jpg",
+      "bytes": 509257,
+      "sha256": "eff6ecae3e4c6dcae7eb69fd96264e4cd8414090af977d31a017b5e364ba8b27"
+    },
+    {
+      "path": "public/textures/halftone-light.jpg",
+      "bytes": 511271,
+      "sha256": "c3173035e78d811254c1472c206f23bdc52a2ee6dc97a634780530d0181563de"
+    },
+    {
+      "path": "public/textures/paper-dark.jpg",
+      "bytes": 79015,
+      "sha256": "d5e72e47a6ccb8e0f81d37a8f1de9d02363d98f06d6b81a684c260b0c99b15d5"
+    },
+    {
+      "path": "public/textures/paper-light.jpg",
+      "bytes": 53635,
+      "sha256": "930ebc890ddaf7c7d6e667f5b39437ed436e8329373234b24ac0e92704afe8c9"
+    },
+    {
+      "path": "public/vercel.svg",
+      "bytes": 128,
+      "sha256": "f081337b2fee635b455b63275406a3e7f39d6a014e25ad90dab5a67e62a12ac4"
+    },
+    {
+      "path": "public/window.svg",
+      "bytes": 385,
+      "sha256": "644768c4aaeb4767bce293344eeb0c125fb804a94d801440424072202d85e3a1"
+    },
+    {
+      "path": "src/app/globals.css",
+      "bytes": 18400,
+      "sha256": "b21aa6d8cd2d8946cd6746c2713f97e9fd1f5527a1d89655bc75101e0fe1fe44"
+    },
+    {
+      "path": "src/app/icon.png",
+      "bytes": 3618736,
+      "sha256": "30cdb0b3656d75c7f19881dc7127c1d5c68cd5db772e7ebc5e205045483d3f6a"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "bytes": 1529,
+      "sha256": "8d7ebe2e2394d0228c2b4cde7f69e8278546bb8ce3a813ff2942f4ba81e4e94b"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "bytes": 6776,
+      "sha256": "4855096618bc477738dcd6627ac0f9f1b413e9496d1a866386c4efc82e3d5206"
+    },
+    {
+      "path": "src/app/style-guide/page.tsx",
+      "bytes": 40598,
+      "sha256": "bf4e341429a04ee1d65526eccc7ccfbc542a4d857392dfb42a99847785fd4ab8"
+    },
+    {
+      "path": "src/components/doodle-icons.tsx",
+      "bytes": 9391,
+      "sha256": "ff4021ef0e5f2e6980b9784be6b908159859cbdd35dd4295bedda205603fe416"
+    },
+    {
+      "path": "src/components/erase-write-text.tsx",
+      "bytes": 10337,
+      "sha256": "f530c18d84502022046a3f7121819ba67906cc4d274915c6936dec6dc4e35d44"
+    },
+    {
+      "path": "src/components/highlight-nav.tsx",
+      "bytes": 4742,
+      "sha256": "044992b5bf681068e592ae2424366bfb2f5bbf2c85e9a8101e80dd704c7aaefd"
+    },
+    {
+      "path": "src/components/ink-wash-background.tsx",
+      "bytes": 15061,
+      "sha256": "337ee4ddf162fcd7fe38c14838e8abafee250f6ed0e01701db16678a9726b3a5"
+    },
+    {
+      "path": "src/components/legal-pad.tsx",
+      "bytes": 2682,
+      "sha256": "b5c81840b3c9676d2e9e54d4c6c9a7cabc3eee1a0eff268eac409235a77e102a"
+    },
+    {
+      "path": "src/components/mobile-fold-nav.tsx",
+      "bytes": 10012,
+      "sha256": "075fe9684ed64247735c18bca5e35fcdb831181dee43467d0a57073e65aab535"
+    },
+    {
+      "path": "src/components/paper-button.tsx",
+      "bytes": 9868,
+      "sha256": "72ede65250800d8339abdf9086d5d2888aad91e53b0fbae4fb46e8605928c2ab"
+    },
+    {
+      "path": "src/components/paper-card.tsx",
+      "bytes": 4517,
+      "sha256": "ea4305a75557e1706a6844f7d6ee588a6d501137f65962c7e9c4c5f44cfbe429"
+    },
+    {
+      "path": "src/components/paper-clip.tsx",
+      "bytes": 1071,
+      "sha256": "7c9bae98cc4d47918f6bd850814faa27968b3eb27a0938ada3ff99b414ea9257"
+    },
+    {
+      "path": "src/components/paper-input.tsx",
+      "bytes": 6575,
+      "sha256": "d033acd91c1332639781ae541f79ca73ef69315e6bb1cd33c89ab541f1de32b8"
+    },
+    {
+      "path": "src/components/pencil-cursor.tsx",
+      "bytes": 6373,
+      "sha256": "39a3260f6833ea25681b2f8038d71ce0fb905eeeae881c2d54c97a2304d9c8e4"
+    },
+    {
+      "path": "src/components/pinhole-paper-background.tsx",
+      "bytes": 10846,
+      "sha256": "6c378cf745e0e5aa6ee86285d500ab4d504b0f70125d71e6eaf01cdd03825f41"
+    },
+    {
+      "path": "src/components/push-pin.tsx",
+      "bytes": 1093,
+      "sha256": "0cd259475b38e53e08adb6850f33ec0c9d4b13759395603e5064046b8ca086ac"
+    },
+    {
+      "path": "src/components/sections/About.tsx",
+      "bytes": 13506,
+      "sha256": "d053153f69bc7f64c0937039787e4b83a3eac84450b580057f1782f1f1fe2931"
+    },
+    {
+      "path": "src/components/sections/Contact.tsx",
+      "bytes": 7804,
+      "sha256": "385dde08e0458ea91d86099997678e875b48d458ce25c2f1ab589cd35e185365"
+    },
+    {
+      "path": "src/components/sections/Education.tsx",
+      "bytes": 2383,
+      "sha256": "63f66a215ddb163dedd8c5f54ad99c4b190536ea99b23f58d5f4705207861e17"
+    },
+    {
+      "path": "src/components/sections/Experience.tsx",
+      "bytes": 5444,
+      "sha256": "683feedcbd2d3249d10565aab7f1cde8b77c13d681bcd20baecae72bce21314e"
+    },
+    {
+      "path": "src/components/sections/Hero.tsx",
+      "bytes": 2253,
+      "sha256": "a1fe7f1178de540792f09dafe3cb6ff6e3f270ffbfca0bdf1422eae65664f371"
+    },
+    {
+      "path": "src/components/sections/Projects.tsx",
+      "bytes": 3197,
+      "sha256": "a81cf3c24f358ffb571e2bd9260da9baea33acf53d7c9c732a6702af04a2eb9c"
+    },
+    {
+      "path": "src/components/sections/Skills.tsx",
+      "bytes": 2547,
+      "sha256": "61325dba2c4a8039fc7cb93f61c29861d4ca78c52123817e3b80dbaed216ff41"
+    },
+    {
+      "path": "src/components/sticky-note.tsx",
+      "bytes": 3039,
+      "sha256": "3b860e2b38aef217bf2c0e2dad2d0bf42a744b245dd365ef3cf99b12d64e2dda"
+    },
+    {
+      "path": "src/components/theme-toggle.tsx",
+      "bytes": 2220,
+      "sha256": "94e5390369bda6d36123f4366aa9857ed354fc6e934eed1e822ae2dd3c6f471a"
+    },
+    {
+      "path": "src/components/torn-edge.tsx",
+      "bytes": 2645,
+      "sha256": "8bd3defa6219c5b19d9563ce12890a9c1fd85faa1ed4f1dd801081c204fd9d31"
+    },
+    {
+      "path": "src/data/education.ts",
+      "bytes": 1002,
+      "sha256": "13837751b4378b72105a49ce2c9ad038386607186cafa4cb9e19f329fb505f26"
+    },
+    {
+      "path": "src/data/experience.ts",
+      "bytes": 2424,
+      "sha256": "fafa6ad5ea5bcffef05256c8f152021c084f8f88cdd7985960ed1efea6292b21"
+    },
+    {
+      "path": "src/data/notepad-pages.ts",
+      "bytes": 2382,
+      "sha256": "46a2895138d712baff7f06e0dc891a1fa5c15fba5dc28b6f5f6e2923b0cca59a"
+    },
+    {
+      "path": "src/data/projects.ts",
+      "bytes": 4005,
+      "sha256": "07dece33baad99f170935581a2195177ccdf4d04a5f210f2c7990f16096c04c1"
+    },
+    {
+      "path": "src/data/skills.ts",
+      "bytes": 704,
+      "sha256": "af42aee8b87a246f32db8ac6f8605a64ef3a9779a57933c9e4f8e1906b6a06ee"
+    },
+    {
+      "path": "src/lib/theme-context.tsx",
+      "bytes": 1886,
+      "sha256": "0368e56a82e9b47595730f695703c2783305ddd540194ad2c71139460ddd02e6"
+    },
+    {
+      "path": "src/lib/use-reduced-motion.ts",
+      "bytes": 661,
+      "sha256": "8c84efeb62b6e0c0be81ad95c5458d1688d97be44f7d4633dad0774d27b4bd9b"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 670,
+      "sha256": "5c51df4c59f4510d8c7dadf07a5c32132228826a3b331da5e286207b4df7ef9c"
+    }
+  ]
+}

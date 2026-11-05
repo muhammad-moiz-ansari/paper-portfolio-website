@@ -1,0 +1,21 @@
+{
+  "url": "http://127.0.0.1:3100",
+  "chromePath": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  "runs": 5,
+  "runtimeRuns": 3,
+  "networkWindow": "navigation through load + 5000ms; navigation timeout 30000ms",
+  "cachePolicy": "COLD BROWSER / WARM SERVER; fresh process per run; CDP HTTP cache disabled; no server-cache deletion",
+  "theme": "paper",
+  "reducedMotion": "no-preference",
+  "headless": true,
+  "lighthouse": {
+    "version": "13.0.1",
+    "throttlingMethod": "simulate",
+    "mobile": { "width": 360, "height": 800, "deviceScaleFactor": 2, "mobile": true, "cpuSlowdownMultiplier": 4, "rttMs": 150, "throughputKbps": 1638.4 },
+    "desktop": { "width": 1440, "height": 900, "deviceScaleFactor": 1, "mobile": false, "cpuSlowdownMultiplier": 1, "rttMs": 40, "throughputKbps": 10240 }
+  },
+  "networkAccounting": "CDP Network.loadingFinished.encodedDataLength wire bytes; Script resource type for JS; includes cross-origin; redirects may undercount; browser profile has no prior origin state",
+  "networkRuns": "separate unthrottled browser runs with same viewport; never interpreted as Lighthouse simulated timing",
+  "visualWidths": [360, 639, 640, 767, 768, 1023, 1024, 1440],
+  "runtime": { "width": 1440, "height": 900, "deviceScaleFactor": 1, "cpuThrottle": 1, "networkThrottle": "none", "settleMs": 3000 }
+}

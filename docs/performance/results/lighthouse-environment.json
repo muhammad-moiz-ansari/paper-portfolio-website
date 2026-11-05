@@ -1,0 +1,166 @@
+{
+  "before-mobile": [
+    {
+      "run": 1,
+      "benchmarkIndex": 814,
+      "mainThreadMs": 10688.19599999997,
+      "scriptBootupMs": 5584.507999999994
+    },
+    {
+      "run": 2,
+      "benchmarkIndex": 1220.5,
+      "mainThreadMs": 8590.867999999966,
+      "scriptBootupMs": 4740.551999999997
+    },
+    {
+      "run": 3,
+      "benchmarkIndex": 914,
+      "mainThreadMs": 9357.331999999955,
+      "scriptBootupMs": 5010.547999999997
+    },
+    {
+      "run": 4,
+      "benchmarkIndex": 877,
+      "mainThreadMs": 9133.475999999966,
+      "scriptBootupMs": 5022.487999999996
+    },
+    {
+      "run": 5,
+      "benchmarkIndex": 863,
+      "mainThreadMs": 9470.207999999964,
+      "scriptBootupMs": 4955.524000000001
+    }
+  ],
+  "before-desktop": [
+    {
+      "run": 1,
+      "benchmarkIndex": 1221,
+      "mainThreadMs": 2294.7309999999925,
+      "scriptBootupMs": 1047.2119999999984
+    },
+    {
+      "run": 2,
+      "benchmarkIndex": 1307,
+      "mainThreadMs": 2009.4349999999872,
+      "scriptBootupMs": 925.7119999999957
+    },
+    {
+      "run": 3,
+      "benchmarkIndex": 1196,
+      "mainThreadMs": 2330.5309999999927,
+      "scriptBootupMs": 1070.7219999999995
+    },
+    {
+      "run": 4,
+      "benchmarkIndex": 1173.5,
+      "mainThreadMs": 2272.232999999993,
+      "scriptBootupMs": 1116.9829999999981
+    },
+    {
+      "run": 5,
+      "benchmarkIndex": 1095,
+      "mainThreadMs": 2057.3839999999977,
+      "scriptBootupMs": 991.2809999999994
+    },
+    {
+      "run": 6,
+      "benchmarkIndex": 1526.5,
+      "mainThreadMs": 1714.5910000000001,
+      "scriptBootupMs": 658.4539999999986
+    },
+    {
+      "run": 7,
+      "benchmarkIndex": 1090,
+      "mainThreadMs": 2168.268999999994,
+      "scriptBootupMs": 877.9519999999984
+    },
+    {
+      "run": 8,
+      "benchmarkIndex": 1324.5,
+      "mainThreadMs": 1603.396999999994,
+      "scriptBootupMs": 643.8279999999982
+    }
+  ],
+  "after-mobile": [
+    {
+      "run": 1,
+      "benchmarkIndex": 1652.5,
+      "mainThreadMs": 5689.107999999983,
+      "scriptBootupMs": 2535.931999999998
+    },
+    {
+      "run": 2,
+      "benchmarkIndex": 1314.5,
+      "mainThreadMs": 6033.23999999998,
+      "scriptBootupMs": 3086.0519999999965
+    },
+    {
+      "run": 3,
+      "benchmarkIndex": 1475.5,
+      "mainThreadMs": 7660.227999999987,
+      "scriptBootupMs": 3139.8079999999995
+    },
+    {
+      "run": 4,
+      "benchmarkIndex": 907.5,
+      "mainThreadMs": 8180.867999999979,
+      "scriptBootupMs": 3717.776000000003
+    },
+    {
+      "run": 5,
+      "benchmarkIndex": 1081,
+      "mainThreadMs": 6581.687999999959,
+      "scriptBootupMs": 2703.1159999999973
+    }
+  ],
+  "after-desktop": [
+    {
+      "run": 1,
+      "benchmarkIndex": 618,
+      "mainThreadMs": 4828.964999999994,
+      "scriptBootupMs": 3326.5459999999994
+    },
+    {
+      "run": 2,
+      "benchmarkIndex": 1043.5,
+      "mainThreadMs": 2347.0899999999965,
+      "scriptBootupMs": 909.6550000000007
+    },
+    {
+      "run": 3,
+      "benchmarkIndex": 1502,
+      "mainThreadMs": 1364.528999999993,
+      "scriptBootupMs": 485.3699999999994
+    },
+    {
+      "run": 4,
+      "benchmarkIndex": 1392,
+      "mainThreadMs": 2119.1519999999996,
+      "scriptBootupMs": 801.6709999999998
+    },
+    {
+      "run": 5,
+      "benchmarkIndex": 1463,
+      "mainThreadMs": 1271.6819999999936,
+      "scriptBootupMs": 439.817
+    },
+    {
+      "run": 6,
+      "benchmarkIndex": 1756,
+      "mainThreadMs": 1189.7689999999907,
+      "scriptBootupMs": 416.227999999999
+    },
+    {
+      "run": 7,
+      "benchmarkIndex": 1411.5,
+      "mainThreadMs": 1223.2679999999962,
+      "scriptBootupMs": 425.6829999999997
+    },
+    {
+      "run": 8,
+      "benchmarkIndex": 1567.5,
+      "mainThreadMs": 1173.5629999999915,
+      "scriptBootupMs": 424.8309999999991
+    }
+  ]
+}

@@ -226,7 +226,17 @@ export function InkWashBackground() {
   const isVisibleRef = useRef(true);
   const isChalkboardRef = useRef(isChalkboard);
   const reducedMotionRef = useRef(reducedMotion);
+  const wasStaticRef = useRef(false);
   const sizeRef = useRef({ w: 0, h: 0 });
+  const drawRef = useRef<(timestamp: number) => void>(() => {});
+  const scheduleDraw = useCallback(() => {
+    if (animFrameRef.current !== null || !isVisibleRef.current || document.hidden) return;
+    animFrameRef.current = requestAnimationFrame((timestamp) => {
+      // A static draw must also release the pending frame handle.
+      animFrameRef.current = null;
+      drawRef.current(timestamp);
+    });
+  }, []);
 
   // Keep refs in sync
   useEffect(() => {
@@ -258,11 +268,14 @@ export function InkWashBackground() {
 
     const ctx = canvas.getContext("2d");
     if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }, []);
+    if (reducedMotionRef.current) {
+      bloomsRef.current = [];
+      scheduleDraw();
+    }
+  }, [scheduleDraw]);
 
   /* ─── Draw loop (ref-based to avoid circular declaration) ── */
 
-  const drawRef = useRef<(timestamp: number) => void>(() => {});
 
   useEffect(() => {
     drawRef.current = (timestamp: number) => {
@@ -302,7 +315,14 @@ export function InkWashBackground() {
         for (const bloom of blooms) {
           drawBloom(ctx, bloom, bloom.birthTime + bloom.lifetime * 0.4);
         }
+        wasStaticRef.current = true;
         return; // no rAF loop
+      }
+
+      if (wasStaticRef.current) {
+        // Continue from the static bloom envelope rather than expiring it at once.
+        for (const bloom of blooms) bloom.birthTime = time - bloom.lifetime * 0.4;
+        wasStaticRef.current = false;
       }
 
       // ── Ambient bloom spawning ──
@@ -350,11 +370,7 @@ export function InkWashBackground() {
       );
 
       // ── Continue loop ──
-      if (isVisibleRef.current) {
-        animFrameRef.current = requestAnimationFrame((t) =>
-          drawRef.current?.(t)
-        );
-      }
+      scheduleDraw();
     };
   }); // re-assign draw ref every render via effect
 
@@ -384,13 +400,6 @@ export function InkWashBackground() {
       bloomsRef.current.push(b);
     }
 
-    // Start animation loop
-    const startLoop = () => {
-      if (animFrameRef.current != null) return;
-      animFrameRef.current = requestAnimationFrame((t) =>
-        drawRef.current?.(t)
-      );
-    };
     const stopLoop = () => {
       if (animFrameRef.current != null) {
         cancelAnimationFrame(animFrameRef.current);
@@ -403,7 +412,7 @@ export function InkWashBackground() {
       ([entry]) => {
         isVisibleRef.current = entry.isIntersecting;
         if (entry.isIntersecting) {
-          startLoop();
+          scheduleDraw();
         } else {
           stopLoop();
         }
@@ -434,17 +443,29 @@ export function InkWashBackground() {
     const ro = new ResizeObserver(() => handleResize());
     ro.observe(container);
 
-    startLoop();
+    const handleVisibility = () => {
+      if (document.hidden) stopLoop();
+      else scheduleDraw();
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    scheduleDraw();
 
     return () => {
       stopLoop();
       observer.disconnect();
       ro.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibility);
       container.removeEventListener("pointermove", handlePointerMove);
       container.removeEventListener("pointerleave", handlePointerLeave);
       bloomsRef.current = [];
+      wasStaticRef.current = false;
     };
-  }, [handleResize]);
+  }, [handleResize, scheduleDraw]);
+
+  useEffect(() => {
+    if (reducedMotion) bloomsRef.current = [];
+    scheduleDraw();
+  }, [isChalkboard, reducedMotion, scheduleDraw]);
 
   return (
     <div

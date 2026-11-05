@@ -1,0 +1,297 @@
+{
+  "assets": [
+    {
+      "asset": "public/textures/cork-dark.jpg",
+      "selected": "public/textures/cork-dark.avif",
+      "width": 2400,
+      "height": 1792,
+      "original": 510242,
+      "final": 460456,
+      "use": "cover"
+    },
+    {
+      "asset": "public/textures/cork-light.jpg",
+      "selected": "public/textures/cork-light.avif",
+      "width": 2400,
+      "height": 1792,
+      "original": 537430,
+      "final": 487603,
+      "use": "cover"
+    },
+    {
+      "asset": "public/textures/crumpled-dark.jpg",
+      "selected": "public/textures/crumpled-dark.avif",
+      "width": 2400,
+      "height": 1792,
+      "original": 158528,
+      "final": 128464,
+      "use": "cover"
+    },
+    {
+      "asset": "public/textures/crumpled-light.jpg",
+      "selected": "public/textures/crumpled-light.avif",
+      "width": 2400,
+      "height": 1792,
+      "original": 185230,
+      "final": 161469,
+      "use": "cover"
+    },
+    {
+      "asset": "public/textures/halftone-dark.jpg",
+      "selected": "public/textures/halftone-dark.avif",
+      "width": 1896,
+      "height": 1416,
+      "original": 509257,
+      "final": 355705,
+      "use": "1000 CSS px, repeat"
+    },
+    {
+      "asset": "public/textures/halftone-light.jpg",
+      "selected": "public/textures/halftone-light.avif",
+      "width": 1950,
+      "height": 1456,
+      "original": 511271,
+      "final": 361305,
+      "use": "1000 CSS px, repeat"
+    },
+    {
+      "asset": "public/textures/paper-dark.jpg",
+      "selected": "public/textures/paper-dark.jpg",
+      "width": 2400,
+      "height": 1792,
+      "original": 79015,
+      "final": 79015,
+      "use": "unreferenced"
+    },
+    {
+      "asset": "public/textures/paper-light.jpg",
+      "selected": "public/textures/paper-light.jpg",
+      "width": 2752,
+      "height": 1536,
+      "original": 53635,
+      "final": 53635,
+      "use": "cover, Skills and binding"
+    },
+    {
+      "asset": "src/app/icon.png",
+      "selected": "src/app/icon.png",
+      "width": 1563,
+      "height": 1563,
+      "original": 3618736,
+      "final": 3388501,
+      "use": "lossless PNG; identical decoded pixels"
+    }
+  ],
+  "delivered": {
+    "before-mobile": [
+      {
+        "url": "http://127.0.0.1:3100/textures/paper-light.jpg",
+        "type": "Image",
+        "wireBytes": 53917
+      },
+      {
+        "url": "http://127.0.0.1:3100/textures/cork-light.jpg",
+        "type": "Image",
+        "wireBytes": 537714
+      },
+      {
+        "url": "http://127.0.0.1:3100/textures/halftone-light.jpg",
+        "type": "Image",
+        "wireBytes": 511555
+      },
+      {
+        "url": "http://127.0.0.1:3100/textures/crumpled-light.jpg",
+        "type": "Image",
+        "wireBytes": 185514
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=%2Fma-logo-light.png&w=96&q=75",
+        "type": "Image",
+        "wireBytes": 6024
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=%2Ficons%2Fgithub-icon.png&w=64&q=75",
+        "type": "Image",
+        "wireBytes": 2294
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=%2Ficons%2Flinkedin-icon.png&w=64&q=75",
+        "type": "Image",
+        "wireBytes": 2876
+      },
+      {
+        "url": "http://127.0.0.1:3100/icon.png?2f5cb04c2fb9917e",
+        "type": "Other",
+        "wireBytes": 3619066
+      }
+    ],
+    "before-desktop": [
+      {
+        "url": "http://127.0.0.1:3100/textures/paper-light.jpg",
+        "type": "Image",
+        "wireBytes": 53917
+      },
+      {
+        "url": "http://127.0.0.1:3100/textures/cork-light.jpg",
+        "type": "Image",
+        "wireBytes": 537714
+      },
+      {
+        "url": "http://127.0.0.1:3100/textures/halftone-light.jpg",
+        "type": "Image",
+        "wireBytes": 511555
+      },
+      {
+        "url": "http://127.0.0.1:3100/textures/crumpled-light.jpg",
+        "type": "Image",
+        "wireBytes": 185514
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=%2Fma-logo-light.png&w=48&q=75",
+        "type": "Image",
+        "wireBytes": 2460
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=%2Ficons%2Fgithub-icon.png&w=32&q=75",
+        "type": "Image",
+        "wireBytes": 1131
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=%2Ficons%2Flinkedin-icon.png&w=32&q=75",
+        "type": "Image",
+        "wireBytes": 1239
+      },
+      {
+        "url": "http://127.0.0.1:3100/icon.png?2f5cb04c2fb9917e",
+        "type": "Other",
+        "wireBytes": 3619066
+      }
+    ],
+    "after-mobile": [
+      {
+        "url": "http://127.0.0.1:3100/textures/paper-light.jpg",
+        "type": "Image",
+        "wireBytes": 53917
+      },
+      {
+        "url": "http://127.0.0.1:3100/textures/cork-light.avif",
+        "type": "Image",
+        "wireBytes": 487887
+      },
+      {
+        "url": "http://127.0.0.1:3100/textures/halftone-light.avif",
+        "type": "Image",
+        "wireBytes": 361589
+      },
+      {
+        "url": "http://127.0.0.1:3100/textures/crumpled-light.avif",
+        "type": "Image",
+        "wireBytes": 161753
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=%2Fma-logo-light.png&w=96&q=75",
+        "type": "Image",
+        "wireBytes": 6024
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=%2Ficons%2Fgithub-icon.png&w=64&q=75",
+        "type": "Image",
+        "wireBytes": 2294
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=%2Ficons%2Flinkedin-icon.png&w=64&q=75",
+        "type": "Image",
+        "wireBytes": 2876
+      },
+      {
+        "url": "http://127.0.0.1:3100/icon.png?0ad349d2f81afd1b",
+        "type": "Other",
+        "wireBytes": 3388831
+      }
+    ],
+    "after-desktop": [
+      {
+        "url": "http://127.0.0.1:3100/textures/paper-light.jpg",
+        "type": "Image",
+        "wireBytes": 53917
+      },
+      {
+        "url": "http://127.0.0.1:3100/textures/cork-light.avif",
+        "type": "Image",
+        "wireBytes": 487887
+      },
+      {
+        "url": "http://127.0.0.1:3100/textures/halftone-light.avif",
+        "type": "Image",
+        "wireBytes": 361589
+      },
+      {
+        "url": "http://127.0.0.1:3100/textures/crumpled-light.avif",
+        "type": "Image",
+        "wireBytes": 161753
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=%2Fma-logo-light.png&w=48&q=75",
+        "type": "Image",
+        "wireBytes": 2460
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=%2Ficons%2Fgithub-icon.png&w=32&q=75",
+        "type": "Image",
+        "wireBytes": 1131
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=%2Ficons%2Flinkedin-icon.png&w=32&q=75",
+        "type": "Image",
+        "wireBytes": 1239
+      },
+      {
+        "url": "http://127.0.0.1:3100/icon.png?0ad349d2f81afd1b",
+        "type": "Other",
+        "wireBytes": 3388831
+      }
+    ]
+  },
+  "unchangedImages": [
+    {
+      "asset": "public/ma-logo-light.png",
+      "width": 900,
+      "height": 900,
+      "originalBytes": 597609,
+      "selectedBytes": 597609,
+      "use": "next/image"
+    },
+    {
+      "asset": "public/ma-logo-dark.png",
+      "width": 900,
+      "height": 900,
+      "originalBytes": 556254,
+      "selectedBytes": 556254,
+      "use": "next/image"
+    },
+    {
+      "asset": "public/icons/email-icon.png",
+      "width": 390,
+      "height": 390,
+      "originalBytes": 67578,
+      "selectedBytes": 67578,
+      "use": "next/image"
+    },
+    {
+      "asset": "public/icons/github-icon.png",
+      "width": 390,
+      "height": 390,
+      "originalBytes": 65930,
+      "selectedBytes": 65930,
+      "use": "next/image"
+    },
+    {
+      "asset": "public/icons/linkedin-icon.png",
+      "width": 365,
+      "height": 365,
+      "originalBytes": 65959,
+      "selectedBytes": 65959,
+      "use": "next/image"
+    }
+  ]
+}

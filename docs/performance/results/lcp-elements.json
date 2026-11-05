@@ -1,0 +1,140 @@
+{
+  "before-mobile": [
+    {
+      "run": 1,
+      "selector": "div.relative > div.grid > div > p.mt-6",
+      "label": "CS undergrad at FAST NUCES who loves building backend systems that don't fall o…"
+    },
+    {
+      "run": 2,
+      "selector": "div.relative > div.grid > div > p.mt-6",
+      "label": "CS undergrad at FAST NUCES who loves building backend systems that don't fall o…"
+    },
+    {
+      "run": 3,
+      "selector": "div.relative > div.grid > div > p.mt-6",
+      "label": "CS undergrad at FAST NUCES who loves building backend systems that don't fall o…"
+    },
+    {
+      "run": 4,
+      "selector": "div.relative > div.grid > div > p.mt-6",
+      "label": "CS undergrad at FAST NUCES who loves building backend systems that don't fall o…"
+    },
+    {
+      "run": 5,
+      "selector": "div.relative > div.grid > div > p.mt-6",
+      "label": "CS undergrad at FAST NUCES who loves building backend systems that don't fall o…"
+    }
+  ],
+  "before-desktop": [
+    {
+      "run": 1,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 2,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 3,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 4,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 5,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 6,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 7,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 8,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    }
+  ],
+  "after-mobile": [
+    {
+      "run": 1,
+      "selector": "div.relative > div.grid > div > p.mt-6",
+      "label": "CS undergrad at FAST NUCES who loves building backend systems that don't fall o…"
+    },
+    {
+      "run": 2,
+      "selector": "div.relative > div.grid > div > p.mt-6",
+      "label": "CS undergrad at FAST NUCES who loves building backend systems that don't fall o…"
+    },
+    {
+      "run": 3,
+      "selector": "div.relative > div.grid > div > p.mt-6",
+      "label": "CS undergrad at FAST NUCES who loves building backend systems that don't fall o…"
+    },
+    {
+      "run": 4,
+      "selector": "div.relative > div.grid > div > p.mt-6",
+      "label": "CS undergrad at FAST NUCES who loves building backend systems that don't fall o…"
+    },
+    {
+      "run": 5,
+      "selector": "div.relative > div.grid > div > p.mt-6",
+      "label": "CS undergrad at FAST NUCES who loves building backend systems that don't fall o…"
+    }
+  ],
+  "after-desktop": [
+    {
+      "run": 1,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 2,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 3,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 4,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 5,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 6,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 7,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    },
+    {
+      "run": 8,
+      "selector": "body.min-h-full > div.relative > main > section#experience",
+      "label": "Experience\nJun 2026\nData Analytics Intern\n\nSystems Limited · Islamabad, Pakista…"
+    }
+  ]
+}

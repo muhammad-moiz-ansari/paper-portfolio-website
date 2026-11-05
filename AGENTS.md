@@ -1,3 +1,5 @@
+Before making website changes, read [OPTIMIZATION.md](OPTIMIZATION.md) and follow its performance, visual preservation, and verification guidance. Include relevant checks in your completion report.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know

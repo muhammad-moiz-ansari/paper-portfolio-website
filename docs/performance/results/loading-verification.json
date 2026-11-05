@@ -1,0 +1,35 @@
+{
+  "beforeCacheHits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "afterCacheHits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "configIdentical": true,
+  "replaySourceFileCount": 64,
+  "replaySourceHashMismatches": []
+}

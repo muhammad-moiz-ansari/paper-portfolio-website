@@ -1,0 +1,2687 @@
+{
+  "threshold": {
+    "meanMaxChannelDelta": 0.5,
+    "maxChannelDelta": 8,
+    "fractionOver2": 0.001
+  },
+  "results": [
+    {
+      "prefix": "paper-360",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "paper-360-sections",
+          "crop": {
+            "top": 1075,
+            "width": 360,
+            "height": 6241
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 66,
+            "y": 1732
+          },
+          "meanMaxChannelDelta": 0.19137023981199594,
+          "maxChannelDelta": 4,
+          "fractionOver2": 0.00006186686606491125,
+          "fractionChanged": 0.18648809841727643
+        },
+        {
+          "name": "paper-360-header",
+          "crop": {
+            "top": 0,
+            "width": 360,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "paper-360-contact",
+          "crop": {
+            "top": 0,
+            "width": 360,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 41,
+            "y": 714
+          },
+          "meanMaxChannelDelta": 0.35813271604938274,
+          "maxChannelDelta": 165,
+          "fractionOver2": 0.0019660493827160495,
+          "fractionChanged": 0.3056512345679012
+        },
+        {
+          "name": "paper-360-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            360,
+            7369
+          ],
+          "after": [
+            360,
+            7316
+          ]
+        },
+        {
+          "name": "paper-360-about",
+          "crop": {
+            "top": 0,
+            "width": 360,
+            "height": 1075
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 106,
+            "y": 719
+          },
+          "meanMaxChannelDelta": 0.12314470284237726,
+          "maxChannelDelta": 211,
+          "fractionOver2": 0.0008475452196382429,
+          "fractionChanged": 0.051684754521963826
+        },
+        {
+          "name": "paper-360-menu",
+          "crop": {
+            "top": 0,
+            "width": 360,
+            "height": 900
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 116,
+            "y": 687
+          },
+          "meanMaxChannelDelta": 4.251342592592593,
+          "maxChannelDelta": 211,
+          "fractionOver2": 0.15021296296296296,
+          "fractionChanged": 0.24503086419753087
+        }
+      ]
+    },
+    {
+      "prefix": "paper-639",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "paper-639-sections",
+          "crop": {
+            "top": 1016,
+            "width": 639,
+            "height": 5525
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 630,
+            "y": 1356
+          },
+          "meanMaxChannelDelta": 0.22802172512197366,
+          "maxChannelDelta": 4,
+          "fractionOver2": 0.00005211763289642329,
+          "fractionChanged": 0.2240466226216019
+        },
+        {
+          "name": "paper-639-header",
+          "crop": {
+            "top": 0,
+            "width": 639,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "paper-639-contact",
+          "crop": {
+            "top": 0,
+            "width": 639,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 41,
+            "y": 685
+          },
+          "meanMaxChannelDelta": 20.68547209181012,
+          "maxChannelDelta": 178,
+          "fractionOver2": 0.914698313336811,
+          "fractionChanged": 0.9704381846635368
+        },
+        {
+          "name": "paper-639-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            639,
+            6594
+          ],
+          "after": [
+            639,
+            6570
+          ]
+        },
+        {
+          "name": "paper-639-about",
+          "crop": {
+            "top": 0,
+            "width": 639,
+            "height": 1016
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 136,
+            "y": 667
+          },
+          "meanMaxChannelDelta": 0.14570317794782695,
+          "maxChannelDelta": 211,
+          "fractionOver2": 0.0020547607605387354,
+          "fractionChanged": 0.08549745542370583
+        },
+        {
+          "name": "paper-639-menu",
+          "crop": {
+            "top": 0,
+            "width": 639,
+            "height": 900
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 99,
+            "y": 629
+          },
+          "meanMaxChannelDelta": 2.8298956703182054,
+          "maxChannelDelta": 211,
+          "fractionOver2": 0.1228603721091984,
+          "fractionChanged": 0.20303077725612936
+        }
+      ]
+    },
+    {
+      "prefix": "paper-640",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "paper-640-sections",
+          "crop": {
+            "top": 1036,
+            "width": 640,
+            "height": 5525
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 103,
+            "y": 1046
+          },
+          "meanMaxChannelDelta": 0.22797567873303168,
+          "maxChannelDelta": 3,
+          "fractionOver2": 0.000043834841628959275,
+          "fractionChanged": 0.2240277149321267
+        },
+        {
+          "name": "paper-640-header",
+          "crop": {
+            "top": 0,
+            "width": 640,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "paper-640-contact",
+          "crop": {
+            "top": 0,
+            "width": 640,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 41,
+            "y": 685
+          },
+          "meanMaxChannelDelta": 0.2929236111111111,
+          "maxChannelDelta": 166,
+          "fractionOver2": 0.0004878472222222222,
+          "fractionChanged": 0.26609895833333336
+        },
+        {
+          "name": "paper-640-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            640,
+            6614
+          ],
+          "after": [
+            640,
+            6561
+          ]
+        },
+        {
+          "name": "paper-640-about",
+          "crop": {
+            "top": 0,
+            "width": 640,
+            "height": 1036
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 153,
+            "y": 672
+          },
+          "meanMaxChannelDelta": 0.03633566602316602,
+          "maxChannelDelta": 176,
+          "fractionOver2": 0.00020360762548262548,
+          "fractionChanged": 0.021182734073359074
+        },
+        {
+          "name": "paper-640-menu",
+          "crop": {
+            "top": 0,
+            "width": 640,
+            "height": 900
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 148,
+            "y": 649
+          },
+          "meanMaxChannelDelta": 3.543845486111111,
+          "maxChannelDelta": 211,
+          "fractionOver2": 0.10684027777777778,
+          "fractionChanged": 0.17678993055555556
+        }
+      ]
+    },
+    {
+      "prefix": "paper-767",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "paper-767-sections",
+          "crop": {
+            "top": 1036,
+            "width": 767,
+            "height": 5399
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 336,
+            "y": 1479
+          },
+          "meanMaxChannelDelta": 0.2425800518856044,
+          "maxChannelDelta": 4,
+          "fractionOver2": 0.000040086616068985684,
+          "fractionChanged": 0.2388602071029137
+        },
+        {
+          "name": "paper-767-header",
+          "crop": {
+            "top": 0,
+            "width": 767,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "paper-767-contact",
+          "crop": {
+            "top": 0,
+            "width": 767,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 48,
+            "y": 685
+          },
+          "meanMaxChannelDelta": 0.2925336810082573,
+          "maxChannelDelta": 163,
+          "fractionOver2": 0.0004099666811531218,
+          "fractionChanged": 0.27034188034188034
+        },
+        {
+          "name": "paper-767-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            767,
+            6488
+          ],
+          "after": [
+            767,
+            6435
+          ]
+        },
+        {
+          "name": "paper-767-about",
+          "crop": {
+            "top": 0,
+            "width": 767,
+            "height": 1036
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 200,
+            "y": 687
+          },
+          "meanMaxChannelDelta": 0.11934503883656426,
+          "maxChannelDelta": 211,
+          "fractionOver2": 0.0018587688079213503,
+          "fractionChanged": 0.07276884819257701
+        },
+        {
+          "name": "paper-767-menu",
+          "crop": {
+            "top": 0,
+            "width": 767,
+            "height": 900
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 163,
+            "y": 649
+          },
+          "meanMaxChannelDelta": 2.5615746776763726,
+          "maxChannelDelta": 211,
+          "fractionOver2": 0.08994495147037519,
+          "fractionChanged": 0.19142836447921194
+        }
+      ]
+    },
+    {
+      "prefix": "paper-768",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "paper-768-sections",
+          "crop": {
+            "top": 1052,
+            "width": 768,
+            "height": 4327
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 743,
+            "y": 2015
+          },
+          "meanMaxChannelDelta": 0.19669191992142362,
+          "maxChannelDelta": 9,
+          "fractionOver2": 0.00005236018026346198,
+          "fractionChanged": 0.1921329731915877
+        },
+        {
+          "name": "paper-768-header",
+          "crop": {
+            "top": 0,
+            "width": 768,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "paper-768-contact",
+          "crop": {
+            "top": 0,
+            "width": 768,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 525,
+            "y": 31
+          },
+          "meanMaxChannelDelta": 20.67908564814815,
+          "maxChannelDelta": 182,
+          "fractionOver2": 0.8942722800925926,
+          "fractionChanged": 0.9506857638888889
+        },
+        {
+          "name": "paper-768-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            768,
+            5432
+          ],
+          "after": [
+            768,
+            5408
+          ]
+        },
+        {
+          "name": "paper-768-about",
+          "crop": {
+            "top": 0,
+            "width": 768,
+            "height": 1052
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 202,
+            "y": 697
+          },
+          "meanMaxChannelDelta": 0.06160512713878327,
+          "maxChannelDelta": 211,
+          "fractionOver2": 0.0003329471641318124,
+          "fractionChanged": 0.028940411121673004
+        }
+      ]
+    },
+    {
+      "prefix": "paper-1023",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "paper-1023-sections",
+          "crop": {
+            "top": 1052,
+            "width": 1023,
+            "height": 4307
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 464,
+            "y": 1495
+          },
+          "meanMaxChannelDelta": 0.22581507609631368,
+          "maxChannelDelta": 4,
+          "fractionOver2": 0.00004652681839856507,
+          "fractionChanged": 0.22105708477481362
+        },
+        {
+          "name": "paper-1023-header",
+          "crop": {
+            "top": 0,
+            "width": 1023,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "paper-1023-contact",
+          "crop": {
+            "top": 0,
+            "width": 1023,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 656,
+            "y": 29
+          },
+          "meanMaxChannelDelta": 20.52239274465081,
+          "maxChannelDelta": 174,
+          "fractionOver2": 0.8828728141631368,
+          "fractionChanged": 0.8923047681112197
+        },
+        {
+          "name": "paper-1023-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            1023,
+            5412
+          ],
+          "after": [
+            1023,
+            5405
+          ]
+        },
+        {
+          "name": "paper-1023-about",
+          "crop": {
+            "top": 0,
+            "width": 1023,
+            "height": 1052
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 328,
+            "y": 703
+          },
+          "meanMaxChannelDelta": 0.07178989700760828,
+          "maxChannelDelta": 211,
+          "fractionOver2": 0.0005361476905693758,
+          "fractionChanged": 0.04348371486234849
+        }
+      ]
+    },
+    {
+      "prefix": "paper-1024",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "paper-1024-sections",
+          "crop": {
+            "top": 826,
+            "width": 1024,
+            "height": 4082
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 146,
+            "y": 2633
+          },
+          "meanMaxChannelDelta": 0.22070049340090642,
+          "maxChannelDelta": 42,
+          "fractionOver2": 0.000011961814061734444,
+          "fractionChanged": 0.2180638703454189
+        },
+        {
+          "name": "paper-1024-header",
+          "crop": {
+            "top": 0,
+            "width": 1024,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "paper-1024-contact",
+          "crop": {
+            "top": 0,
+            "width": 1024,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 656,
+            "y": 30
+          },
+          "meanMaxChannelDelta": 34.09197157118056,
+          "maxChannelDelta": 159,
+          "fractionOver2": 0.89875,
+          "fractionChanged": 0.957119140625
+        },
+        {
+          "name": "paper-1024-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            1024,
+            4961
+          ],
+          "after": [
+            1024,
+            4954
+          ]
+        },
+        {
+          "name": "paper-1024-about",
+          "crop": {
+            "top": 0,
+            "width": 1024,
+            "height": 826
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 649,
+            "y": 374
+          },
+          "meanMaxChannelDelta": 0.1331577254842615,
+          "maxChannelDelta": 201,
+          "fractionOver2": 0.002734611455811138,
+          "fractionChanged": 0.09755220944309928
+        }
+      ]
+    },
+    {
+      "prefix": "paper-1440",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "paper-1440-sections",
+          "crop": {
+            "top": 826,
+            "width": 1440,
+            "height": 4062
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 691,
+            "y": 844
+          },
+          "meanMaxChannelDelta": 0.2533934091033426,
+          "maxChannelDelta": 3,
+          "fractionOver2": 0.000014702664259532798,
+          "fractionChanged": 0.25031832977734014
+        },
+        {
+          "name": "paper-1440-header",
+          "crop": {
+            "top": 0,
+            "width": 1440,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "paper-1440-contact",
+          "crop": {
+            "top": 0,
+            "width": 1440,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 57,
+            "y": 64
+          },
+          "meanMaxChannelDelta": 25.72911265432099,
+          "maxChannelDelta": 224,
+          "fractionOver2": 0.9111844135802469,
+          "fractionChanged": 0.919917438271605
+        },
+        {
+          "name": "paper-1440-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            1440,
+            4941
+          ],
+          "after": [
+            1440,
+            4888
+          ]
+        },
+        {
+          "name": "paper-1440-about",
+          "crop": {
+            "top": 0,
+            "width": 1440,
+            "height": 826
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 879,
+            "y": 361
+          },
+          "meanMaxChannelDelta": 0.07897497982243745,
+          "maxChannelDelta": 173,
+          "fractionOver2": 0.0017184557438794726,
+          "fractionChanged": 0.06004422249125639
+        }
+      ]
+    },
+    {
+      "prefix": "chalkboard-360",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "chalkboard-360-sections",
+          "crop": {
+            "top": 1075,
+            "width": 360,
+            "height": 6241
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 207,
+            "y": 5496
+          },
+          "meanMaxChannelDelta": 0.16435711869536576,
+          "maxChannelDelta": 3,
+          "fractionOver2": 4.450853673734622e-7,
+          "fractionChanged": 0.16388933397425626
+        },
+        {
+          "name": "chalkboard-360-header",
+          "crop": {
+            "top": 0,
+            "width": 360,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "chalkboard-360-contact",
+          "crop": {
+            "top": 0,
+            "width": 360,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 41,
+            "y": 714
+          },
+          "meanMaxChannelDelta": 0.358891975308642,
+          "maxChannelDelta": 166,
+          "fractionOver2": 0.0016172839506172839,
+          "fractionChanged": 0.3103364197530864
+        },
+        {
+          "name": "chalkboard-360-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            360,
+            7369
+          ],
+          "after": [
+            360,
+            7345
+          ]
+        },
+        {
+          "name": "chalkboard-360-about",
+          "crop": {
+            "top": 0,
+            "width": 360,
+            "height": 1075
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 86,
+            "y": 723
+          },
+          "meanMaxChannelDelta": 0.15155813953488373,
+          "maxChannelDelta": 223,
+          "fractionOver2": 0.0009457364341085271,
+          "fractionChanged": 0.0664470284237726
+        },
+        {
+          "name": "chalkboard-360-menu",
+          "crop": {
+            "top": 0,
+            "width": 360,
+            "height": 900
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 116,
+            "y": 687
+          },
+          "meanMaxChannelDelta": 3.8825864197530864,
+          "maxChannelDelta": 218,
+          "fractionOver2": 0.06251851851851851,
+          "fractionChanged": 0.22872530864197532
+        }
+      ]
+    },
+    {
+      "prefix": "chalkboard-639",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "chalkboard-639-sections",
+          "crop": {
+            "top": 1016,
+            "width": 639,
+            "height": 5525
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 417,
+            "y": 3370
+          },
+          "meanMaxChannelDelta": 0.2127557906513996,
+          "maxChannelDelta": 3,
+          "fractionOver2": 5.664960097437314e-7,
+          "fractionChanged": 0.21198450633413352
+        },
+        {
+          "name": "chalkboard-639-header",
+          "crop": {
+            "top": 0,
+            "width": 639,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "chalkboard-639-contact",
+          "crop": {
+            "top": 0,
+            "width": 639,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 41,
+            "y": 685
+          },
+          "meanMaxChannelDelta": 18.704409667883848,
+          "maxChannelDelta": 170,
+          "fractionOver2": 0.9202103981916189,
+          "fractionChanged": 0.9783428968874979
+        },
+        {
+          "name": "chalkboard-639-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            639,
+            6594
+          ],
+          "after": [
+            639,
+            6570
+          ]
+        },
+        {
+          "name": "chalkboard-639-about",
+          "crop": {
+            "top": 0,
+            "width": 639,
+            "height": 1016
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 145,
+            "y": 666
+          },
+          "meanMaxChannelDelta": 0.056268714650105356,
+          "maxChannelDelta": 136,
+          "fractionOver2": 0.0001663524453809471,
+          "fractionChanged": 0.046911389597427085
+        },
+        {
+          "name": "chalkboard-639-menu",
+          "crop": {
+            "top": 0,
+            "width": 639,
+            "height": 900
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 99,
+            "y": 629
+          },
+          "meanMaxChannelDelta": 2.671561467570857,
+          "maxChannelDelta": 218,
+          "fractionOver2": 0.04019127108328986,
+          "fractionChanged": 0.1307268301165015
+        }
+      ]
+    },
+    {
+      "prefix": "chalkboard-640",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "chalkboard-640-sections",
+          "crop": {
+            "top": 1036,
+            "width": 640,
+            "height": 5525
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 31,
+            "y": 5386
+          },
+          "meanMaxChannelDelta": 0.21321747737556562,
+          "maxChannelDelta": 18,
+          "fractionOver2": 0.000004242081447963801,
+          "fractionChanged": 0.21242053167420816
+        },
+        {
+          "name": "chalkboard-640-header",
+          "crop": {
+            "top": 0,
+            "width": 640,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "chalkboard-640-contact",
+          "crop": {
+            "top": 0,
+            "width": 640,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 41,
+            "y": 685
+          },
+          "meanMaxChannelDelta": 18.704425347222223,
+          "maxChannelDelta": 171,
+          "fractionOver2": 0.9197673611111111,
+          "fractionChanged": 0.9783802083333333
+        },
+        {
+          "name": "chalkboard-640-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            640,
+            6614
+          ],
+          "after": [
+            640,
+            6561
+          ]
+        },
+        {
+          "name": "chalkboard-640-about",
+          "crop": {
+            "top": 0,
+            "width": 640,
+            "height": 1036
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 154,
+            "y": 683
+          },
+          "meanMaxChannelDelta": 0.07477829391891892,
+          "maxChannelDelta": 223,
+          "fractionOver2": 0.0003830839768339768,
+          "fractionChanged": 0.026232203185328186
+        },
+        {
+          "name": "chalkboard-640-menu",
+          "crop": {
+            "top": 0,
+            "width": 640,
+            "height": 900
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 216,
+            "y": 230
+          },
+          "meanMaxChannelDelta": 3.647578125,
+          "maxChannelDelta": 225,
+          "fractionOver2": 0.047262152777777774,
+          "fractionChanged": 0.1402517361111111
+        }
+      ]
+    },
+    {
+      "prefix": "chalkboard-767",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "chalkboard-767-sections",
+          "crop": {
+            "top": 1036,
+            "width": 767,
+            "height": 5399
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 417,
+            "y": 3264
+          },
+          "meanMaxChannelDelta": 0.23020029060381794,
+          "maxChannelDelta": 3,
+          "fractionOver2": 9.659425558791732e-7,
+          "fractionChanged": 0.22932104139232892
+        },
+        {
+          "name": "chalkboard-767-header",
+          "crop": {
+            "top": 0,
+            "width": 767,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "chalkboard-767-contact",
+          "crop": {
+            "top": 0,
+            "width": 767,
+            "height": 900
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 181,
+            "y": 63
+          },
+          "meanMaxChannelDelta": 0.27546573953353615,
+          "maxChannelDelta": 2,
+          "fractionOver2": 0,
+          "fractionChanged": 0.27524264812400406
+        },
+        {
+          "name": "chalkboard-767-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            767,
+            6488
+          ],
+          "after": [
+            767,
+            6435
+          ]
+        },
+        {
+          "name": "chalkboard-767-about",
+          "crop": {
+            "top": 0,
+            "width": 767,
+            "height": 1036
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 218,
+            "y": 687
+          },
+          "meanMaxChannelDelta": 0.04738539060572959,
+          "maxChannelDelta": 223,
+          "fractionOver2": 0.00032342828952998447,
+          "fractionChanged": 0.007352015826592098
+        },
+        {
+          "name": "chalkboard-767-menu",
+          "crop": {
+            "top": 0,
+            "width": 767,
+            "height": 900
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 209,
+            "y": 230
+          },
+          "meanMaxChannelDelta": 4.020444734173548,
+          "maxChannelDelta": 225,
+          "fractionOver2": 0.05106185716355208,
+          "fractionChanged": 0.142490221642764
+        }
+      ]
+    },
+    {
+      "prefix": "chalkboard-768",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "chalkboard-768-sections",
+          "crop": {
+            "top": 1052,
+            "width": 768,
+            "height": 4327
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 417,
+            "y": 3280
+          },
+          "meanMaxChannelDelta": 0.17079710249595562,
+          "maxChannelDelta": 3,
+          "fractionOver2": 9.02761728680379e-7,
+          "fractionChanged": 0.17029787525999537
+        },
+        {
+          "name": "chalkboard-768-header",
+          "crop": {
+            "top": 0,
+            "width": 768,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "chalkboard-768-contact",
+          "crop": {
+            "top": 0,
+            "width": 768,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 526,
+            "y": 33
+          },
+          "meanMaxChannelDelta": 19.671763599537037,
+          "maxChannelDelta": 207,
+          "fractionOver2": 0.9086921296296296,
+          "fractionChanged": 0.9183883101851852
+        },
+        {
+          "name": "chalkboard-768-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            768,
+            5432
+          ],
+          "after": [
+            768,
+            5423
+          ]
+        },
+        {
+          "name": "chalkboard-768-about",
+          "crop": {
+            "top": 0,
+            "width": 768,
+            "height": 1052
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 208,
+            "y": 700
+          },
+          "meanMaxChannelDelta": 0.04442926172370089,
+          "maxChannelDelta": 223,
+          "fractionOver2": 0.00020546181875792142,
+          "fractionChanged": 0.020893981701520913
+        }
+      ]
+    },
+    {
+      "prefix": "chalkboard-1023",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "chalkboard-1023-sections",
+          "crop": {
+            "top": 1052,
+            "width": 1023,
+            "height": 4307
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 945,
+            "y": 3233
+          },
+          "meanMaxChannelDelta": 0.19599206638310274,
+          "maxChannelDelta": 3,
+          "fractionOver2": 9.078403589963915e-7,
+          "fractionChanged": 0.19540197014975508
+        },
+        {
+          "name": "chalkboard-1023-header",
+          "crop": {
+            "top": 0,
+            "width": 1023,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "chalkboard-1023-contact",
+          "crop": {
+            "top": 0,
+            "width": 1023,
+            "height": 900
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 457,
+            "y": 506
+          },
+          "meanMaxChannelDelta": 0.3545487129358097,
+          "maxChannelDelta": 5,
+          "fractionOver2": 0.0008330618008037363,
+          "fractionChanged": 0.34409579667644186
+        },
+        {
+          "name": "chalkboard-1023-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            1023,
+            5412
+          ],
+          "after": [
+            1023,
+            5388
+          ]
+        },
+        {
+          "name": "chalkboard-1023-about",
+          "crop": {
+            "top": 0,
+            "width": 1023,
+            "height": 1052
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 346,
+            "y": 704
+          },
+          "meanMaxChannelDelta": 0.025395931596103313,
+          "maxChannelDelta": 223,
+          "fractionOver2": 0.0001421674118840806,
+          "fractionChanged": 0.010128266598277638
+        }
+      ]
+    },
+    {
+      "prefix": "chalkboard-1024",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "chalkboard-1024-sections",
+          "crop": {
+            "top": 826,
+            "width": 1024,
+            "height": 4082
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 895,
+            "y": 1204
+          },
+          "meanMaxChannelDelta": 0.1889945090488731,
+          "maxChannelDelta": 8,
+          "fractionOver2": 0.000004067016780989711,
+          "fractionChanged": 0.18846460068593826
+        },
+        {
+          "name": "chalkboard-1024-header",
+          "crop": {
+            "top": 0,
+            "width": 1024,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "chalkboard-1024-contact",
+          "crop": {
+            "top": 0,
+            "width": 1024,
+            "height": 900
+          },
+          "status": "review",
+          "maxLocation": {
+            "x": 640,
+            "y": 33
+          },
+          "meanMaxChannelDelta": 19.448067491319446,
+          "maxChannelDelta": 201,
+          "fractionOver2": 0.9115570746527778,
+          "fractionChanged": 0.9206998697916666
+        },
+        {
+          "name": "chalkboard-1024-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            1024,
+            4961
+          ],
+          "after": [
+            1024,
+            4953
+          ]
+        },
+        {
+          "name": "chalkboard-1024-about",
+          "crop": {
+            "top": 0,
+            "width": 1024,
+            "height": 826
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 646,
+            "y": 373
+          },
+          "meanMaxChannelDelta": 0.12264844695823245,
+          "maxChannelDelta": 85,
+          "fractionOver2": 0.0013229702633171913,
+          "fractionChanged": 0.1043361266646489
+        }
+      ]
+    },
+    {
+      "prefix": "chalkboard-1440",
+      "staticGeometry": [
+        {
+          "id": "experience",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "skills",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "education",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "projects",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        },
+        {
+          "id": "contact",
+          "equal": true,
+          "colorEqual": true,
+          "textEqual": true
+        }
+      ],
+      "comparisons": [
+        {
+          "name": "chalkboard-1440-sections",
+          "crop": {
+            "top": 826,
+            "width": 1440,
+            "height": 4062
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 945,
+            "y": 3007
+          },
+          "meanMaxChannelDelta": 0.21495842223316375,
+          "maxChannelDelta": 3,
+          "fractionOver2": 0.000002051534547841786,
+          "fractionChanged": 0.2143166338421139
+        },
+        {
+          "name": "chalkboard-1440-header",
+          "crop": {
+            "top": 0,
+            "width": 1440,
+            "height": 60
+          },
+          "status": "pass",
+          "maxLocation": null,
+          "meanMaxChannelDelta": 0,
+          "maxChannelDelta": 0,
+          "fractionOver2": 0,
+          "fractionChanged": 0
+        },
+        {
+          "name": "chalkboard-1440-contact",
+          "crop": {
+            "top": 0,
+            "width": 1440,
+            "height": 900
+          },
+          "status": "pass",
+          "maxLocation": {
+            "x": 61,
+            "y": 61
+          },
+          "meanMaxChannelDelta": 0.2659691358024691,
+          "maxChannelDelta": 2,
+          "fractionOver2": 0,
+          "fractionChanged": 0.26583487654320986
+        },
+        {
+          "name": "chalkboard-1440-expanded",
+          "status": "dimension mismatch",
+          "before": [
+            1440,
+            4941
+          ],
+          "after": [
+            1440,
+            4932
+          ]
+        },
+        {
+          "name": "chalkboard-1440-about",
+          "crop": {
+            "top": 0,
+            "width": 1440,
+            "height": 826
+          },
+          "status": "dynamic review",
+          "maxLocation": {
+            "x": 861,
+            "y": 365
+          },
+          "meanMaxChannelDelta": 0.09372057438794727,
+          "maxChannelDelta": 223,
+          "fractionOver2": 0.0004514729620661824,
+          "fractionChanged": 0.06250924804950228
+        }
+      ]
+    }
+  ],
+  "phases": [
+    {
+      "name": "paper-360-notepad-writing",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 169,
+        "y": 693
+      },
+      "meanMaxChannelDelta": 0.1434567901234568,
+      "maxChannelDelta": 199,
+      "fractionOver2": 0.0025493827160493828,
+      "fractionChanged": 0.07458024691358024
+    },
+    {
+      "name": "paper-360-tagline-erasing",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 153,
+        "y": 822
+      },
+      "meanMaxChannelDelta": 0.16605555555555557,
+      "maxChannelDelta": 200,
+      "fractionOver2": 0.0038271604938271606,
+      "fractionChanged": 0.05706481481481482
+    },
+    {
+      "name": "paper-360-tagline-writing",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 82,
+        "y": 229
+      },
+      "meanMaxChannelDelta": 0.21768827160493828,
+      "maxChannelDelta": 206,
+      "fractionOver2": 0.0019290123456790122,
+      "fractionChanged": 0.04326851851851852
+    },
+    {
+      "name": "paper-360-page-flip",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 80,
+        "y": 136
+      },
+      "meanMaxChannelDelta": 0.18945061728395063,
+      "maxChannelDelta": 158,
+      "fractionOver2": 0.0036419753086419752,
+      "fractionChanged": 0.10417592592592592
+    },
+    {
+      "name": "paper-360-next-page",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 108,
+        "y": 139
+      },
+      "meanMaxChannelDelta": 0.36088888888888887,
+      "maxChannelDelta": 200,
+      "fractionOver2": 0.024540123456790124,
+      "fractionChanged": 0.1378641975308642
+    },
+    {
+      "name": "paper-360-cursor-active",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 83,
+        "y": 692
+      },
+      "meanMaxChannelDelta": 0.367929012345679,
+      "maxChannelDelta": 211,
+      "fractionOver2": 0.012098765432098766,
+      "fractionChanged": 0.12387345679012346
+    },
+    {
+      "name": "paper-360-cursor-faded",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 158,
+        "y": 229
+      },
+      "meanMaxChannelDelta": 0.404641975308642,
+      "maxChannelDelta": 206,
+      "fractionOver2": 0.026320987654320987,
+      "fractionChanged": 0.11610493827160494
+    },
+    {
+      "name": "paper-1440-notepad-writing",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 1014,
+        "y": 335
+      },
+      "meanMaxChannelDelta": 0.27709182098765434,
+      "maxChannelDelta": 184,
+      "fractionOver2": 0.022219135802469137,
+      "fractionChanged": 0.16704706790123458
+    },
+    {
+      "name": "paper-1440-tagline-erasing",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 985,
+        "y": 471
+      },
+      "meanMaxChannelDelta": 0.32833487654320986,
+      "maxChannelDelta": 200,
+      "fractionOver2": 0.03945833333333333,
+      "fractionChanged": 0.15850617283950616
+    },
+    {
+      "name": "paper-1440-tagline-writing",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 214,
+        "y": 368
+      },
+      "meanMaxChannelDelta": 0.44677469135802467,
+      "maxChannelDelta": 206,
+      "fractionOver2": 0.05525771604938272,
+      "fractionChanged": 0.17551851851851852
+    },
+    {
+      "name": "paper-1440-page-flip",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 213,
+        "y": 371
+      },
+      "meanMaxChannelDelta": 0.4459043209876543,
+      "maxChannelDelta": 158,
+      "fractionOver2": 0.07110493827160494,
+      "fractionChanged": 0.1674266975308642
+    },
+    {
+      "name": "paper-1440-next-page",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 246,
+        "y": 372
+      },
+      "meanMaxChannelDelta": 0.42341435185185183,
+      "maxChannelDelta": 206,
+      "fractionOver2": 0.06089583333333334,
+      "fractionChanged": 0.1718989197530864
+    },
+    {
+      "name": "paper-1440-cursor-active",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 282,
+        "y": 365
+      },
+      "meanMaxChannelDelta": 0.41332407407407407,
+      "maxChannelDelta": 206,
+      "fractionOver2": 0.05115817901234568,
+      "fractionChanged": 0.16888734567901234
+    },
+    {
+      "name": "paper-1440-cursor-faded",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 309,
+        "y": 365
+      },
+      "meanMaxChannelDelta": 0.32070987654320987,
+      "maxChannelDelta": 206,
+      "fractionOver2": 0.03795601851851852,
+      "fractionChanged": 0.14397145061728395
+    },
+    {
+      "name": "chalkboard-360-notepad-writing",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 173,
+        "y": 690
+      },
+      "meanMaxChannelDelta": 0.10149691358024691,
+      "maxChannelDelta": 223,
+      "fractionOver2": 0.0006635802469135803,
+      "fractionChanged": 0.021719135802469137
+    },
+    {
+      "name": "chalkboard-360-tagline-erasing",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 155,
+        "y": 822
+      },
+      "meanMaxChannelDelta": 0.1486358024691358,
+      "maxChannelDelta": 223,
+      "fractionOver2": 0.0016141975308641976,
+      "fractionChanged": 0.007567901234567901
+    },
+    {
+      "name": "chalkboard-360-tagline-writing",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 80,
+        "y": 226
+      },
+      "meanMaxChannelDelta": 0.14130555555555555,
+      "maxChannelDelta": 219,
+      "fractionOver2": 0.001345679012345679,
+      "fractionChanged": 0.007280864197530864
+    },
+    {
+      "name": "chalkboard-360-page-flip",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 90,
+        "y": 121
+      },
+      "meanMaxChannelDelta": 0.12842901234567902,
+      "maxChannelDelta": 219,
+      "fractionOver2": 0.0011512345679012346,
+      "fractionChanged": 0.0305679012345679
+    },
+    {
+      "name": "chalkboard-360-next-page",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 81,
+        "y": 133
+      },
+      "meanMaxChannelDelta": 0.18776851851851853,
+      "maxChannelDelta": 219,
+      "fractionOver2": 0.0012901234567901235,
+      "fractionChanged": 0.06051851851851852
+    },
+    {
+      "name": "chalkboard-360-cursor-active",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 92,
+        "y": 688
+      },
+      "meanMaxChannelDelta": 0.2575925925925926,
+      "maxChannelDelta": 223,
+      "fractionOver2": 0.0022098765432098763,
+      "fractionChanged": 0.0633179012345679
+    },
+    {
+      "name": "chalkboard-360-cursor-faded",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 176,
+        "y": 687
+      },
+      "meanMaxChannelDelta": 0.25403086419753085,
+      "maxChannelDelta": 223,
+      "fractionOver2": 0.002,
+      "fractionChanged": 0.05946913580246914
+    },
+    {
+      "name": "chalkboard-1440-notepad-writing",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 1029,
+        "y": 324
+      },
+      "meanMaxChannelDelta": 0.044305555555555556,
+      "maxChannelDelta": 189,
+      "fractionOver2": 0.0000794753086419753,
+      "fractionChanged": 0.03922376543209877
+    },
+    {
+      "name": "chalkboard-1440-tagline-erasing",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 986,
+        "y": 470
+      },
+      "meanMaxChannelDelta": 0.07226311728395061,
+      "maxChannelDelta": 214,
+      "fractionOver2": 0.0003618827160493827,
+      "fractionChanged": 0.04554783950617284
+    },
+    {
+      "name": "chalkboard-1440-tagline-writing",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 1036,
+        "y": 530
+      },
+      "meanMaxChannelDelta": 0.08758873456790124,
+      "maxChannelDelta": 223,
+      "fractionOver2": 0.0003927469135802469,
+      "fractionChanged": 0.042805555555555555
+    },
+    {
+      "name": "chalkboard-1440-page-flip",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 210,
+        "y": 355
+      },
+      "meanMaxChannelDelta": 0.09778703703703703,
+      "maxChannelDelta": 219,
+      "fractionOver2": 0.0003279320987654321,
+      "fractionChanged": 0.06571682098765431
+    },
+    {
+      "name": "chalkboard-1440-next-page",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 246,
+        "y": 362
+      },
+      "meanMaxChannelDelta": 0.05361496913580247,
+      "maxChannelDelta": 219,
+      "fractionOver2": 0.0002546296296296296,
+      "fractionChanged": 0.023445987654320988
+    },
+    {
+      "name": "chalkboard-1440-cursor-active",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 870,
+        "y": 336
+      },
+      "meanMaxChannelDelta": 0.12887422839506174,
+      "maxChannelDelta": 223,
+      "fractionOver2": 0.0007569444444444444,
+      "fractionChanged": 0.0714483024691358
+    },
+    {
+      "name": "chalkboard-1440-cursor-faded",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "status": "dynamic review",
+      "maxLocation": {
+        "x": 1016,
+        "y": 336
+      },
+      "meanMaxChannelDelta": 0.07969984567901235,
+      "maxChannelDelta": 223,
+      "fractionOver2": 0.00046450617283950616,
+      "fractionChanged": 0.02366820987654321
+    }
+  ],
+  "settled": [
+    {
+      "name": "settled-paper-360-contact",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 1086
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 295,
+        "y": 363
+      },
+      "meanMaxChannelDelta": 0.2523301616533661,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.2522099447513812
+    },
+    {
+      "name": "settled-paper-360-expanded",
+      "crop": {
+        "top": 0,
+        "width": 312,
+        "height": 332
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 172,
+        "y": 7
+      },
+      "meanMaxChannelDelta": 0.023671609514983007,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.02361368551127587
+    },
+    {
+      "name": "settled-paper-360-menu",
+      "crop": {
+        "top": 0,
+        "width": 281,
+        "height": 344
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 53,
+        "y": 11
+      },
+      "meanMaxChannelDelta": 0.0652052470412977,
+      "maxChannelDelta": 1,
+      "fractionOver2": 0,
+      "fractionChanged": 0.0652052470412977
+    },
+    {
+      "name": "settled-paper-768-contact",
+      "crop": {
+        "top": 0,
+        "width": 768,
+        "height": 814
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 535,
+        "y": 51
+      },
+      "meanMaxChannelDelta": 0.23653767403767403,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.23652487714987716
+    },
+    {
+      "name": "settled-paper-768-expanded",
+      "crop": {
+        "top": 0,
+        "width": 348,
+        "height": 312
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 246,
+        "y": 0
+      },
+      "meanMaxChannelDelta": 0.02626731506041851,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.02621205422929561
+    },
+    {
+      "name": "settled-paper-1440-contact",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 813
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 480,
+        "y": 40
+      },
+      "meanMaxChannelDelta": 0.2713056922235889,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.27122625392920596
+    },
+    {
+      "name": "settled-paper-1440-expanded",
+      "crop": {
+        "top": 0,
+        "width": 326,
+        "height": 311
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 286,
+        "y": 7
+      },
+      "meanMaxChannelDelta": 0.024786459668987827,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.024707553311108042
+    },
+    {
+      "name": "settled-chalkboard-360-contact",
+      "crop": {
+        "top": 0,
+        "width": 360,
+        "height": 1086
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 169,
+        "y": 18
+      },
+      "meanMaxChannelDelta": 0.26419582565991406,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.2640807243707796
+    },
+    {
+      "name": "settled-chalkboard-360-expanded",
+      "crop": {
+        "top": 0,
+        "width": 312,
+        "height": 332
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 243,
+        "y": 7
+      },
+      "meanMaxChannelDelta": 0.023372335495829472,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.02330475749150448
+    },
+    {
+      "name": "settled-chalkboard-360-menu",
+      "crop": {
+        "top": 0,
+        "width": 281,
+        "height": 344
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 222,
+        "y": 118
+      },
+      "meanMaxChannelDelta": 0.06231896052304891,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.062287925184143014
+    },
+    {
+      "name": "settled-chalkboard-768-contact",
+      "crop": {
+        "top": 0,
+        "width": 768,
+        "height": 814
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 727,
+        "y": 14
+      },
+      "meanMaxChannelDelta": 0.2502799319205569,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.25023834203521705
+    },
+    {
+      "name": "settled-chalkboard-768-expanded",
+      "crop": {
+        "top": 0,
+        "width": 348,
+        "height": 312
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 133,
+        "y": 0
+      },
+      "meanMaxChannelDelta": 0.026856763925729443,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.02676466254052461
+    },
+    {
+      "name": "settled-chalkboard-1440-contact",
+      "crop": {
+        "top": 0,
+        "width": 1440,
+        "height": 813
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 1053,
+        "y": 17
+      },
+      "meanMaxChannelDelta": 0.28770073117397843,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.2875845633456335
+    },
+    {
+      "name": "settled-chalkboard-1440-expanded",
+      "crop": {
+        "top": 0,
+        "width": 326,
+        "height": 311
+      },
+      "status": "pass",
+      "maxLocation": {
+        "x": 189,
+        "y": 0
+      },
+      "meanMaxChannelDelta": 0.027765174678949758,
+      "maxChannelDelta": 2,
+      "fractionOver2": 0,
+      "fractionChanged": 0.027607361963190184
+    }
+  ]
+}

@@ -18,20 +18,11 @@
  *
  * prefers-reduced-motion: falls back to a simple fade between phrases.
  *
- * --- Fix notes ---
- * 1. Eliminated synchronous setState calls inside useEffect:
- *    Previously `setProgress(0)` was called synchronously at the top of
- *    the branch handling "erasing"/"writing" phases, causing React to batch
- *    an extra render on every phase transition.  Now state is combined into
- *    a single reducer dispatch so both `phase` and `progress` change atomically.
- *
- * 2. Vertical bobbing on sprites:
- *    The eraser and pencil sprites now oscillate vertically using a
- *    sin-wave keyed to `performance.now()`, sampled every animation frame.
- *    This simulates the natural up-and-down wrist motion of handwriting.
+ * Frame progress is written directly to the clip and sprite. React owns phases.
  */
 
 import React, { useReducer, useEffect, useCallback, useRef } from "react";
+import { useVisibleTimeline } from "@/lib/use-visible-timeline";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 interface EraseWriteTextProps {
@@ -50,34 +41,26 @@ type Phase = "display" | "erasing" | "pause" | "writing";
 interface State {
   phraseIndex: number;
   phase: Phase;
-  progress: number;
-  /** Current vertical offset for sprite bobbing (-1 … 1 sin value) */
-  bobY: number;
 }
 
 type Action =
   | { type: "START_ERASE" }
   | { type: "START_WRITE" }
   | { type: "ADVANCE_PAUSE" }
-  | { type: "SET_DISPLAY" }
-  | { type: "TICK"; progress: number; bobY: number };
+  | { type: "SET_DISPLAY" };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case "START_ERASE":
-      // Atomically transition to erasing AND reset progress to 0
-      return { ...state, phase: "erasing", progress: 0, bobY: 0 };
+      return { ...state, phase: "erasing" };
     case "START_WRITE":
-      // Atomically transition to writing AND reset progress to 0
-      return { ...state, phase: "writing", progress: 0, bobY: 0 };
+      return { ...state, phase: "writing" };
     case "ADVANCE_PAUSE":
       // Don't increment phraseIndex here — during pause/writing we show
       // nextPhrase (phraseIndex+1). Incrementing now would skip a phrase.
       return {
         ...state,
         phase: "pause",
-        progress: 0,
-        bobY: 0,
       };
     case "SET_DISPLAY":
       // NOW increment phraseIndex — the written phrase becomes the current display phrase
@@ -85,11 +68,7 @@ function reducer(state: State, action: Action): State {
         ...state,
         phase: "display",
         phraseIndex: (state.phraseIndex + 1) % 99999,
-        progress: 1,
-        bobY: 0,
       };
-    case "TICK":
-      return { ...state, progress: action.progress, bobY: action.bobY };
     default:
       return state;
   }
@@ -144,15 +123,17 @@ export function EraseWriteText({
   const [state, dispatch] = useReducer(reducer, {
     phraseIndex: 0,
     phase: "display" as Phase,
-    progress: 0,
-    bobY: 0,
   });
 
   const reducedMotion = useReducedMotion();
+  const rootRef = useRef<HTMLSpanElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const spriteRef = useRef<HTMLSpanElement>(null);
+  const clock = useVisibleTimeline(rootRef, reducedMotion);
   const animationRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
 
-  const { phraseIndex, phase, progress, bobY } = state;
+  const { phraseIndex, phase } = state;
   const currentPhrase = phrases[phraseIndex % phrases.length];
   const nextPhrase = phrases[(phraseIndex + 1) % phrases.length];
 
@@ -161,101 +142,78 @@ export function EraseWriteText({
    * Also samples a sin-wave for the vertical bob on each frame.
    */
   const animateProgress = useCallback((duration: number, onComplete: () => void) => {
-    startTimeRef.current = performance.now();
+    startTimeRef.current = clock.now();
     const step = (now: number) => {
       const elapsed = now - startTimeRef.current;
       const p = Math.min(elapsed / duration, 1);
       // Bob amplitude: 3px equivalent converted to a normalised −1…1 value.
       // We expose it as a raw sin value; the consumer multiplies by px.
       const bob = Math.sin((now / 120) * Math.PI * 2);
-      dispatch({ type: "TICK", progress: p, bobY: bob });
+      if (textRef.current) textRef.current.style.clipPath = `inset(0 ${phase === "erasing" ? p * 100 : 100 - p * 100}% 0 0)`;
+      if (spriteRef.current) {
+        spriteRef.current.style.left = `${(phase === "erasing" ? 1 - p : p) * 100}%`;
+        spriteRef.current.style.transform = phase === "erasing"
+          ? `translateX(-50%) translateY(${bob * 3}px)`
+          : `translateX(-8px) translateY(${bob * 4}px)`;
+      }
       if (p < 1) {
-        animationRef.current = requestAnimationFrame(step);
+        animationRef.current = clock.frame(step);
       } else {
         onComplete();
       }
     };
-    animationRef.current = requestAnimationFrame(step);
-  }, []);
+    animationRef.current = clock.frame(step);
+  }, [clock, phase]);
 
   useEffect(() => {
     if (reducedMotion) {
-      // Simple cycle with no animation — just swap text with a delay
-      const timer = setInterval(() => {
-        dispatch({ type: "ADVANCE_PAUSE" });
-        setTimeout(() => dispatch({ type: "SET_DISPLAY" }), 300);
-      }, displayDuration + 500);
-      return () => clearInterval(timer);
+      const timer = clock.timeout(() => dispatch({ type: phase === "pause" ? "SET_DISPLAY" : "ADVANCE_PAUSE" }), phase === "pause" ? 300 : displayDuration + 500);
+      return () => clock.clearTimeout(timer);
     }
 
-    let timeout: ReturnType<typeof setTimeout>;
+    let timeout: number | undefined;
 
     if (phase === "display") {
-      timeout = setTimeout(() => dispatch({ type: "START_ERASE" }), displayDuration);
+      timeout = clock.timeout(() => dispatch({ type: "START_ERASE" }), displayDuration);
 
     } else if (phase === "erasing") {
-      // progress and bobY start at 0 — already set atomically by START_ERASE
       animateProgress(eraseDuration, () => {
         dispatch({ type: "ADVANCE_PAUSE" });
       });
 
     } else if (phase === "pause") {
-      timeout = setTimeout(() => dispatch({ type: "START_WRITE" }), 300);
+      timeout = clock.timeout(() => dispatch({ type: "START_WRITE" }), 300);
 
     } else if (phase === "writing") {
-      // progress and bobY start at 0 — already set atomically by START_WRITE
       animateProgress(writeDuration, () => {
         dispatch({ type: "SET_DISPLAY" });
       });
     }
 
     return () => {
-      clearTimeout(timeout);
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      clock.clearTimeout(timeout);
+      if (animationRef.current) clock.cancelFrame(animationRef.current);
     };
-  }, [phase, reducedMotion, displayDuration, eraseDuration, writeDuration, animateProgress]);
+  }, [phase, reducedMotion, displayDuration, eraseDuration, writeDuration, animateProgress, clock]);
 
   if (reducedMotion) {
     return (
-      <span className={`inline-block font-[family-name:var(--font-hand)] transition-opacity duration-500 ${className}`}>
+      <span ref={rootRef} className={`inline-block font-[family-name:var(--font-hand)] transition-opacity duration-500 ${className}`}>
         {currentPhrase}
       </span>
     );
   }
 
-  /** Calculate clip-path based on current phase and progress */
-  const getTextClip = () => {
-    if (phase === "erasing") {
-      // Hide text from right to left as eraser moves
-      const visibleWidth = (1 - progress) * 100;
-      return `inset(0 ${100 - visibleWidth}% 0 0)`;
-    }
-    if (phase === "writing") {
-      // Reveal from left to right: show text as pen passes
-      const visibleWidth = progress * 100;
-      return `inset(0 ${100 - visibleWidth}% 0 0)`;
-    }
-    if (phase === "pause") {
-      return "inset(0 100% 0 0)";
-    }
-    return "inset(0 0 0 0)"; // display — fully visible
-  };
-
-  /**
-   * Vertical bob offset in pixels.
-   * Amplitude: 3px for eraser (side-to-side scrubbing), 4px for pencil
-   * (slightly more pronounced handwriting arc).
-   */
-  const eraserBobPx = bobY * 3;
-  const pencilBobPx = bobY * 4;
+  const hidden = phase === "pause" || phase === "writing";
 
   return (
-    <span className={`relative inline-flex items-center ${className}`}>
+    <span ref={rootRef} className={`relative inline-flex items-center ${className}`}>
       {/* The text — clipped during erase/write */}
       <span
+        ref={textRef}
         className="font-[family-name:var(--font-hand)] whitespace-nowrap"
         style={{
-          clipPath: getTextClip(),
+          clipPath: hidden ? "inset(0 100% 0 0)" : "inset(0 0 0 0)",
           transition: phase === "display" ? "clip-path 0.1s" : undefined,
         }}
       >
@@ -265,11 +223,12 @@ export function EraseWriteText({
       {/* Eraser sprite — moves right to left during erase phase */}
       {phase === "erasing" && (
         <span
+          ref={spriteRef}
           className="absolute -top-1"
           style={{
-            left: `${(1 - progress) * 100}%`,
+            left: "100%",
             // Horizontal centering + vertical sin-wave bob
-            transform: `translateX(-50%) translateY(${eraserBobPx}px)`,
+            transform: "translateX(-50%) translateY(0px)",
           }}
         >
           <EraserSprite />
@@ -285,11 +244,11 @@ export function EraseWriteText({
         <span
           className="absolute -top-2"
           style={{
-            left: `${progress * 100}%`,
+            left: "0%",
             // Shift so the pencil TIP (not center) aligns with the text reveal edge
             // The tip in the rotated SVG is ~30% from left edge of the 28px viewBox
             // So offset: -(28 * 0.30) = -8.4px, rounded to -8px
-            transform: `translateX(-8px) translateY(${pencilBobPx}px)`,
+            transform: "translateX(-8px) translateY(0px)",
           }}
         >
           <PencilSprite />

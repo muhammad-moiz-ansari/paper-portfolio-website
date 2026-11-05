@@ -1,0 +1,13 @@
+{
+  "visibilityInput": "synthetic visibilitychange with document.hidden override (actual tab backgrounding was unavailable)",
+  "pausedIslands": 2,
+  "unchanged": true,
+  "resumed": true,
+  "sawFlip": true,
+  "pageBeforePreferenceChange": "page 1 / 4",
+  "pageAfterPreferenceChange": "page 2 / 4",
+  "flipCleared": true,
+  "staticInkDrawn": true,
+  "resumedInkDrawn": true,
+  "inkMoves": true
+}

@@ -1,6 +1,3 @@
-"use client";
-
-import { useTheme } from "@/lib/theme-context";
 import { StickyNote } from "@/components/sticky-note";
 import { skillCategories } from "@/data/skills";
 
@@ -12,9 +9,6 @@ const COLORS = ["yellow", "pink", "blue"] as const;
 const DECOS = ["tape", "pin"] as const;
 
 export function Skills() {
-  const { theme } = useTheme();
-  const isChalkboard = theme === "chalkboard";
-
   let chipIndex = 0;
 
   return (
@@ -26,9 +20,7 @@ export function Skills() {
       <div className="max-w-4xl mx-auto">
         {/* Section heading */}
         <h2
-          className={`text-4xl font-[family-name:var(--font-hand)] font-bold mb-2 ${
-            isChalkboard ? "chalk-text" : "text-[var(--color-ink)]"
-          }`}
+          className="text-4xl font-[family-name:var(--font-hand)] font-bold mb-2 server-section-heading"
         >
           Skills
         </h2>
@@ -36,7 +28,7 @@ export function Skills() {
           className="w-24 h-1 rounded-full mb-12"
           style={{
             background: "var(--color-highlight-yellow)",
-            opacity: isChalkboard ? 0.6 : 0.8,
+            opacity: "var(--section-accent-opacity)",
           }}
         />
 
@@ -44,9 +36,7 @@ export function Skills() {
           <div key={cat.label} className={catIdx > 0 ? "mt-12" : ""}>
             {/* Category label */}
             <h3
-              className={`text-xl font-[family-name:var(--font-hand)] mb-6 ${
-                isChalkboard ? "text-[var(--color-chalk-white)]" : "text-[var(--color-ink)]"
-              }`}
+              className="text-xl font-[family-name:var(--font-hand)] mb-6 text-[var(--color-ink)] [[data-theme='chalkboard']_&]:text-[var(--color-chalk-white)]"
             >
               {cat.label}
             </h3>

@@ -1,6 +1,3 @@
-"use client";
-
-import { useTheme } from "@/lib/theme-context";
 import { PushPin } from "@/components/push-pin";
 import { experienceEntries } from "@/data/experience";
 
@@ -8,17 +5,12 @@ import { experienceEntries } from "@/data/experience";
 const ROTATIONS = [-1.5, 1, -0.5, 1.5];
 
 export function Experience() {
-  const { theme } = useTheme();
-  const isChalkboard = theme === "chalkboard";
-
   return (
     <section id="experience" className="relative px-6 py-20 scroll-mt-20 paper-texture bg-corkboard">
       <div className="max-w-3xl mx-auto">
         {/* Section heading */}
         <h2
-          className={`text-4xl font-[family-name:var(--font-hand)] font-bold mb-2 ${
-            isChalkboard ? "chalk-text" : "text-[var(--color-ink)]"
-          }`}
+          className="text-4xl font-[family-name:var(--font-hand)] font-bold mb-2 server-section-heading"
         >
           Experience
         </h2>
@@ -26,7 +18,7 @@ export function Experience() {
           className="w-24 h-1 rounded-full mb-12"
           style={{
             background: "var(--color-highlight-yellow)",
-            opacity: isChalkboard ? 0.6 : 0.8,
+            opacity: "var(--section-accent-opacity)",
           }}
         />
 
@@ -36,9 +28,7 @@ export function Experience() {
           <div
             className="absolute left-4 top-0 bottom-0 w-[3px] rounded-full"
             style={{
-              background: isChalkboard
-                ? "rgba(232, 160, 168, 0.5)"
-                : "rgba(232, 160, 168, 0.7)",
+              background: "var(--timeline-spine)",
             }}
           />
 
@@ -47,37 +37,23 @@ export function Experience() {
               <div key={entry.id} className="relative pl-12">
                 {/* Timeline dot */}
                 <div
-                  className={`absolute left-[7px] top-4 w-5 h-5 rounded-full border-2 ${
-                    isChalkboard
-                      ? "border-[rgba(232,160,168,0.6)] bg-[var(--color-chalk-bg)]"
-                      : "border-[#E8A0A8] bg-[var(--color-paper)]"
-                  }`}
+                  className="absolute left-[7px] top-4 w-5 h-5 rounded-full border-2 border-[#E8A0A8] bg-[var(--color-paper)] [[data-theme='chalkboard']_&]:border-[rgba(232,160,168,0.6)] [[data-theme='chalkboard']_&]:bg-[var(--color-chalk-bg)]"
                   style={{ zIndex: 1 }}
                 />
 
                 {/* Date tag */}
                 <span
-                  className={`inline-block mb-2 text-xs font-mono px-2 py-0.5 rounded-sm ${
-                    isChalkboard
-                      ? "bg-[var(--color-chalk-bg-dark)] text-[var(--color-chalk-white)] border border-[var(--color-chalk-line)]"
-                      : "bg-[var(--color-kraft-light)] text-[var(--color-brown-dark)] border border-[var(--border-light)]"
-                  }`}
+                  className="inline-block mb-2 text-xs font-mono px-2 py-0.5 rounded-sm bg-[var(--color-kraft-light)] text-[var(--color-brown-dark)] border border-[var(--border-light)] [[data-theme='chalkboard']_&]:bg-[var(--color-chalk-bg-dark)] [[data-theme='chalkboard']_&]:text-[var(--color-chalk-white)] [[data-theme='chalkboard']_&]:border [[data-theme='chalkboard']_&]:border-[var(--color-chalk-line)]"
                 >
                   {entry.date}
                 </span>
 
                 {/* Index card — pinned notebook page style */}
                 <div
-                  className={`relative p-5 rounded-sm transition-all duration-300 ${
-                    isChalkboard
-                      ? "bg-[var(--color-chalk-bg-dark)] border border-[var(--color-chalk-line)]"
-                      : "bg-[var(--color-paper)] border border-[var(--border-light)]"
-                  }`}
+                  className="relative p-5 rounded-sm transition-all duration-300 bg-[var(--color-paper)] border border-[var(--border-light)] [[data-theme='chalkboard']_&]:bg-[var(--color-chalk-bg-dark)] [[data-theme='chalkboard']_&]:border [[data-theme='chalkboard']_&]:border-[var(--color-chalk-line)]"
                   style={{
                     transform: `rotate(${ROTATIONS[i % ROTATIONS.length]}deg)`,
-                    boxShadow: isChalkboard
-                      ? "2px 3px 8px rgba(0,0,0,0.4)"
-                      : "2px 3px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06)",
+                    boxShadow: "var(--experience-card-shadow)",
                   }}
                 >
                   {/* Pin decoration */}
@@ -115,9 +91,7 @@ export function Experience() {
                           <span
                             className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"
                             style={{
-                              background: isChalkboard
-                                ? "var(--color-chalk-white)"
-                                : "var(--color-ink)",
+                              background: "var(--section-ink)",
                               opacity: 0.5,
                             }}
                           />

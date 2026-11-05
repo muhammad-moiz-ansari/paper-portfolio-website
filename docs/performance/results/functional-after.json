@@ -1,0 +1,145 @@
+[
+  {
+    "name": "server-rendered-content",
+    "pass": true
+  },
+  {
+    "name": "navigation-experience",
+    "pass": true,
+    "active": "#experience",
+    "activePass": true
+  },
+  {
+    "name": "navigation-skills",
+    "pass": true,
+    "active": "#skills",
+    "activePass": true
+  },
+  {
+    "name": "navigation-education",
+    "pass": true,
+    "active": "#education",
+    "activePass": true
+  },
+  {
+    "name": "navigation-projects",
+    "pass": true,
+    "active": "#projects",
+    "activePass": true
+  },
+  {
+    "name": "navigation-contact",
+    "pass": true,
+    "active": "#contact",
+    "activePass": true
+  },
+  {
+    "name": "navigation-about",
+    "pass": true,
+    "active": "#about",
+    "activePass": true
+  },
+  {
+    "name": "card-expansion",
+    "pass": true,
+    "before": "Project\nGPU-Accelerated KLT Feature Tracker\n\nOptimized image convolution using CUDA kernels achieving 9.2× speedup over CPU. Developed OpenACC implementation with 90% code reduction.\n\nCUDA\nOpenACC\nC++\nGPU Computing\n\nMore details about this project would go here. Click to expand/collapse.\n\nClick to peek inside →",
+    "after": "Project\nGPU-Accelerated KLT Feature Tracker\n\nOptimized image convolution using CUDA kernels achieving 9.2× speedup over CPU. Developed OpenACC implementation with 90% code reduction.\n\nCUDA\nOpenACC\nC++\nGPU Computing\n\nMore details about this project would go here. Click to expand/collapse.\n\nClick to close ↑"
+  },
+  {
+    "name": "contact-input",
+    "pass": true,
+    "transportCalls": 0
+  },
+  {
+    "name": "contact-mocked-submission",
+    "pass": true,
+    "mockSuccess": true,
+    "interceptedPosts": 1,
+    "scriptsLoadedOnSubmit": [
+      "http://127.0.0.1:3100/_next/static/chunks/759.d7075327990ca383.js"
+    ]
+  },
+  {
+    "name": "theme-persistence",
+    "pass": true,
+    "theme": "chalkboard",
+    "initialTheme": "chalkboard"
+  },
+  {
+    "name": "mobile-menu-open",
+    "pass": true
+  },
+  {
+    "name": "mobile-menu-navigation-close",
+    "pass": true
+  },
+  {
+    "name": "cursor-allocation",
+    "dimensions": {
+      "width": 1440,
+      "height": 900,
+      "cssPosition": "fixed",
+      "zIndex": "50",
+      "pointerEvents": "none"
+    }
+  },
+  {
+    "name": "idle-canvas-callbacks-1500ms",
+    "counts": {
+      "cursor": 0,
+      "ink": 87
+    }
+  },
+  {
+    "name": "cursor-after-fade-500ms",
+    "clears": 0,
+    "transparent": true
+  },
+  {
+    "name": "offscreen-3000ms",
+    "textUnchanged": true,
+    "stylesUnchanged": true,
+    "clearDelta": {
+      "cursor": 0,
+      "ink": 0
+    }
+  },
+  {
+    "name": "animation-resume",
+    "stylesChanged": true
+  },
+  {
+    "name": "hidden-tab",
+    "verifiedHidden": false,
+    "reason": "Headless page remained visible when another tab was brought forward."
+  },
+  {
+    "name": "reduced-motion-cursor",
+    "pass": true
+  },
+  {
+    "name": "reduced-motion-ink-static",
+    "unchanged": true
+  },
+  {
+    "name": "reduced-motion-ink-resize",
+    "drawn": true
+  },
+  {
+    "name": "ink-motion-preference-resume",
+    "changed": true
+  },
+  {
+    "name": "console-and-assets",
+    "errors": [],
+    "badResponses": [],
+    "transportCalls": 1
+  },
+  {
+    "name": "touch-cursor-allocation",
+    "dimensions": {
+      "width": 0,
+      "height": 0
+    }
+  }
+]

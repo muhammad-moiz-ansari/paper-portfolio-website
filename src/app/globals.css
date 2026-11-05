@@ -1,5 +1,42 @@
 @import "tailwindcss";
 
+/* // EDIT: TEXTURE FORMATS — cork, crumpled, and halftone background URLs use AVIF with JPEG fallbacks below. */
+/* // EDIT: SERVER THEME PRESENTATION — identical section colors/shadows without theme-hook rendering. */
+:root {
+  --section-accent-opacity: 0.8;
+  --timeline-spine: rgba(232, 160, 168, 0.7);
+  --experience-card-shadow: 2px 3px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --section-ink: var(--color-ink);
+  --notepad-link: var(--color-link);
+}
+[data-theme="chalkboard"] {
+  --section-accent-opacity: 0.6;
+  --timeline-spine: rgba(232, 160, 168, 0.5);
+  --experience-card-shadow: 2px 3px 8px rgba(0,0,0,0.4);
+  --section-ink: var(--color-chalk-white);
+  --notepad-link: var(--color-highlight-green);
+}
+.header-logo-chalkboard, [data-theme="chalkboard"] .header-logo-paper { display: none; }
+[data-theme="chalkboard"] .header-logo-chalkboard { display: block; }
+.server-section-background { background-color: var(--color-paper-warm); }
+.server-section-heading { color: var(--color-ink); }
+[data-theme="chalkboard"] .server-section-background { background-color: var(--color-chalk-bg); }
+[data-theme="chalkboard"] .server-section-heading {
+  color: var(--color-chalk-white);
+  text-shadow: 0 0 1px rgba(240,237,229,0.6), 1px 0 2px rgba(240,237,229,0.15), -1px 0 2px rgba(240,237,229,0.15);
+}
+[data-animation-paused], [data-animation-paused] * { animation-play-state: paused !important; }
+.server-sticky-note {
+  --note-bg: var(--note-light-bg);
+  --note-border: var(--note-light-border);
+  --note-shadow: var(--note-light-shadow);
+}
+[data-theme="chalkboard"] .server-sticky-note {
+  --note-bg: var(--note-dark-bg);
+  --note-border: var(--note-dark-border);
+  --note-shadow: var(--note-dark-shadow);
+}
+
 /* ============================================
    PAPER PORTFOLIO — DESIGN SYSTEM TOKENS
    ============================================ */
@@ -397,6 +434,7 @@ body {
   position: absolute;
   inset: 0;
   background-image: url('/textures/crumpled-light.jpg');
+  background-image: image-set(url('/textures/crumpled-light.avif') type('image/avif'), url('/textures/crumpled-light.jpg') type('image/jpeg'));
   background-size: cover;
   background-position: center;
   /* Multiply makes the dark creases show up on your light paper */
@@ -413,6 +451,7 @@ body {
 
 [data-theme="chalkboard"] .bg-crumpled::before {
   background-image: url('/textures/crumpled-dark.jpg');
+  background-image: image-set(url('/textures/crumpled-dark.avif') type('image/avif'), url('/textures/crumpled-dark.jpg') type('image/jpeg'));
   opacity: 0.35; /* Slightly less visible on dark mode */
 }
 
@@ -429,6 +468,7 @@ body {
   position: absolute;
   inset: 0;
   background-image: url('/textures/halftone-light.jpg');
+  background-image: image-set(url('/textures/halftone-light.avif') type('image/avif'), url('/textures/halftone-light.jpg') type('image/jpeg'));
   
   /* Tile the pattern instead of stretching it */
   background-size: 1000px; /* Increase/decrease this to change the dot size */
@@ -450,6 +490,7 @@ body {
 
 [data-theme="chalkboard"] .bg-halftone::before {
   background-image: url('/textures/halftone-dark.jpg');
+  background-image: image-set(url('/textures/halftone-dark.avif') type('image/avif'), url('/textures/halftone-dark.jpg') type('image/jpeg'));
   /* Dark mode usually needs a slight opacity bump to be visible */
   opacity: 0.15; 
 }
@@ -467,7 +508,8 @@ body {
   inset: 0;
   
   /* Make sure you save a seamless cork image here */
-  background-image: url('/textures/cork-light.jpg'); 
+  background-image: url('/textures/cork-light.jpg');
+  background-image: image-set(url('/textures/cork-light.avif') type('image/avif'), url('/textures/cork-light.jpg') type('image/jpeg'));
   
   /* Tile the texture so the cork grains stay crisp and realistic */
   background-size: cover;
@@ -488,7 +530,8 @@ body {
 
 /* Dark Mode Adjustment */
 [data-theme="chalkboard"] .bg-corkboard::before {
-  background-image: url('/textures/cork-dark.jpg'); /* Optional: Use a darker cork image */
+  background-image: url('/textures/cork-dark.jpg');
+  background-image: image-set(url('/textures/cork-dark.avif') type('image/avif'), url('/textures/cork-dark.jpg') type('image/jpeg')); /* Optional: Use a darker cork image */
   /* Overlay or Color-Dodge works better in dark mode to keep contrast */
   mix-blend-mode: overlay; 
   opacity: 0.3; 

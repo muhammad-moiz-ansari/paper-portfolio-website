@@ -1,30 +1,20 @@
-"use client";
-
-import { useTheme } from "@/lib/theme-context";
 import { PaperCard } from "@/components/paper-card";
 import { projects } from "@/data/projects";
 import { DoodleGithub } from "@/components/doodle-icons";
 
 export function Projects() {
-  const { theme } = useTheme();
-  const isChalkboard = theme === "chalkboard";
-
   const realProjects = projects.filter((p) => !p.isPlaceholder);
   const placeholders = projects.filter((p) => p.isPlaceholder);
 
   return (
     <section
       id="projects"
-      className={`relative px-6 py-20 scroll-mt-20 bg-halftone ${
-        isChalkboard ? "bg-[var(--color-chalk-bg)]" : "bg-[var(--color-paper-warm)]"
-      }`}
+      className="relative px-6 py-20 scroll-mt-20 bg-halftone bg-[var(--color-paper-warm)] [[data-theme='chalkboard']_&]:bg-[var(--color-chalk-bg)]"
     >
       <div className="max-w-5xl mx-auto">
         {/* Section heading */}
         <h2
-          className={`text-4xl font-[family-name:var(--font-hand)] font-bold mb-2 ${
-            isChalkboard ? "chalk-text" : "text-[var(--color-ink)]"
-          }`}
+          className="text-4xl font-[family-name:var(--font-hand)] font-bold mb-2 server-section-heading"
         >
           Projects
         </h2>
@@ -32,7 +22,7 @@ export function Projects() {
           className="w-24 h-1 rounded-full mb-12"
           style={{
             background: "var(--color-highlight-yellow)",
-            opacity: isChalkboard ? 0.6 : 0.8,
+            opacity: "var(--section-accent-opacity)",
           }}
         />
 
@@ -69,11 +59,7 @@ export function Projects() {
           {placeholders.map((p) => (
             <div
               key={p.id}
-              className={`relative rounded border-2 border-dashed p-6 flex items-center justify-center min-h-[160px] transition-all duration-300 hover:scale-[1.02] ${
-                isChalkboard
-                  ? "border-[var(--color-chalk-line)] text-[var(--color-chalk-white)]"
-                  : "border-[var(--border)] text-[var(--text-faint)]"
-              }`}
+              className="relative rounded border-2 border-dashed p-6 flex items-center justify-center min-h-[160px] transition-all duration-300 hover:scale-[1.02] border-[var(--border)] text-[var(--text-faint)] [[data-theme='chalkboard']_&]:border-[var(--color-chalk-line)] [[data-theme='chalkboard']_&]:text-[var(--color-chalk-white)]"
               style={{ opacity: 0.6 }}
             >
               <div className="text-center font-[family-name:var(--font-hand)]">

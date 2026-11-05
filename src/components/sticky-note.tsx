@@ -1,5 +1,3 @@
-"use client";
-
 /**
  * StickyNote — A small square note with slight rotation, drop shadow,
  * and a tape or pin decoration at the top.
@@ -9,7 +7,6 @@
  */
 
 import React from "react";
-import { useTheme } from "@/lib/theme-context";
 
 interface StickyNoteProps {
   children: React.ReactNode;
@@ -67,19 +64,21 @@ export function StickyNote({
   decoration = "tape",
   className = "",
 }: StickyNoteProps) {
-  const { theme } = useTheme();
-  const colors = colorMap[color][theme === "chalkboard" ? "chalkboard" : "paper"];
+  const { paper, chalkboard } = colorMap[color];
 
   return (
     <div
-      className={`relative inline-block p-5 pt-6 min-w-[160px] max-w-[260px] ${className}`}
+      className={`server-sticky-note relative inline-block p-5 pt-6 min-w-[160px] max-w-[260px] ${className}`}
       style={{
-        backgroundColor: colors.bg,
-        border: `1px solid ${colors.border}`,
-        boxShadow: `3px 3px 8px ${colors.shadow}`,
+        "--note-light-bg": paper.bg, "--note-dark-bg": chalkboard.bg,
+        "--note-light-border": paper.border, "--note-dark-border": chalkboard.border,
+        "--note-light-shadow": paper.shadow, "--note-dark-shadow": chalkboard.shadow,
+        backgroundColor: "var(--note-bg)",
+        border: "1px solid var(--note-border)",
+        boxShadow: "3px 3px 8px var(--note-shadow)",
         transform: `rotate(${rotate}deg)`,
         fontFamily: "var(--font-hand)",
-      }}
+      } as React.CSSProperties}
     >
       {decoration === "tape" ? <TapeStrip /> : <PinDot />}
       <div className="relative z-10 text-[var(--text)]">{children}</div>

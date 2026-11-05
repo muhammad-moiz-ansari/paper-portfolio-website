@@ -1,5 +1,7 @@
 @AGENTS.md
 
+Before making website changes, read [OPTIMIZATION.md](OPTIMIZATION.md) and follow its performance, visual preservation, and verification guidance. Include relevant checks in your completion report.
+
 ## Editable Content Comments
 
 Whenever you add or modify any user-facing content — headings, body text,
