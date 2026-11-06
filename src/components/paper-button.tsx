@@ -31,6 +31,7 @@ interface PaperButtonProps {
   pressStyle?: "press" | "crumple";
   className?: string;
   onClick?: () => void;
+  href?: string;
   disabled?: boolean;
 }
 
@@ -53,6 +54,7 @@ export function PaperButton({
   pressStyle = "press",
   className = "",
   onClick,
+  href,
   disabled = false,
 }: PaperButtonProps) {
   const { theme } = useTheme();
@@ -60,6 +62,7 @@ export function PaperButton({
 
   // If disabled prop is true, treat as disabled regardless of variant
   const isDisabled = disabled || variant === "disabled";
+  const Control = href && !isDisabled ? "a" : "button";
 
   // Ref to the background span so we can swap its filter on hover
   const bgRef = useRef<HTMLSpanElement>(null);
@@ -194,11 +197,12 @@ export function PaperButton({
       )}
 
       {/* ── The button itself — clean wrapper, no filter ──────── */}
-      <button
-        type="submit"
+      <Control
+        href={Control === "a" ? href : undefined}
+        type={Control === "button" ? "submit" : undefined}
         className={`${baseClasses} ${buttonClasses()} ${className}`}
         onClick={isDisabled ? undefined : onClick}
-        disabled={isDisabled}
+        disabled={Control === "button" ? isDisabled : undefined}
         aria-disabled={isDisabled}
         /* Swap the bg span's filter on hover for the lifted shadow */
         onMouseEnter={() => {
@@ -252,7 +256,7 @@ export function PaperButton({
         <span className="relative z-10 font-[family-name:var(--font-hand)] text-lg flex items-center justify-center">
           {children}
         </span>
-      </button>
+      </Control>
     </span>
   );
 }

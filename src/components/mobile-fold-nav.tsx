@@ -28,7 +28,6 @@ interface NavItem {
 interface MobileFoldNavProps {
   items: NavItem[];
   activeIndex?: number;
-  onItemClick?: (index: number, href: string) => void;
 }
 
 /**
@@ -68,7 +67,6 @@ const GRAIN_SVG =
 export function MobileFoldNav({
   items,
   activeIndex = 0,
-  onItemClick,
 }: MobileFoldNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -130,14 +128,6 @@ export function MobileFoldNav({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
-  const handleItemClick = useCallback(
-    (index: number, href: string) => {
-      setIsOpen(false);
-      onItemClick?.(index, href);
-    },
-    [onItemClick],
-  );
-
   const toggle = useCallback(() => {
     setIsOpen((prev) => !prev);
   }, []);
@@ -183,7 +173,7 @@ export function MobileFoldNav({
           id="mobile-fold-nav-menu"
           role="navigation"
           aria-label="Main navigation"
-          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-40"
+          className="mobile-fold-panel absolute top-full left-1/2 -translate-x-1/2 mt-2 z-40"
           style={{ width: "min(280px, calc(100vw - 32px))", perspective: "1200px" }}
         >
           {items.map((item, i) => {
@@ -216,6 +206,7 @@ export function MobileFoldNav({
 
                 <a
                   href={item.href}
+                  aria-current={isActive ? "location" : undefined}
                   className={`
                     relative flex items-center justify-center w-full py-3.5 px-6
                     text-lg font-[family-name:var(--font-hand)]
@@ -236,10 +227,7 @@ export function MobileFoldNav({
                     borderBottom: `1px solid ${panelBorder}`,
                     boxShadow: isChalkboard ? "0 4px 12px rgba(0,0,0,0.4)" : "0 4px 12px rgba(0,0,0,0.12)",
                   }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleItemClick(i, item.href);
-                  }}
+                  onClick={() => setIsOpen(false)}
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   onTouchStart={() => setHoveredIndex(i)}

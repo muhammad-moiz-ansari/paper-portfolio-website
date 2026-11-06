@@ -1,5 +1,5 @@
 import { EraseWriteText } from "@/components/erase-write-text";
-import { SectionScrollButton } from "@/components/section-scroll-button";
+import { PaperButton } from "@/components/paper-button";
 import { InkWashBackground } from "@/components/ink-wash-background";
 import { Notepad } from "@/components/notepad";
 import Image from "next/image";
@@ -18,6 +18,7 @@ export function About() {
   return (
     <section
       id="about"
+      tabIndex={-1}
       className="relative px-6 py-20 scroll-mt-20 min-h-[85vh] flex items-center server-section-background"
     >
       <InkWashBackground />
@@ -49,18 +50,18 @@ export function About() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
-              <SectionScrollButton
+              <PaperButton
                 variant="primary"
-                target="projects"
+                href="#projects"
               >
                 View Work →
-              </SectionScrollButton>
-              <SectionScrollButton
+              </PaperButton>
+              <PaperButton
                 variant="secondary"
-                target="contact"
+                href="#contact"
               >
                 Get in Touch
-              </SectionScrollButton>
+              </PaperButton>
             </div>
 
             <div className="mt-6 flex gap-4">

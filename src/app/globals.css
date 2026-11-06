@@ -1,5 +1,42 @@
 @import "tailwindcss";
 
+.scroll-heading-track {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+[data-marker-ink] {
+  display: block;
+}
+
+.scroll-heading-marker {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scroll-heading-marker::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: .19em;
+  width: .24em;
+  height: .12em;
+  border-radius: .035em;
+  background: var(--color-highlight-yellow);
+  transform: rotate(-16deg);
+}
+
+@media (max-height: 480px) {
+  .mobile-fold-panel {
+    max-height: calc(100dvh - 5rem);
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+}
+
 /* EDIT: CONTACT ERROR COLOR — form feedback in paper and chalkboard */
 .contact-error { color: #7a231c; }
 [data-theme="chalkboard"] .contact-error { color: #ffc4b7; }

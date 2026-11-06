@@ -9,6 +9,8 @@ import { Skills } from "@/components/sections/Skills";
 import { Education } from "@/components/sections/Education";
 import { Projects } from "@/components/sections/Projects";
 import { Contact } from "@/components/sections/Contact";
+import { PortfolioScroll } from "@/components/portfolio-scroll";
+import { SectionEntrances } from "@/components/section-entrances";
 
 // EDIT: PAGE METADATA — homepage title and description for search and sharing
 const title = "Moiz Ansari | Backend Development & Systems Portfolio";
@@ -44,6 +46,8 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <PencilCursor enableTrail>
+      <PortfolioScroll />
+      <SectionEntrances />
       <SiteHeader />
       <main>
         <About />

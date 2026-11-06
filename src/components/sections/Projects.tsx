@@ -1,4 +1,5 @@
 import { PaperCard } from "@/components/paper-card";
+import { SectionHeading } from "@/components/section-heading";
 import { projects } from "@/data/projects";
 import { DoodleGithub } from "@/components/doodle-icons";
 
@@ -9,15 +10,12 @@ export function Projects() {
   return (
     <section
       id="projects"
+      tabIndex={-1}
       className="relative px-6 py-20 scroll-mt-20 bg-halftone bg-[var(--color-paper-warm)] [[data-theme='chalkboard']_&]:bg-[var(--color-chalk-bg)]"
     >
       <div className="max-w-5xl mx-auto">
         {/* Section heading */}
-        <h2
-          className="text-4xl font-[family-name:var(--font-hand)] font-bold mb-2 server-section-heading"
-        >
-          Projects
-        </h2>
+        <SectionHeading>Projects</SectionHeading>
         <div
           className="w-24 h-1 rounded-full mb-12"
           style={{

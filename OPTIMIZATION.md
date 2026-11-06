@@ -14,6 +14,15 @@ Read this guide before editing the site. Preserve paper and chalkboard colors, f
 - The cursor uses viewport coordinates and a fixed canvas at the existing stacking level. Keep it transparent and noninteractive. Use one backing pixel per CSS pixel for its original line weight; reconsider DPR only with memory and visual evidence. Start only on movement, stop once faded and cleared, and reset on scrolling, resize, hidden tabs and pointer capability changes. Avoid large buffers on coarse pointers and respect reduced motion. Keep ink intersection gating; verify its static redraw on resize and theme changes and its restart when motion is restored.
 - CSS background images bypass `next/image`. Preserve intrinsic size, the CSS repeat or cover scale, blend, opacity, alpha and actual visible grain. Evaluate WebP/AVIF or lossless encodings in the browser at the displayed scale, including seams and both themes. For the current cork, halftone and crumpled assets use AVIF with JPEG fallbacks. Keep the paper binding's JPEG unless a candidate passes the binding and Skills comparisons. Check `/style-guide` too. Prefer pixel-identical recompression for icons and distinguish file bytes from optimized `/_next/image` transfer. Keep preloads limited to resources with measured critical-path benefit; avoid fetching both themes unnecessarily.
 
+## UI and motion references
+
+- Consult [Anime.js](https://animejs.com/) for timelines, SVG strokes, and coordinated motion.
+- Consult [React Bits](https://reactbits.dev/) for React interaction and animation patterns.
+- Consult [shadcn/ui](https://ui.shadcn.com/) for accessible component structure and interaction patterns.
+- Consult the [official Lenis documentation](https://github.com/darkroomengineering/lenis) when changing wheel smoothing, nested scrolling, or the animation frame driver.
+
+The portfolio mounts Lenis with one built-in frame driver. Keep touch and nested scrolling native, and keep the observer-driven heading and Skills entrances independent of Lenis. The rendered content starts in its finished state.
+
 ## Reproduce and verify
 
 Use Node 24.19.0, npm 12.2.1, Next.js 16.3.5, Chrome 156.0.8078.80, Playwright 1.56.1 and Lighthouse 13.0.1 to compare with this handoff. See [`scripts/performance/config.json`](scripts/performance/config.json) for the pinned profiles. Use the same OS/hardware, build mode, browser, throttling, viewport, theme, observation window and run counts on both sides. Update the Chrome path for the host before collecting either side.

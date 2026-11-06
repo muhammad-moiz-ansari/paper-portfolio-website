@@ -30,8 +30,6 @@ interface HighlightNavProps {
   items: NavItem[];
   activeIndex?: number;
   className?: string;
-  /** When provided, called on click instead of the default preventDefault */
-  onItemClick?: (index: number, href: string) => void;
 }
 
 /**
@@ -65,7 +63,7 @@ function HighlighterShape({
   );
 }
 
-export function HighlightNav({ items, activeIndex = 0, className = "", onItemClick }: HighlightNavProps) {
+export function HighlightNav({ items, activeIndex = 0, className = "" }: HighlightNavProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { theme } = useTheme();
 
@@ -97,6 +95,8 @@ export function HighlightNav({ items, activeIndex = 0, className = "", onItemCli
             // which causes React's duplicate-key warning.
             key={i}
             href={item.href}
+            aria-current={isActive ? "location" : undefined}
+            onClick={item.href === "#" ? event => event.preventDefault() : undefined}
             className={`
               relative px-5 py-2 text-lg font-[family-name:var(--font-hand)]
               transition-colors duration-200
@@ -105,10 +105,6 @@ export function HighlightNav({ items, activeIndex = 0, className = "", onItemCli
             `}
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
-            onClick={(e) => {
-              e.preventDefault();
-              onItemClick?.(i, item.href);
-            }}
           >
             {/* Active highlight — always visible */}
             {isActive && (

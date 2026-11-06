@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { HighlightNav } from "@/components/highlight-nav";
 import { MobileFoldNav } from "@/components/mobile-fold-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { scrollToSection } from "@/lib/scroll-to-section";
 
 
 // EDIT: NAV LABELS — the text labels for navigation tabs in the header
@@ -22,10 +21,6 @@ const SECTION_IDS = NAV_ITEMS.map((item) => item.href.slice(1));
 
 export function SiteHeader() {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const handleNavClick = useCallback((_index: number, href: string) => {
-    scrollToSection(href.slice(1));
-  }, []);
 
   /**
    * IntersectionObserver tracks which section is most visible.
@@ -112,7 +107,7 @@ export function SiteHeader() {
       <header className="sticky top-0 z-50 flex items-center justify-between px-4 py-2 backdrop-blur-md border-b bg-[var(--bg)]/90 border-[var(--border-light)] min-h-[60px]">
         {/* Mobile Menu Toggle (Left on mobile, hidden on desktop) */}
         <div className="flex md:hidden w-1/3 justify-start">
-          <MobileFoldNav items={NAV_ITEMS} activeIndex={activeIndex} onItemClick={handleNavClick} />
+          <MobileFoldNav items={NAV_ITEMS} activeIndex={activeIndex} />
         </div>
 
         {/* EDIT: LOGO — single logo, absolute-centered on mobile, far-left on desktop */}
@@ -122,10 +117,6 @@ export function SiteHeader() {
             href="#about"
             aria-label="Back to top"
             className="flex items-center hover:opacity-70 transition-opacity"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("about");
-            }}
           >
             <Image src="/ma-logo-light.png" alt="Moiz Ansari Logo" width={36} height={36} className="w-9 h-9 object-contain block header-logo-paper" />
             <Image src="/ma-logo-dark.png" alt="Moiz Ansari Logo" width={36} height={36} className="w-9 h-9 object-contain header-logo-chalkboard" />
@@ -134,7 +125,7 @@ export function SiteHeader() {
 
         {/* Desktop Nav (Hidden on mobile, Centered on desktop) */}
         <div className="hidden md:flex md:w-1/3 md:justify-center">
-          <HighlightNav items={NAV_ITEMS} activeIndex={activeIndex} onItemClick={handleNavClick} />
+          <HighlightNav items={NAV_ITEMS} activeIndex={activeIndex} />
         </div>
 
         {/* Theme Toggle (Right) */}

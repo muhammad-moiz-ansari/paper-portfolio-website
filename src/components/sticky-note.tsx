@@ -16,6 +16,7 @@ interface StickyNoteProps {
   /** Show tape at top instead of default */
   decoration?: "tape" | "pin";
   className?: string;
+  scrollEntrance?: boolean;
 }
 
 const colorMap = {
@@ -52,7 +53,7 @@ function TapeStrip() {
 function PinDot() {
   return (
     <div className="absolute -top-1.5 left-1/2 -translate-x-1/2" aria-hidden="true">
-      <div className="w-3 h-3 rounded-full bg-[#D94F4F] border border-[#2C2C2C]/30 shadow-sm" />
+      <div data-scroll-pin className="w-3 h-3 rounded-full bg-[#D94F4F] border border-[#2C2C2C]/30 shadow-sm" />
     </div>
   );
 }
@@ -63,11 +64,13 @@ export function StickyNote({
   rotate = -2,
   decoration = "tape",
   className = "",
+  scrollEntrance = false,
 }: StickyNoteProps) {
   const { paper, chalkboard } = colorMap[color];
 
   return (
     <div
+      data-scroll-note={scrollEntrance ? "" : undefined}
       className={`server-sticky-note relative inline-block p-5 pt-6 min-w-[160px] max-w-[260px] ${className}`}
       style={{
         "--note-light-bg": paper.bg, "--note-dark-bg": chalkboard.bg,

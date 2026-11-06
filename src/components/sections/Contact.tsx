@@ -1,4 +1,5 @@
 import { ContactForm } from "@/components/contact-form";
+import { SectionHeading } from "@/components/section-heading";
 import Image from "next/image";
 
 // EDIT: CONTACT INFO — email address, LinkedIn handle, and GitHub username with links
@@ -26,14 +27,10 @@ const CONTACT_LINKS = [
 export function Contact() {
 
   return (
-    <section id="contact" className="relative px-6 py-20 scroll-mt-20 paper-kraft bg-crumpled">
+    <section id="contact" tabIndex={-1} className="relative px-6 py-20 scroll-mt-20 paper-kraft bg-crumpled">
       <div className="max-w-3xl mx-auto">
         {/* Section heading */}
-        <h2
-          className="text-4xl font-[family-name:var(--font-hand)] font-bold mb-2 server-section-heading"
-        >
-          Get in Touch
-        </h2>
+        <SectionHeading>Get in Touch</SectionHeading>
         <div
           className="w-24 h-1 rounded-full mb-8"
           style={{

@@ -1,4 +1,5 @@
 import { PushPin } from "@/components/push-pin";
+import { SectionHeading } from "@/components/section-heading";
 import { experienceEntries } from "@/data/experience";
 
 /** Small rotation values for scattered-pinned look */
@@ -6,14 +7,10 @@ const ROTATIONS = [-1.5, 1, -0.5, 1.5];
 
 export function Experience() {
   return (
-    <section id="experience" className="relative px-6 py-20 scroll-mt-20 paper-texture bg-corkboard">
+    <section id="experience" tabIndex={-1} className="relative px-6 py-20 scroll-mt-20 paper-texture bg-corkboard">
       <div className="max-w-3xl mx-auto">
         {/* Section heading */}
-        <h2
-          className="text-4xl font-[family-name:var(--font-hand)] font-bold mb-2 server-section-heading"
-        >
-          Experience
-        </h2>
+        <SectionHeading>Experience</SectionHeading>
         <div
           className="w-24 h-1 rounded-full mb-12"
           style={{

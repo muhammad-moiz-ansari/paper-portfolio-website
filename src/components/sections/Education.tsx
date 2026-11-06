@@ -1,17 +1,14 @@
 import { PaperCard } from "@/components/paper-card";
+import { SectionHeading } from "@/components/section-heading";
 import { StickyNote } from "@/components/sticky-note";
 import { educationEntries, awardEntries } from "@/data/education";
 
 export function Education() {
   return (
-    <section id="education" className="relative px-6 py-20 scroll-mt-20 paper-graph">
+    <section id="education" tabIndex={-1} className="relative px-6 py-20 scroll-mt-20 paper-graph">
       <div className="max-w-3xl mx-auto">
         {/* Section heading */}
-        <h2
-          className="text-4xl font-[family-name:var(--font-hand)] font-bold mb-2 server-section-heading"
-        >
-          Education
-        </h2>
+        <SectionHeading>Education</SectionHeading>
         <div
           className="w-24 h-1 rounded-full mb-12"
           style={{

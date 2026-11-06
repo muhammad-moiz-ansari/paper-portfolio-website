@@ -1,4 +1,5 @@
 import { StickyNote } from "@/components/sticky-note";
+import { SectionHeading } from "@/components/section-heading";
 import { skillCategories } from "@/data/skills";
 
 /** Rotation values that cycle so the notes look hand-scattered */
@@ -14,16 +15,13 @@ export function Skills() {
   return (
     <section
       id="skills"
+      tabIndex={-1}
       // EDIT: PAPER BOARD COLORS — paper memo board texture class; light/dark variants defined in globals.css
       className="relative px-6 py-20 scroll-mt-20 paper-board"
     >
       <div className="max-w-4xl mx-auto">
         {/* Section heading */}
-        <h2
-          className="text-4xl font-[family-name:var(--font-hand)] font-bold mb-2 server-section-heading"
-        >
-          Skills
-        </h2>
+        <SectionHeading>Skills</SectionHeading>
         <div
           className="w-24 h-1 rounded-full mb-12"
           style={{
@@ -55,6 +53,7 @@ export function Skills() {
                     color={color}
                     rotate={rot}
                     decoration={deco}
+                    scrollEntrance
                     className="!min-w-0 !p-3 !pt-4 text-sm"
                   >
                     {skill}
