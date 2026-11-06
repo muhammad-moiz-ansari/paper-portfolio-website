@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Caveat, Inter } from "next/font/google";
 import { ThemeProvider } from "@/lib/theme-context";
 import "./globals.css";
@@ -14,12 +13,6 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
 });
-
-// EDIT: PAGE METADATA — browser tab title and site description
-export const metadata: Metadata = {
-  title: "Moiz Ansari | Scratchpad",
-  description: "A notebook-themed personal portfolio",
-};
 
 /**
  * Blocking inline script that runs before first paint.

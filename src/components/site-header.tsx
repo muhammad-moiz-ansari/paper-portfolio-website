@@ -5,6 +5,7 @@ import Image from "next/image";
 import { HighlightNav } from "@/components/highlight-nav";
 import { MobileFoldNav } from "@/components/mobile-fold-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { scrollToSection } from "@/lib/scroll-to-section";
 
 
 // EDIT: NAV LABELS — the text labels for navigation tabs in the header
@@ -22,13 +23,8 @@ const SECTION_IDS = NAV_ITEMS.map((item) => item.href.slice(1));
 export function SiteHeader() {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  /** Smooth-scroll to the target section */
   const handleNavClick = useCallback((_index: number, href: string) => {
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToSection(href.slice(1));
   }, []);
 
   /**
@@ -128,7 +124,7 @@ export function SiteHeader() {
             className="flex items-center hover:opacity-70 transition-opacity"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
+              scrollToSection("about");
             }}
           >
             <Image src="/ma-logo-light.png" alt="Moiz Ansari Logo" width={36} height={36} className="w-9 h-9 object-contain block header-logo-paper" />

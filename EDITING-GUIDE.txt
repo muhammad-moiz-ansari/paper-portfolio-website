@@ -73,6 +73,10 @@ File: src/data/notepad-pages.ts (around line 6)
 What it is: The 4 pages of content written out in the About notepad animation
 How to find it: search for "EDIT: NOTEPAD PAGES" in this file
 
+STATIC NOTEPAD CONTROLS
+File: src/components/notepad.tsx (search EDIT label)
+What it is: Manual page labels and page indicator under reduced motion
+
 PINHOLE GLOW COLORS
 File: src/components/pinhole-paper-background.tsx (around line 66)
 What it is: The glow color/intensity for the pinhole dots in light and dark themes
@@ -153,6 +157,14 @@ File: src/components/contact-form.tsx (search EDIT label)
 What it is: Field labels and placeholder text for the contact form
 How to find it: search for "EDIT: CONTACT FORM LABELS" in this file
 
+CONTACT FORM FEEDBACK
+File: src/components/contact-form.tsx (search EDIT label)
+What it is: Field validation and delivery status messages
+
+CONTACT ERROR COLOR
+File: src/app/globals.css (search EDIT label)
+What it is: Form feedback colors for paper and chalkboard
+
 SOCIAL LINK TEXT
 File: src/components/sections/Contact.tsx (around line 204)
 What it is: Text color and hover style for email/LinkedIn/GitHub link labels in the Contact sidebar
@@ -184,14 +196,35 @@ What it is: The single site logo image — centered on mobile, far-left on deskt
 How to find it: search for "EDIT: LOGO" in this file
 
 PAGE METADATA
-File: src/app/layout.tsx (around line 18)
-What it is: Browser tab title and site description
+File: src/app/page.tsx (search EDIT label)
+What it is: Homepage title and description for search and sharing
 How to find it: search for "EDIT: PAGE METADATA" in this file
+
+SOCIAL PREVIEW
+File: src/app/page.tsx (search EDIT label)
+What it is: Link preview image at public/social-preview.jpg and its alternative text
+
+PRODUCTION URL
+File: src/lib/site-url.ts (line 2)
+What it is: Confirmed portfolio homepage used for canonical and crawler metadata
+
+STYLE GUIDE METADATA
+File: src/app/style-guide/layout.tsx (search EDIT label)
+What it is: Browser tab title for the design system reference
 
 FOOTER TEXT
 File: src/app/page.tsx (around line 149)
 What it is: Copyright and footer message
 How to find it: search for "EDIT: FOOTER TEXT" in this file
+
+
+================================================================================
+PAPER CARD (shared component)
+================================================================================
+
+CARD DISCLOSURE LABEL
+File: src/components/paper-card.tsx (search EDIT label)
+What it is: Visible card hint and accessible details button name
 
 
 ================================================================================

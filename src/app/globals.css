@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* EDIT: CONTACT ERROR COLOR — form feedback in paper and chalkboard */
+.contact-error { color: #7a231c; }
+[data-theme="chalkboard"] .contact-error { color: #ffc4b7; }
+
 /* // EDIT: TEXTURE FORMATS — cork, crumpled, and halftone background URLs use AVIF with JPEG fallbacks below. */
 /* // EDIT: SERVER THEME PRESENTATION — identical section colors/shadows without theme-hook rendering. */
 :root {

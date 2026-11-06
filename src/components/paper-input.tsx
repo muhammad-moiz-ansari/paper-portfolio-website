@@ -12,10 +12,16 @@
  * filled (text sits on the line naturally).
  */
 
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import { useTheme } from "@/lib/theme-context";
 
 interface PaperInputProps {
+  id?: string;
+  name?: string;
+  type?: "text" | "email";
+  autoComplete?: string;
+  required?: boolean;
+  error?: string;
   label: string;
   placeholder?: string;
   value?: string;
@@ -27,6 +33,12 @@ interface PaperInputProps {
 }
 
 export function PaperInput({
+  id,
+  name,
+  type = "text",
+  autoComplete,
+  required,
+  error,
   label,
   placeholder = "",
   value: controlledValue,
@@ -35,6 +47,8 @@ export function PaperInput({
   disabled = false,
   forceState,
 }: PaperInputProps) {
+  const generatedId = useId();
+  const fieldId = id ?? generatedId;
   const [internalValue, setInternalValue] = useState(
     forceState === "filled" ? (controlledValue || "Sample answer text") : (controlledValue || "")
   );
@@ -64,9 +78,9 @@ export function PaperInput({
     <div className={`relative ${className}`}>
       {/* Label — handwritten style, floats up when focused/filled */}
       <label
+        htmlFor={fieldId}
         className={`
           absolute left-0 transition-all duration-200 font-[family-name:var(--font-hand)]
-          pointer-events-none
           ${showFocus || hasValue
             ? "text-xs -top-4"
             : "text-base top-2"
@@ -79,7 +93,13 @@ export function PaperInput({
 
       {/* EDIT: INPUT PLACEHOLDER COLOR — placeholder text contrast on crumpled kraft/dark backgrounds */}
       <input
-        type="text"
+        id={fieldId}
+        name={name}
+        type={type}
+        autoComplete={autoComplete}
+        required={required}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? `${fieldId}-error` : undefined}
         value={value}
         placeholder={showFocus ? placeholder : ""}
         onChange={handleChange}
@@ -91,16 +111,22 @@ export function PaperInput({
           text-base font-[family-name:var(--font-body)]
           text-[var(--text)] placeholder:text-[var(--text-secondary)]
           outline-none transition-colors duration-200
+          aria-invalid:scroll-mt-24
           disabled:opacity-50 disabled:cursor-not-allowed
         `}
         style={{ borderBottomColor: lineColor }}
         readOnly={!!forceState}
       />
+      {error && <p id={`${fieldId}-error`} className="contact-error mt-1 text-sm">{error}</p>}
     </div>
   );
 }
 
 interface PaperTextareaProps {
+  id?: string;
+  name?: string;
+  required?: boolean;
+  error?: string;
   label: string;
   placeholder?: string;
   value?: string;
@@ -112,6 +138,10 @@ interface PaperTextareaProps {
 }
 
 export function PaperTextarea({
+  id,
+  name,
+  required,
+  error,
   label,
   placeholder = "",
   value: controlledValue,
@@ -121,6 +151,8 @@ export function PaperTextarea({
   disabled = false,
   forceState,
 }: PaperTextareaProps) {
+  const generatedId = useId();
+  const fieldId = id ?? generatedId;
   const [internalValue, setInternalValue] = useState(
     forceState === "filled"
       ? (controlledValue || "This is some sample text that sits on the ruled lines of the notepad, showing how longer-form content looks in this input style.")
@@ -150,7 +182,7 @@ export function PaperTextarea({
 
   return (
     <div className={`relative ${className}`}>
-      <label className={`block text-sm font-[family-name:var(--font-hand)] mb-1 ${
+      <label htmlFor={fieldId} className={`block text-sm font-[family-name:var(--font-hand)] mb-1 ${
         isChalkboard ? "text-[var(--text-secondary)]" : "text-[var(--color-ink)]"
       }`}>
         {label}
@@ -158,6 +190,11 @@ export function PaperTextarea({
       {/* EDIT: TEXTAREA PLACEHOLDER COLOR — placeholder text contrast on crumpled kraft/dark backgrounds */}
       {/* EDIT: TEXTAREA BORDER — stronger border in chalkboard/dark mode so it shows against the paper texture */}
       <textarea
+        id={fieldId}
+        name={name}
+        required={required}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? `${fieldId}-error` : undefined}
         value={value}
         placeholder={placeholder}
         rows={rows}
@@ -170,6 +207,7 @@ export function PaperTextarea({
           text-base font-[family-name:var(--font-body)] leading-[29px]
           text-[var(--text)] placeholder:text-[var(--text-secondary)]
           outline-none resize-y transition-all duration-200
+          aria-invalid:scroll-mt-24
           border-2
           disabled:opacity-50 disabled:cursor-not-allowed
           ${showFocus
@@ -180,6 +218,7 @@ export function PaperTextarea({
         style={{ backgroundImage: ruledBg, backgroundSize: "100% 30px" }}
         readOnly={!!forceState}
       />
+      {error && <p id={`${fieldId}-error`} className="contact-error mt-1 text-sm">{error}</p>}
     </div>
   );
 }

@@ -84,8 +84,8 @@ export function Notepad() {
   const animRef = useRef<number | null>(null);
   const startRef = useRef(0);
 
-  // Dynamically select the correct array based on screen width
-  const activePages = isMobile ? notepadPagesMobile : notepadPages;
+  // The static reader wraps the full text at every width.
+  const activePages = isMobile && !reducedMotion ? notepadPagesMobile : notepadPages;
   
   const page = activePages[currentPage];
   const totalLines = page.lines.length;
@@ -113,10 +113,7 @@ export function Notepad() {
   }, [clock, state.lineIndex, totalLines]);
 
   useEffect(() => {
-    if (reducedMotion) {
-      dispatch({ type: "FINISH" });
-      return;
-    }
+    if (reducedMotion) return;
     if (state.phase === "idle") {
       const t = clock.timeout(() => dispatch({ type: "START_WRITING" }), 300);
       return () => clock.clearTimeout(t);
@@ -125,7 +122,7 @@ export function Notepad() {
   }, [clock, state.phase, reducedMotion, currentPage]);
 
   useEffect(() => {
-    if (state.phase !== "writing") return;
+    if (reducedMotion || state.phase !== "writing") return;
 
     if (state.lineIndex >= totalLines) {
       dispatch({ type: "FINISH" });
@@ -144,7 +141,7 @@ export function Notepad() {
     return () => {
       if (animRef.current) clock.cancelFrame(animRef.current);
     };
-  }, [state.phase, state.lineIndex, totalLines, page.lines, animateLine, clock]);
+  }, [reducedMotion, state.phase, state.lineIndex, totalLines, page.lines, animateLine, clock]);
 
   const advancePage = useCallback(() => {
     setCurrentPage(page => (page + 1) % activePages.length);
@@ -153,22 +150,24 @@ export function Notepad() {
   }, [activePages.length]);
 
   useEffect(() => {
-    if (state.phase !== "display" || isFlipping) return;
-    const timer = clock.timeout(() => {
-      if (reducedMotion) advancePage();
-      else setIsFlipping(true);
-    }, AUTO_ADVANCE_DELAY);
+    if (reducedMotion || state.phase !== "display" || isFlipping) return;
+    const timer = clock.timeout(() => setIsFlipping(true), AUTO_ADVANCE_DELAY);
     return () => clock.clearTimeout(timer);
-  }, [clock, state.phase, currentPage, reducedMotion, isFlipping, advancePage]);
+  }, [clock, state.phase, currentPage, reducedMotion, isFlipping]);
 
   useEffect(() => {
-    if (!isFlipping) return;
-    // Preference changes can hide the motion without cancelling the page turn.
+    if (reducedMotion || !isFlipping) return;
     const timer = clock.timeout(advancePage, 600);
     return () => clock.clearTimeout(timer);
-  }, [clock, isFlipping, advancePage]);
+  }, [clock, isFlipping, advancePage, reducedMotion]);
 
-  const lineVisible = (i: number) => reducedMotion || state.phase === "display" || (state.phase === "writing" && i < state.lineIndex);
+  function turnStaticPage(offset: number) {
+    setCurrentPage(page => (page + offset + activePages.length) % activePages.length);
+    dispatch({ type: "RESET" });
+    setIsFlipping(false);
+  }
+
+  const lineVisible = (i: number) => state.phase === "display" || (state.phase === "writing" && i < state.lineIndex);
   const textColor = "text-[var(--section-ink)]";
   const linkColor = "text-[var(--notepad-link)]";
 
@@ -192,6 +191,33 @@ export function Notepad() {
           isFlipping && !reducedMotion ? 'animate-page-flip z-30' : 'z-10'
         }`}
       >
+        {reducedMotion ? (
+          <>
+            {/* EDIT: STATIC NOTEPAD CONTROLS — labels and page indicator for manual reading */}
+            <div
+              key={currentPage}
+              role="region"
+              aria-label="Notepad page"
+              tabIndex={0}
+              className="absolute inset-x-0 top-0 bottom-12 overflow-y-auto break-words pl-[40px] min-[420px]:pl-[64px] pr-5 pt-7 font-mono text-sm leading-7 text-[var(--section-ink)] focus-visible:outline-2 focus-visible:-outline-offset-2"
+            >
+              <h3 className="font-semibold">{page.lines[0]}</h3>
+              {page.lines.slice(1).map((line, index) => (
+                <p key={index} className="min-h-7">{line}</p>
+              ))}
+            </div>
+            <div className="absolute bottom-0 h-12 inset-x-0 flex items-center justify-between gap-2 px-4 font-mono text-xs text-[var(--section-ink)]">
+              <button type="button" aria-label="Previous notepad page" onClick={() => turnStaticPage(-1)} className="min-h-8 rounded px-2 underline focus-visible:outline-2">
+                Previous
+              </button>
+              <span role="status">Page {currentPage + 1} / {activePages.length}</span>
+              <button type="button" aria-label="Next notepad page" onClick={() => turnStaticPage(1)} className="min-h-8 rounded px-2 underline focus-visible:outline-2">
+                Next
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
         <div className="pl-[40px] min-[420px]:pl-[64px] pr-6 pt-[32px]">
           {page.lines.map((line, i) => (
             <div
@@ -212,7 +238,6 @@ export function Notepad() {
               {/* Pencil sprite flipped 180 degrees */}
               {state.phase === "writing" &&
                 i === state.lineIndex &&
-                !reducedMotion &&
                 line.trim() !== "" && (
                   <span
                     ref={pencilRef}
@@ -233,6 +258,8 @@ export function Notepad() {
             <span ref={markerRef} style={{ visibility: lineVisible(totalLines - 1) ? "visible" : "hidden" }} className={linkColor}>▊</span>
           )}
         </div>
+          </>
+        )}
       </div>
 
     </div>

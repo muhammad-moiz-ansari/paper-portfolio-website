@@ -24,25 +24,27 @@ const out = path.join(root, stage, 'functional'); fs.mkdirSync(out, { recursive:
     const unchanged = JSON.stringify(frozen) === JSON.stringify(await snap());
     await setHidden(false); await page.clock.runFor(700);
     const resumed = JSON.stringify(frozen) !== JSON.stringify(await snap());
-    const pageNumber = () => page.locator('#about [style*="perspective"]').getByText(/^page \d+ \/ \d+$/).innerText();
+    const pageNumber = () => page.locator('#about [style*="perspective"]').getByText(/^page \d+ \/ \d+$/i).innerText();
     const initial = await pageNumber();
     let sawFlip = false;
     for (let tick = 0; tick < 110; tick++) {
       await page.clock.runFor(100);
       if (await page.locator('#about .animate-page-flip').count()) { sawFlip = true; break; }
     }
-    await page.emulateMedia({ reducedMotion: 'reduce' }); await page.clock.runFor(700);
-    const turned = await pageNumber();
+    await page.emulateMedia({ reducedMotion: 'reduce' }); await page.clock.runFor(4000);
+    const held = await pageNumber();
     const flipCleared = await page.locator('#about .animate-page-flip').count() === 0;
     const canvas = page.locator('#about canvas');
     const hasPixels = () => canvas.evaluate(c => c.getContext('2d').getImageData(0, 0, c.width, c.height).data.some((x,i) => i % 4 === 3 && x));
     const staticInkDrawn = await hasPixels();
+    await page.getByRole('button', { name: 'Next notepad page' }).click();
+    const turned = await pageNumber();
     await page.emulateMedia({ reducedMotion: 'no-preference' }); await page.clock.runFor(100);
     const resumedInkDrawn = await hasPixels(); const frame = await canvas.evaluate(c => c.toDataURL());
     await page.clock.runFor(350);
     const inkMoves = frame !== await canvas.evaluate(c => c.toDataURL());
-    const result = { visibilityInput: 'synthetic visibilitychange with document.hidden override (actual tab backgrounding was unavailable)', pausedIslands: paused, unchanged, resumed, sawFlip, pageBeforePreferenceChange: initial, pageAfterPreferenceChange: turned, flipCleared, staticInkDrawn, resumedInkDrawn, inkMoves };
+    const result = { visibilityInput: 'synthetic visibilitychange with document.hidden override (actual tab backgrounding was unavailable)', pausedIslands: paused, unchanged, resumed, sawFlip, pageBeforePreferenceChange: initial, pageAfterPreferenceChange: held, pageAfterManualTurn: turned, flipCleared, staticInkDrawn, resumedInkDrawn, inkMoves };
     fs.writeFileSync(path.join(out, 'lifecycle.json'), JSON.stringify(result, null, 2)); console.log(result);
-    if (!(paused === 2 && unchanged && resumed && sawFlip && turned !== initial && flipCleared && staticInkDrawn && resumedInkDrawn && inkMoves)) process.exitCode = 1;
+    if (!(paused === 2 && unchanged && resumed && sawFlip && held.toLowerCase() === initial && turned !== held && flipCleared && staticInkDrawn && resumedInkDrawn && inkMoves)) process.exitCode = 1;
   } finally { await browser.close(); }
 })().catch(e => { console.error(e); process.exitCode = 1; });

@@ -10,7 +10,7 @@
  * Uses CSS perspective and transform for the 3D open effect.
  */
 
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import { useTheme } from "@/lib/theme-context";
 import { PaperClip } from "./paper-clip";
 
@@ -36,6 +36,7 @@ export function PaperCard({
   forceState,
   tabLabel = "Project",
 }: PaperCardProps) {
+  const id = useId();
   const [isOpen, setIsOpen] = useState(forceState === "open");
   const [isHovering, setIsHovering] = useState(forceState === "hover");
   const { theme } = useTheme();
@@ -54,7 +55,6 @@ export function PaperCard({
       style={{ perspective: "800px" }}
       onMouseEnter={() => !forceState && setIsHovering(true)}
       onMouseLeave={() => !forceState && setIsHovering(false)}
-      onClick={() => !forceState && setIsOpen(!isOpen)}
     >
       {/* Folder tab at top */}
       <div
@@ -115,9 +115,11 @@ export function PaperCard({
 
         {/* Expandable details section — slides open/closed */}
         <div
+          id={`${id}-details`}
+          inert={!showOpen}
           className={`
             overflow-hidden transition-all duration-400 ease-out
-            ${showOpen ? "max-h-48 opacity-100 mt-3 pt-3 border-t border-[var(--border-light)]" : "max-h-0 opacity-0"}
+            ${showOpen ? "relative z-10 max-h-48 opacity-100 mt-3 pt-3 border-t border-[var(--border-light)]" : "max-h-0 opacity-0"}
           `}
         >
           <p className="text-sm text-[var(--text-secondary)]">
@@ -125,9 +127,22 @@ export function PaperCard({
           </p>
         </div>
 
-        {/* Click hint */}
+        {/* EDIT: CARD DISCLOSURE LABEL — visible hint and accessible name of the details button */}
         <div className="mt-3 text-xs text-[var(--text-faint)] font-[family-name:var(--font-hand)]">
-          {showOpen ? "Click to close ↑" : "Click to peek inside →"}
+          {forceState ? (
+            showOpen ? "Click to close ↑" : "Click to peek inside →"
+          ) : (
+            <button
+              type="button"
+              aria-expanded={showOpen}
+              aria-controls={`${id}-details`}
+              onClick={() => setIsOpen(open => !open)}
+              className="after:absolute after:inset-0 after:rounded-md focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-[var(--text)]"
+            >
+              {showOpen ? "Click to close ↑" : "Click to peek inside →"}
+              <span className="sr-only"> Details for {title}</span>
+            </button>
+          )}
         </div>
       </div>
     </div>
